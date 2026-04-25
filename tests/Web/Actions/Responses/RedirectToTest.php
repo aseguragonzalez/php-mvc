@@ -22,7 +22,7 @@ final class RedirectToTest extends TestCase
     #[DataProvider('schemeProvider')]
     public function testCreate(string $scheme): void
     {
-        $expectedHeaders = [Location::toUrl(url: "{$scheme}://books/index"), ContentType::html()];
+        $expectedHeaders = [Location::toUrl(url: "{$scheme}://Books/Index"), ContentType::html()];
 
         $response = RedirectTo::create("{$scheme}://Books/Index");
 
@@ -42,7 +42,7 @@ final class RedirectToTest extends TestCase
         $header = new AccessControlAllowMethods(put: false, delete: false);
         $expectedHeaders = [
             $header,
-            Location::toUrl(url: "{$scheme}://books/index?offset=1&limit=10"),
+            Location::toUrl(url: "{$scheme}://Books/Index?offset=1&limit=10"),
             ContentType::html(),
         ];
 

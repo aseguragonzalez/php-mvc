@@ -1,8 +1,14 @@
 {
     "name": "alfonsosegura/mvc-framework",
     "type": "library",
-    "description": "Lightweight PHP 8.4 MVC framework — DDD and Hexagonal Architecture",
-    "keywords": ["mvc", "php", "ddd", "hexagonal", "framework"],
+    "description": "Lightweight PHP 8.4 MVC framework \u2014 DDD and Hexagonal Architecture",
+    "keywords": [
+        "mvc",
+        "php",
+        "ddd",
+        "hexagonal",
+        "framework"
+    ],
     "homepage": "https://github.com/aseguragonzalez/mvc-framework",
     "license": "MIT",
     "authors": [
@@ -57,7 +63,7 @@
     ],
     "config": {
         "platform": {
-            "php": "8.4"
+            "php": "8.3"
         },
         "sort-packages": true
     },

@@ -30,7 +30,7 @@ readonly class Task
         self::validateArguments($arguments);
 
         return new self(
-            id: uniqid('', true),
+            id: bin2hex(random_bytes(16)),
             taskType: $taskType,
             arguments: $arguments,
             processed: false,

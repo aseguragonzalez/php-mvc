@@ -43,7 +43,7 @@ final class LocalRedirectToTest extends TestCase
     public function testCreateFailWhenControllerDoesNotExists(): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('Controller does not exists: '.SearchRequest::class);
+        $this->expectExceptionMessage('Controller does not exist: '.SearchRequest::class);
         LocalRedirectTo::create('index', SearchRequest::class);
     }
 
@@ -59,7 +59,7 @@ final class LocalRedirectToTest extends TestCase
     public function testCreateFailWhenActionParametersDoesNotMatch(string $action, object $args): void
     {
         $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage("Action parameters for {$action} does not match");
+        $this->expectExceptionMessage("Action parameters for {$action} do not match");
         LocalRedirectTo::create($action, TestController::class, $args);
     }
 

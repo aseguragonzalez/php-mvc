@@ -36,7 +36,7 @@ final class LocalRedirectTo extends ActionResponse
         array $headers = [],
     ): self {
         if (!is_subclass_of($controller, Controller::class)) {
-            throw new \InvalidArgumentException("Controller does not exists: {$controller}");
+            throw new \InvalidArgumentException("Controller does not exist: {$controller}");
         }
 
         if (!method_exists($controller, $action)) {
@@ -50,7 +50,7 @@ final class LocalRedirectTo extends ActionResponse
         }
 
         if ($requireArguments && false === LocalRedirectTo::checkActionArgs($actionMethod, $args)) {
-            throw new \InvalidArgumentException("Action parameters for {$action} does not match");
+            throw new \InvalidArgumentException("Action parameters for {$action} do not match");
         }
 
         if (empty(array_filter($headers, fn (Header $header) => true === $header instanceof ContentType))) {

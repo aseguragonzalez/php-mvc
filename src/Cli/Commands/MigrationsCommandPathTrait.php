@@ -62,6 +62,11 @@ trait MigrationsCommandPathTrait
             return rtrim($path, '/');
         }
 
-        return rtrim(getcwd().'/'.$path, '/');
+        $cwd = getcwd();
+        if ($cwd === false) {
+            throw new \RuntimeException('Unable to resolve current working directory.');
+        }
+
+        return rtrim($cwd.'/'.$path, '/');
     }
 }

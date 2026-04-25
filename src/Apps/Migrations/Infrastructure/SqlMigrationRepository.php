@@ -48,21 +48,22 @@ final readonly class SqlMigrationRepository implements MigrationRepository
         /** @var array<int, array{filename: string, created_at: string, migration: string}> $data */
         $data = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
-        $migrationIds = [];
-        $migrations = [];
+        /** @var array<string, array<int, array{filename: string, created_at: string, migration: string}>> $groupedData */
+        $groupedData = [];
         foreach ($data as $item) {
-            if (in_array($item['migration'], $migrationIds)) {
-                continue;
-            }
+            $groupedData[$item['migration']][] = $item;
+        }
 
-            $migrationIds[] = $item['migration'];
-            $filteredData = array_filter($data, function ($currentItem) use ($item) {
-                return $currentItem['migration'] === $item['migration'];
-            });
+        $migrations = [];
+        foreach ($groupedData as $migrationItems) {
+            $firstItem = $migrationItems[0];
             $migration = Migration::build(
-                name: $item['migration'],
-                createdAt: new \DateTimeImmutable($item['created_at']),
-                scripts: array_map(fn ($item) => Script::build(fileName: $item['filename']), $filteredData)
+                name: $firstItem['migration'],
+                createdAt: new \DateTimeImmutable($firstItem['created_at']),
+                scripts: array_map(
+                    fn ($item) => Script::build(fileName: $item['filename']),
+                    $migrationItems
+                )
             );
             $migrations[] = $migration;
         }

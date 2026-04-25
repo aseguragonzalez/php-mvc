@@ -22,7 +22,7 @@ class RequestHandlingTest extends TestCase
     private Psr17Factory $requestFactory;
     private RequestHandling $middleware;
     private MockObject&RequestHandlerInterface $requestHandlerMock;
-    private Stub&RequestHandlerInterface $nextHandler;
+    private RequestHandlerInterface&Stub $nextHandler;
 
     protected function setUp(): void
     {

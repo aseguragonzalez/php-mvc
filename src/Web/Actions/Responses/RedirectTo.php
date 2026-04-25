@@ -33,11 +33,14 @@ final class RedirectTo extends ActionResponse
         if (!in_array($scheme, ['http', 'https'], true)) {
             throw new \InvalidArgumentException("Invalid URL: {$url}");
         }
-        $urlBlocks = [strtolower($url)];
+        $urlWithQueryParams = $url;
         if (!empty($args)) {
-            $urlBlocks[] = http_build_query($args);
+            $queryString = http_build_query($args);
+            if ('' !== $queryString) {
+                $separator = null === parse_url($url, PHP_URL_QUERY) ? '?' : '&';
+                $urlWithQueryParams .= $separator.$queryString;
+            }
         }
-        $urlWithQueryParams = implode('?', $urlBlocks);
         $newHeaders = [Location::toUrl($urlWithQueryParams)];
         if (empty(array_filter($headers, fn (Header $header) => true === $header instanceof ContentType))) {
             $newHeaders[] = ContentType::html();

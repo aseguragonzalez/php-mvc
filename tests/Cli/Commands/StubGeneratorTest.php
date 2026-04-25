@@ -69,7 +69,7 @@ final class StubGeneratorTest extends TestCase
         $generator = new StubGenerator(vfsStream::url('stubs'));
 
         $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Stub file not found');
+        $this->expectExceptionMessageMatches('/^Stub file not found:/');
 
         $generator->generate('missing.stub', []);
     }
