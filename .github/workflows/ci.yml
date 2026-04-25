@@ -36,6 +36,6 @@ jobs:
         run: composer test -- --coverage-clover coverage.xml
 
       - name: Upload coverage
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v6
         with:
           files: coverage.xml
