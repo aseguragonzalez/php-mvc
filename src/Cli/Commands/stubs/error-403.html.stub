@@ -1,0 +1,9 @@
+{{#layout layout:}}
+<section>
+    <header>
+        <h1>Access Denied</h1>
+    </header>
+    <article>
+        <p>Sorry, you do not have permission to access this page.</p>
+    </article>
+</section>

@@ -1,0 +1,13 @@
+<article>
+    <h1>{{model->pageTitle}}</h1>
+    {{#for section in model->sections:}}
+    <section>
+        <h2>{{section->title}}</h2>
+        <ul>
+            {{#for item in section->items:}}
+            <li>{{item->name}}: {{item->value}}</li>
+            {{#endfor section->items:}}
+        </ul>
+    </section>
+    {{#endfor model->sections:}}
+</article>

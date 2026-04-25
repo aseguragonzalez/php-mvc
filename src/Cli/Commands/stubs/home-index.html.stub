@@ -1,0 +1,6 @@
+{{#layout layout:}}
+<section>
+    <header>
+        <h1>{{model.title}}</h1>
+    </header>
+</section>

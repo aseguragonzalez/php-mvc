@@ -1,0 +1,45 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}}\Controllers;
+
+use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
+use AlfonsoSG\Mvc\Controllers\Controller;
+use AlfonsoSG\Mvc\Requests\RequestContext;
+use AlfonsoSG\Mvc\Routes\Path;
+use AlfonsoSG\Mvc\Routes\Route;
+use AlfonsoSG\Mvc\Routes\RouteMethod;
+
+final class HomeController extends Controller
+{
+    public function __construct(RequestContext $requestContext)
+    {
+        parent::__construct($requestContext);
+    }
+
+    public function index(): ActionResponse
+    {
+        return $this->view(model: (object)[
+            'pageTitle' => '{{name}}',
+            'model' => (object)[
+                'title' => 'Welcome to {{name}}',
+            ],
+        ]);
+    }
+
+    /**
+     * @return array<Route>
+     */
+    public static function getRoutes(): array
+    {
+        return [
+            Route::create(
+                method: RouteMethod::Get,
+                path: Path::create('/'),
+                controller: self::class,
+                action: 'index',
+            ),
+        ];
+    }
+}

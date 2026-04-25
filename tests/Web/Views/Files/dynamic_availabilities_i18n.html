@@ -1,0 +1,7 @@
+<div class="availabilities-container">
+    {{#for availability in availabilities:}}
+    <div class="availability-control">
+        <span>{{availabilities.dayOfWeek.{{availability->dayOfWeekId}}}}</span>
+    </div>
+    {{#endfor availabilities:}}
+</div>

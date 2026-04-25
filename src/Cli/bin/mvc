@@ -1,0 +1,27 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+// Composer sets this when running bin scripts installed as a dependency
+if (isset($_composer_autoload_path)) {
+    require_once $_composer_autoload_path;
+} else {
+    $dir = __DIR__;
+    while ($dir !== dirname($dir)) {
+        $autoload = $dir . '/vendor/autoload.php';
+        if (file_exists($autoload)) {
+            require_once $autoload;
+            break;
+        }
+        $dir = dirname($dir);
+    }
+
+    if (!class_exists(\AlfonsoSG\Mvc\Commands\MvcCli::class)) {
+        fwrite(STDERR, "Could not find vendor/autoload.php\n");
+        exit(1);
+    }
+}
+
+$cli = new \AlfonsoSG\Mvc\Commands\MvcCli();
+exit($cli->run($_SERVER['argv'] ?? []));

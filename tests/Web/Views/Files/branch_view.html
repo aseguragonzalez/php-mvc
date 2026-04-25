@@ -1,0 +1,56 @@
+<div>
+    <p>
+        {{model->name}}
+    </p>
+    <p>
+        {{model->description}}
+    </p>
+    {{#if model->isBranch():}}
+    <p>
+        Use a method expression
+    </p>
+    {{#endif model->isBranch():}}
+    {{#if !model->invertBranch():}}
+    <p>
+        Invert method expression
+    </p>
+    {{#endif !model->invertBranch():}}
+    {{#if model->isBooleanProperty:}}
+    <p>
+        Use a boolean property
+    </p>
+    {{#endif model->isBooleanProperty:}}
+    {{#if isProperty:}}
+    <p>
+        Use direct property
+    </p>
+    {{#endif isProperty:}}
+    {{#if hasItems:}}
+    <div>
+        <p>Show if items</p>
+        <ul>
+            {{#for item in items:}}
+            <li>{{item}}</li>
+            {{#endfor items:}}
+        </ul>
+    </div>
+    {{#endif hasItems:}}
+
+    {{#if model->nullProperty:}}
+    <p>
+        Use null property
+    </p>
+    {{#endif model->nullProperty:}}
+    {{#if !model->nullProperty:}}
+    <p>
+        Use not null property
+    </p>
+    {{#endif !model->nullProperty:}}
+
+    {{#if arrayProperty['my-key']->name:}}
+    <p>
+        Use of array property (key-value): My Value
+    </p>
+    {{#endif arrayProperty['my-key']->name:}}
+
+</div>

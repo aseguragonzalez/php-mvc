@@ -1,0 +1,17 @@
+<section>
+    <h1>Object properties</h1>
+    <ul>
+        <li>name: {{model->name}}</li>
+        <li>age: {{model->age}}</li>
+        <li>height: {{model->height}}</li>
+    </ul>
+    <hr>
+    <address>
+        <ol>
+            <li>{{model->address->street}}, {{model->address->number}}</li>
+            <li>{{model->address->city}}, {{model->address->postalCode}}</li>
+            <li>{{model->address->state}}</li>
+            <li>Updated at: {{model->address->updatedAt}}</li>
+        </ol>
+    </address>
+</section>

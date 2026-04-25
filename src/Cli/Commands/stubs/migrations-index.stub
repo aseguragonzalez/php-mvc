@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/{{autoloadPath}}';
+
+use DI\Container;
+use AlfonsoSG\Mvc\Config\MvcConfig;
+use AlfonsoSG\Mvc\Migrations\MigrationApp;
+use AlfonsoSG\Mvc\Migrations\MigrationBootstrap;
+
+// __DIR__ points to the migration module folder under the app root.
+$appBasePath = dirname(__DIR__);
+$config = MvcConfig::load(basePath: $appBasePath);
+if (!$config->isMigrationsEnabled()) {
+    fwrite(STDERR, "Migrations are disabled in mvc.config.json (migrationsEnabled: false). Run: mvc migrations:enable\n");
+    exit(1);
+}
+$migrationsFolderPath = $config->effectiveMigrationsModuleRelativePath();
+$migrationsBasePath = $appBasePath . '/' . $migrationsFolderPath . '/migrations';
+
+$migrationContainer = new Container();
+MigrationBootstrap::registerFromEnvironment($migrationContainer);
+$migrationApp = new MigrationApp(
+    container: $migrationContainer,
+    basePath: $migrationsBasePath,
+);
+
+$arguments = array_slice($argv, 1);
+
+$exitCode = $migrationApp->run(argc: count($arguments), argv: $arguments);
+
+exit($exitCode);

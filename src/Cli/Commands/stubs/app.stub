@@ -1,0 +1,23 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}};
+
+use DI\Container;
+use AlfonsoSG\Mvc\MvcWebApp;
+use AlfonsoSG\Mvc\Routes\Router;
+use {{namespace}}\Controllers\RouterBuilder;
+
+final class {{name}}App extends MvcWebApp
+{
+    public function __construct(Container $container, string $basePath)
+    {
+        parent::__construct($container, $basePath);
+    }
+
+    protected function router(): Router
+    {
+        return RouterBuilder::build();
+    }
+}
