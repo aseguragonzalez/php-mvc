@@ -1,0 +1,31 @@
+<section>
+    <header>
+        <h1>{{model->title}}</h1>
+    </header>
+    <article>
+        <h2>Customer Details</h2>
+        <ul>
+            <li>{{model->customer->name}}</li>
+            <li>{{model->customer->taxId}}</li>
+            <li>{{model->customer->phone}}</li>
+        </ul>
+        <address>
+            <h3>Address</h3>
+            <p>{{model->customer->address->street}}, {{model->customer->address->number}}</p>
+            <p>{{model->customer->address->city}}</p>
+            <p>{{model->customer->address->state}}</p>
+        </address>
+        <h3>Transactions</h3>
+        <ul>
+            {{#for transaction in model->customer->transactions:}}
+            <li>({{transaction->createdAt}}) {{transaction->amount}}€ | {{transaction->status}}</li>
+            {{#endfor model->customer->transactions:}}
+        </ul>
+    </article>
+    <footer>
+        <p>
+            Total amount: {{model->totalAmount}}<br>
+            Updated at: {{model->updatedAt}}
+        </p>
+    </footer>
+</section>

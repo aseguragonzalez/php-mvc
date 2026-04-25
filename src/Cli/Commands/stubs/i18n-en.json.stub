@@ -1,0 +1,6 @@
+{
+  "layout.app": "{{appTitle}}",
+  "layout.footer": "&copy; {{year}} {{appTitle}}. All rights reserved.",
+  "layout.header.lang": "en",
+  "home.welcome": "Welcome to {{appTitle}}"
+}

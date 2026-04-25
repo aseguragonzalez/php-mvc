@@ -1,0 +1,21 @@
+<section>
+    <h1>{{model->title}}</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order</th>
+                <th>Customer</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#for order in model->orders:}}
+            <tr>
+                <td>{{order->id}}</td>
+                <td>{{order->customer->name}}</td>
+                <td>{{order->customer->address->city}}</td>
+            </tr>
+            {{#endfor model->orders:}}
+        </tbody>
+    </table>
+</section>

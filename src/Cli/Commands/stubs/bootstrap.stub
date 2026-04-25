@@ -1,0 +1,151 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}};
+
+use DI\Container;
+use AlfonsoSG\Mvc\AuthSettings;
+use AlfonsoSG\Mvc\Config\MvcConfig;
+use AlfonsoSG\Mvc\ErrorMapping;
+use AlfonsoSG\Mvc\ErrorSettings;
+use AlfonsoSG\Mvc\HtmlViewEngineSettings;
+use AlfonsoSG\Mvc\LanguageSettings;
+use AlfonsoSG\Mvc\LoggerSettings;
+use AlfonsoSG\Mvc\UiAssetsSettings;
+use AlfonsoSG\Mvc\Routes\AccessDeniedException;
+use AlfonsoSG\Mvc\Routes\AuthenticationRequiredException;
+use AlfonsoSG\Mvc\Routes\RouteDoesNotFoundException;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Handler\StreamHandler;
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Processor\PsrLogMessageProcessor;
+use PDO;
+use Psr\Log\LoggerInterface;
+
+final class {{name}}Bootstrap
+{
+    public static function register(Container $container, string $basePath): void
+    {
+        self::registerSettings($container, $basePath);
+        self::registerLogging($container);
+        self::registerDependencies($container);
+    }
+
+    private static function registerSettings(Container $container, string $basePath): void
+    {
+        $container->set(AuthSettings::class, new AuthSettings('/accounts/sign-in', '/accounts/sign-out'));
+        $container->set(ErrorSettings::class, self::errorSettings());
+        $container->set(HtmlViewEngineSettings::class, new HtmlViewEngineSettings(basePath: $basePath));
+        $config = MvcConfig::load(basePath: $basePath);
+        $container->set(LanguageSettings::class, new LanguageSettings(
+            basePath: $basePath,
+            assetsPath: $config->normalizedI18nAssetsPathForLanguageSettings(),
+        ));
+        $container->set(UiAssetsSettings::class, UiAssetsSettings::fromConfig($config));
+
+        $container->set(
+            LoggerSettings::class,
+            new LoggerSettings(
+                environment: getenv('ENVIRONMENT') ?: 'local',
+                serviceName: getenv('{{envPrefix}}_SERVICE_NAME') ?: '{{nameKebab}}',
+                serviceVersion: getenv('{{envPrefix}}_SERVICE_VERSION') ?: '1.0.0',
+                logLevel: getenv('{{envPrefix}}_LOG_LEVEL') ?: 'debug',
+            )
+        );
+
+        $container->set(
+            {{name}}Settings::class,
+            new {{name}}Settings(
+                host: getenv('{{envPrefix}}_DATABASE_HOST') ?: 'localhost',
+                database: getenv('{{envPrefix}}_DATABASE_NAME') ?: '{{nameSnake}}',
+                user: getenv('{{envPrefix}}_DATABASE_USER') ?: 'root',
+                password: getenv('{{envPrefix}}_DATABASE_PASSWORD') ?: '',
+            )
+        );
+    }
+
+    private static function registerLogging(Container $container): void
+    {
+        /** @var LoggerSettings $loggerSettings */
+        $loggerSettings = $container->get(LoggerSettings::class);
+
+        $handler = new StreamHandler(
+            stream: 'php://stdout',
+            level: self::logLevel($loggerSettings)
+        );
+        $handler->setFormatter(new LineFormatter(
+            format: '[%datetime%] %level_name%: %message%',
+            dateFormat: 'Y-m-d H:i:s',
+            allowInlineLineBreaks: true,
+            ignoreEmptyContextAndExtra: true,
+            includeStacktraces: false,
+        ));
+
+        $logger = new Logger($loggerSettings->serviceName);
+        $logger->pushHandler($handler);
+        $logger->pushProcessor(new PsrLogMessageProcessor());
+
+        $container->set(LoggerInterface::class, $logger);
+    }
+
+    private static function registerDependencies(Container $container): void
+    {
+        /** @var {{name}}Settings $settings */
+        $settings = $container->get({{name}}Settings::class);
+        $connection = new PDO(
+            $settings->getDsn(),
+            $settings->user,
+            $settings->password,
+            [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]
+        );
+        $container->set(PDO::class, $connection);
+    }
+
+    private static function errorSettings(): ErrorSettings
+    {
+        $errorsMapping = [
+            RouteDoesNotFoundException::class => new ErrorMapping(
+                statusCode: 404,
+                templateName: 'Shared/404',
+                pageTitle: 'Not Found'
+            ),
+            AuthenticationRequiredException::class => new ErrorMapping(
+                statusCode: 401,
+                templateName: 'Shared/401',
+                pageTitle: 'Unauthenticated'
+            ),
+            AccessDeniedException::class => new ErrorMapping(
+                statusCode: 403,
+                templateName: 'Shared/403',
+                pageTitle: 'Access Denied'
+            ),
+        ];
+
+        $defaultErrorMapping = new ErrorMapping(
+            statusCode: 500,
+            templateName: 'Shared/500',
+            pageTitle: 'Internal Server Error'
+        );
+
+        return new ErrorSettings(
+            errorsMapping: $errorsMapping,
+            errorsMappingDefaultValue: $defaultErrorMapping
+        );
+    }
+
+    private static function logLevel(LoggerSettings $loggerSettings): Level
+    {
+        $logLevels = ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
+        $logLevel = strtolower($loggerSettings->logLevel);
+        if (!in_array($logLevel, $logLevels)) {
+            throw new \InvalidArgumentException("Invalid log level: {$loggerSettings->logLevel}");
+        }
+
+        return Level::fromName($logLevel);
+    }
+}

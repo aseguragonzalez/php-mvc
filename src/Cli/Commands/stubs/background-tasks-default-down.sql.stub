@@ -1,0 +1,2 @@
+-- Default MVC background_tasks table (teardown)
+DROP TABLE IF EXISTS `background_tasks`;

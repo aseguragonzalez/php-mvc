@@ -1,0 +1,41 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen (Local)",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "runtimeArgs": ["-dxdebug.mode=debug"]
+    },
+    {
+      "name": "Listen (Container)",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/app": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "PHPUnit: suite (Local)",
+      "type": "php",
+      "request": "launch",
+      "program": "${workspaceFolder}/vendor/bin/phpunit",
+      "args": ["--configuration", "phpunit.xml"],
+      "cwd": "${workspaceFolder}",
+      "port": 9003,
+      "runtimeArgs": ["-dxdebug.mode=debug"]
+    },
+    {
+      "name": "PHPUnit: file (Local)",
+      "type": "php",
+      "request": "launch",
+      "program": "${workspaceFolder}/vendor/bin/phpunit",
+      "args": ["--configuration", "phpunit.xml", "${file}"],
+      "cwd": "${workspaceFolder}",
+      "port": 9003,
+      "runtimeArgs": ["-dxdebug.mode=debug"]
+    }
+  ]
+}

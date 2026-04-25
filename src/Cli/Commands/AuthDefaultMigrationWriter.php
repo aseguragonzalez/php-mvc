@@ -1,0 +1,74 @@
+<?php
+
+declare(strict_types=1);
+
+namespace AlfonsoSG\Mvc\Commands;
+
+/**
+ * Writes timestamped migration folders for the default SQL-backed security schema.
+ *
+ * @internal
+ */
+final class AuthDefaultMigrationWriter
+{
+    private const UP_STUB = 'auth-default-up.sql.stub';
+
+    private const DOWN_STUB = 'auth-default-down.sql.stub';
+
+    /**
+     * Creates a migration that applies the default auth tables; rollback drops them.
+     *
+     * @return string Absolute path to the created migration directory
+     */
+    public static function createEnableMigration(string $leafMigrationsDir): string
+    {
+        return self::writeTimestampedPair($leafMigrationsDir, self::UP_STUB, self::DOWN_STUB);
+    }
+
+    /**
+     * Creates a migration that drops the default auth tables; rollback recreates them.
+     *
+     * @return string Absolute path to the created migration directory
+     */
+    public static function createDisableMigration(string $leafMigrationsDir): string
+    {
+        return self::writeTimestampedPair($leafMigrationsDir, self::DOWN_STUB, self::UP_STUB);
+    }
+
+    private static function stubsDirectory(): string
+    {
+        return __DIR__.'/stubs';
+    }
+
+    private static function writeTimestampedPair(
+        string $leafMigrationsDir,
+        string $forwardStub,
+        string $rollbackStub,
+    ): string {
+        $timestamp = date('YmdHis');
+        $migrationDir = rtrim($leafMigrationsDir, '/').'/'.$timestamp;
+
+        if (!mkdir($migrationDir, 0o755, true)) {
+            throw new \RuntimeException("Failed to create migration directory: {$migrationDir}");
+        }
+
+        $forward = self::readStub($forwardStub);
+        $rollback = self::readStub($rollbackStub);
+
+        file_put_contents($migrationDir.'/0001_migration.sql', $forward);
+        file_put_contents($migrationDir.'/0001_migration.rollback.sql', $rollback);
+
+        return $migrationDir;
+    }
+
+    private static function readStub(string $stubName): string
+    {
+        $path = self::stubsDirectory().'/'.$stubName;
+        $content = file_get_contents($path);
+        if (false === $content) {
+            throw new \RuntimeException("Failed to read auth migration stub: {$path}");
+        }
+
+        return $content;
+    }
+}

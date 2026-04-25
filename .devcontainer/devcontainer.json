@@ -1,0 +1,42 @@
+{
+  "name": "PHP MVC Framework",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "args": {
+      "PHP_VERSION": "8.4"
+    }
+  },
+  "containerEnv": {
+    "XDEBUG_MODE": "coverage,debug,develop"
+  },
+  "forwardPorts": [9003],
+  "portsAttributes": {
+    "9003": {
+      "label": "Xdebug",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "composer install",
+  "remoteUser": "root",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "DavidAnson.vscode-markdownlint",
+        "donjayamanne.githistory",
+        "MehediDracula.php-namespace-resolver",
+        "mhutchie.git-graph",
+        "recca0120.vscode-phpunit",
+        "xdebug.php-debug",
+        "wongjn.php-sniffer"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "phpunit.php": "/usr/local/bin/php",
+        "phpunit.phpunit": "/app/vendor/bin/phpunit",
+        "intelephense.environment.phpVersion": "8.4"
+      }
+    }
+  }
+}

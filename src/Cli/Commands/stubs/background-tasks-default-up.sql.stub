@@ -1,0 +1,9 @@
+-- Default MVC background_tasks table (apply)
+CREATE TABLE IF NOT EXISTS `background_tasks` (
+    `id` VARCHAR(255) NOT NULL PRIMARY KEY,
+    `task_type` VARCHAR(255) NOT NULL,
+    `arguments` JSON NOT NULL,
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `processed` TINYINT(1) NOT NULL DEFAULT 0,
+    `processed_at` DATETIME NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;

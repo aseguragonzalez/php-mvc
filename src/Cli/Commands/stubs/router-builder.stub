@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace {{namespace}}\Controllers;
+
+use AlfonsoSG\Mvc\Routes\Router;
+
+final class RouterBuilder
+{
+    public static function build(): Router
+    {
+        $homeRoutes = HomeController::getRoutes();
+
+        return new Router(routes: [
+            ...$homeRoutes,
+        ]);
+    }
+}

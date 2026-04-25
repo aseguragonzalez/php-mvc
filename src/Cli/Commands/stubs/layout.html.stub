@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{{pageTitle}}</title>
+        <link rel="stylesheet" type="text/css" href="{{cssAssetsPathUrl}}/{{mainCssBundler}}" />
+    </head>
+    <body>
+        <header>
+            <h1><a href="/">{{appTitle}}</a></h1>
+        </header>
+        <main id="main-content">
+            {{content}}
+        </main>
+        <footer>
+            <p>&copy; {{year}} {{appTitle}}</p>
+        </footer>
+        <script src="{{jsAssetsPathUrl}}/{{mainJsBundler}}"></script>
+    </body>
+</html>

@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/{{autoloadPath}}';
+
+use DI\Container;
+use AlfonsoSG\Mvc\BackgroundTasks\BaseBackgroundTasksApp;
+use AlfonsoSG\Mvc\Config\MvcConfig;
+use {{namespace}}\BackgroundTasks\{{name}}BackgroundTasksBootstrap;
+
+// __DIR__ points to: {appRoot}/BackgroundTasks
+$appBasePath = dirname(__DIR__);
+$config = MvcConfig::load(basePath: $appBasePath);
+if (!$config->isBackgroundTasksEnabled()) {
+    fwrite(STDERR, "Background tasks are disabled in mvc.config.json (backgroundTasksEnabled: false). Run: mvc background-tasks:enable\n");
+    exit(1);
+}
+$backgroundTasksFolderPath = $config->normalizedBackgroundTasksFolderPath();
+
+// If the config field is empty (e.g. older apps), fall back to the conventional folder name.
+$backgroundTasksFolderPath = $backgroundTasksFolderPath !== '' ? $backgroundTasksFolderPath : 'BackgroundTasks';
+$backgroundTasksBasePath = $appBasePath . '/' . $backgroundTasksFolderPath;
+
+$container = new Container();
+{{name}}BackgroundTasksBootstrap::register($container, $backgroundTasksBasePath);
+$app = new BaseBackgroundTasksApp(
+    container: $container,
+    basePath: $backgroundTasksBasePath,
+);
+
+$arguments = array_slice($argv ?? [], 1);
+exit($app->run(argc: count($arguments), argv: $arguments));
