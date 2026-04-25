@@ -63,7 +63,7 @@ trait MigrationsCommandPathTrait
         }
 
         $cwd = getcwd();
-        if ($cwd === false) {
+        if (false === $cwd) {
             throw new \RuntimeException('Unable to resolve current working directory.');
         }
 
