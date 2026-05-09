@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bef9f5bd58a8813b3bc4edfecee45cd",
+    "content-hash": "e11f69b67ec914c63b9e9b58cef52231",
     "packages": [
         {
             "name": "aseguragonzalez/php-seedwork",
-            "version": "v0.1.1",
+            "version": "v0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aseguragonzalez/php-seedwork.git",
-                "reference": "53d563ffbde268cd8a7b5e501f82f4dc8f6158bd"
+                "reference": "11ec54e3131a8c5403fdc0cf0184b8a1f387d2bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aseguragonzalez/php-seedwork/zipball/53d563ffbde268cd8a7b5e501f82f4dc8f6158bd",
-                "reference": "53d563ffbde268cd8a7b5e501f82f4dc8f6158bd",
+                "url": "https://api.github.com/repos/aseguragonzalez/php-seedwork/zipball/11ec54e3131a8c5403fdc0cf0184b8a1f387d2bc",
+                "reference": "11ec54e3131a8c5403fdc0cf0184b8a1f387d2bc",
                 "shasum": ""
             },
             "require": {
@@ -25,7 +25,7 @@
                 "psr/container": "^2.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.94.2",
+                "friendsofphp/php-cs-fixer": "^3.95.1",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^12.5",
                 "squizlabs/php_codesniffer": "^4.0"
@@ -52,7 +52,7 @@
                 "issues": "https://github.com/aseguragonzalez/php-seedwork/issues",
                 "source": "https://github.com/aseguragonzalez/php-seedwork.git"
             },
-            "time": "2026-02-28T09:19:14+00:00"
+            "time": "2026-05-07T20:49:46+00:00"
         },
         {
             "name": "laravel/serializable-closure",
