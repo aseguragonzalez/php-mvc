@@ -4,28 +4,27 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6bef9f5bd58a8813b3bc4edfecee45cd",
+    "content-hash": "809a853c70f64c8fcbe7c7e77b36aabb",
     "packages": [
         {
             "name": "aseguragonzalez/php-seedwork",
-            "version": "v0.1.1",
+            "version": "v0.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aseguragonzalez/php-seedwork.git",
-                "reference": "53d563ffbde268cd8a7b5e501f82f4dc8f6158bd"
+                "reference": "ece6b28a96bb5d447fc7c46ba5f8d78efc66faf7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aseguragonzalez/php-seedwork/zipball/53d563ffbde268cd8a7b5e501f82f4dc8f6158bd",
-                "reference": "53d563ffbde268cd8a7b5e501f82f4dc8f6158bd",
+                "url": "https://api.github.com/repos/aseguragonzalez/php-seedwork/zipball/ece6b28a96bb5d447fc7c46ba5f8d78efc66faf7",
+                "reference": "ece6b28a96bb5d447fc7c46ba5f8d78efc66faf7",
                 "shasum": ""
             },
             "require": {
-                "php": "^8.4",
-                "psr/container": "^2.0"
+                "php": "^8.4"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.94.2",
+                "friendsofphp/php-cs-fixer": "^3.95.1",
                 "phpstan/phpstan": "^2.1",
                 "phpunit/phpunit": "^12.5",
                 "squizlabs/php_codesniffer": "^4.0"
@@ -52,7 +51,7 @@
                 "issues": "https://github.com/aseguragonzalez/php-seedwork/issues",
                 "source": "https://github.com/aseguragonzalez/php-seedwork.git"
             },
-            "time": "2026-02-28T09:19:14+00:00"
+            "time": "2026-05-15T10:02:05+00:00"
         },
         {
             "name": "laravel/serializable-closure",
