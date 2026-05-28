@@ -1,0 +1,8 @@
+coverage:
+  status:
+    patch:
+      default:
+        # PHPDoc-only diffs (e.g. @template annotations) are not executable and
+        # will never appear in the coverage report. Allow up to 20% of patch
+        # lines to be non-executable annotations without failing the check.
+        threshold: 20%
