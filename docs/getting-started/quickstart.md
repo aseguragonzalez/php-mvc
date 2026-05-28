@@ -140,6 +140,8 @@ declare(strict_types=1);
 require_once __DIR__ . '/../vendor/autoload.php';
 
 use DI\Container;
+use PhpMvc\ResponseEmitter;
+use Psr\Http\Message\ServerRequestFactoryInterface;
 use App\MyApp\MyAppApp;
 use App\MyApp\MyAppBootstrap;
 
@@ -147,7 +149,20 @@ $container = new Container();
 MyAppBootstrap::register($container, __DIR__ . '/../');
 $app = new MyAppApp(container: $container, basePath: __DIR__ . '/../');
 
-exit($app->run());
+$server = $_SERVER;
+$method = is_string($server['REQUEST_METHOD'] ?? null) ? $server['REQUEST_METHOD'] : 'GET';
+$scheme = (!empty($server['HTTPS']) && 'off' !== $server['HTTPS']) ? 'https' : 'http';
+$host = is_string($server['HTTP_HOST'] ?? $server['SERVER_NAME'] ?? null)
+    ? ($server['HTTP_HOST'] ?? $server['SERVER_NAME'])
+    : 'localhost';
+$rawUri = $server['REQUEST_URI'] ?? null;
+$uri = $scheme.'://'.$host.(is_string($rawUri) ? $rawUri : '/');
+
+/** @var ServerRequestFactoryInterface $requestFactory */
+$requestFactory = $container->get(ServerRequestFactoryInterface::class);
+$request = $requestFactory->createServerRequest($method, $uri, $server);
+
+ResponseEmitter::emit($app->handle($request));
 ```
 
 ## 6. Run the built-in server

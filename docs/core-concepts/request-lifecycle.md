@@ -18,8 +18,8 @@ sequenceDiagram
     participant C as Controller
 
     B->>E: HTTP request
-    E->>App: run()
-    App->>App: build PSR-7 ServerRequest
+    E->>E: build PSR-7 ServerRequest
+    E->>App: handle(request)
     App->>EH: handle(request)
     EH->>Loc: handle(request)
     Loc->>CSRF: handle(request) [optional]
@@ -36,18 +36,19 @@ sequenceDiagram
     CSRF-->>Loc: PSR-7 Response
     Loc-->>EH: PSR-7 Response
     EH-->>App: PSR-7 Response
-    App->>B: status + headers + body
+    App-->>E: PSR-7 Response
+    E->>B: status + headers + body
 ```
 
 ## Stage-by-stage explanation
 
 ### 1. Entrypoint (`index.php`)
 
-Your composition root registers all services on the PSR-11 container, then constructs `MvcWebApp` (your subclass) and calls `run()`. Everything the middlewares and controllers need must already be in the container at this point.
+Your composition root registers all services on the PSR-11 container, constructs the `ServerRequestInterface` from PHP globals, and passes it to `MvcWebApp::handle()`. Everything the middlewares and controllers need must already be in the container at this point. Once `handle()` returns, the entrypoint emits the response via `ResponseEmitter::emit()`.
 
-### 2. `MvcWebApp::run()`
+### 2. `MvcWebApp::handle()`
 
-Builds an HTTP request from PHP globals and delegates to the middleware pipeline.
+Implements `Psr\Http\Server\RequestHandlerInterface`. Wires the middleware pipeline and delegates the incoming request to it, returning the `ResponseInterface` produced by the pipeline.
 
 ### 3. `ErrorHandling` middleware
 
@@ -75,7 +76,7 @@ Matches the route, binds typed action parameters from path segments, query strin
 
 ### 9. Response propagation
 
-Each middleware may add headers on the way back out (e.g. auth session refresh). The final response is written to PHP's output.
+Each middleware may add headers on the way back out (e.g. auth session refresh). `MvcWebApp::handle()` returns the final `ResponseInterface` to the entrypoint, which emits status code, headers, and body via `ResponseEmitter::emit()`.
 
 ## Adding custom middleware
 

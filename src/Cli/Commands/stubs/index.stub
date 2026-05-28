@@ -6,10 +6,59 @@ require_once __DIR__ . '/{{autoloadPath}}';
 
 use DI\Container as DiContainer;
 use PhpMvc\MutableContainerInterface;
+use PhpMvc\ResponseEmitter;
+use Psr\Http\Message\ServerRequestFactoryInterface;
 use {{namespace}}\{{name}}App;
 use {{namespace}}\{{name}}Bootstrap;
 
 $container = new class extends DiContainer implements MutableContainerInterface {};
 {{name}}Bootstrap::register($container, __DIR__);
 $app = new {{name}}App(container: $container, basePath: __DIR__);
-$app->run();
+
+$server = $_SERVER;
+$rawMethod = $server['REQUEST_METHOD'] ?? null;
+$method = is_string($rawMethod) ? $rawMethod : 'GET';
+$scheme = (!empty($server['HTTPS']) && 'off' !== $server['HTTPS']) ? 'https' : 'http';
+$rawHost = $server['HTTP_HOST'] ?? $server['SERVER_NAME'] ?? null;
+$host = is_string($rawHost) ? $rawHost : 'localhost';
+$rawUri = $server['REQUEST_URI'] ?? null;
+$uri = $scheme.'://'.$host.(is_string($rawUri) ? $rawUri : '/');
+
+$requestFactory = $container->get(ServerRequestFactoryInterface::class);
+if (!$requestFactory instanceof ServerRequestFactoryInterface) {
+    throw new \RuntimeException(
+        'ServerRequestFactoryInterface must be registered in the container before handling requests.'
+    );
+}
+
+$request = $requestFactory->createServerRequest($method, $uri, $server);
+
+foreach ($server as $key => $value) {
+    if (!is_string($value)) {
+        continue;
+    }
+    if (str_starts_with($key, 'HTTP_')) {
+        $request = $request->withHeader(str_replace('_', '-', substr($key, 5)), $value);
+    } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH'], true) && '' !== $value) {
+        $request = $request->withHeader(str_replace('_', '-', $key), $value);
+    }
+}
+
+$request = $request
+    ->withCookieParams($_COOKIE)
+    ->withQueryParams($_GET)
+;
+
+$rawContentType = $server['CONTENT_TYPE'] ?? null;
+$contentType = is_string($rawContentType) ? $rawContentType : '';
+if (str_starts_with($contentType, 'application/json')) {
+    $rawBody = (string) file_get_contents('php://input');
+    $parsed = json_decode($rawBody, true);
+    if (is_array($parsed)) {
+        $request = $request->withParsedBody($parsed);
+    }
+} elseif (!empty($_POST)) {
+    $request = $request->withParsedBody($_POST);
+}
+
+ResponseEmitter::emit($app->handle($request));

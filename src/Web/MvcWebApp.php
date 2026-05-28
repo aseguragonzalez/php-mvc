@@ -25,14 +25,14 @@ use PhpMvc\Views\ModelReplacer;
 use PhpMvc\Views\ViewEngine;
 use PhpMvc\Views\ViewValueResolver;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * The base class for all MVC Web applications.
  */
-abstract class MvcWebApp extends Application
+abstract class MvcWebApp implements RequestHandlerInterface
 {
     /**
      * @param string                          $basePath              the base path of the application
@@ -43,30 +43,26 @@ abstract class MvcWebApp extends Application
      */
     protected function __construct(
         private readonly MutableContainerInterface $diContainer,
-        string $basePath,
+        protected string $basePath,
         private array $middlewares = [],
         private bool $requireAuthentication = false,
         private bool $requireAuthorization = false,
         private bool $enableCsrfProtection = false,
-    ) {
-        parent::__construct($diContainer, $basePath);
-    }
+    ) {}
 
-    /**
-     * @param null|int      $argc The number of arguments passed to the application. Default is null.
-     * @param array<string> $argv The arguments to pass to the application. Default is an empty array.
-     *
-     * @return int the exit code of the application
-     */
-    public function run(?int $argc = null, array $argv = []): int
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $requestContext = new RequestContext();
         $this->diContainer->set(RequestContext::class, $requestContext);
         $this->configureMvc();
         $this->buildMiddlewareChain();
-        $this->handleRequest($requestContext);
 
-        return 0;
+        $pipeline = $this->diContainer->get(RequestHandlerInterface::class);
+        if (!$pipeline instanceof RequestHandlerInterface) {
+            throw new \RuntimeException('RequestHandlerInterface not found in container');
+        }
+
+        return $pipeline->handle($request->withAttribute(RequestContext::class, $requestContext));
     }
 
     /**
@@ -172,77 +168,5 @@ abstract class MvcWebApp extends Application
         );
         $this->diContainer->set(ViewEngine::class, $this->diContainer->get(HtmlViewEngine::class));
         $this->diContainer->set(RequestHandlerInterface::class, $this->diContainer->get(RequestHandler::class));
-    }
-
-    private function handleRequest(RequestContext $requestContext): void
-    {
-        $pipeline = $this->diContainer->get(RequestHandlerInterface::class);
-        if (!$pipeline instanceof RequestHandlerInterface) {
-            throw new \RuntimeException('RequestHandlerInterface not found in container');
-        }
-
-        $request = $this->createRequestFromGlobals();
-        $response = $pipeline->handle(
-            $request->withAttribute(RequestContext::class, $requestContext)
-        );
-
-        http_response_code($response->getStatusCode());
-        foreach ($response->getHeaders() as $name => $values) {
-            foreach ($values as $value) {
-                header("{$name}: {$value}", false);
-            }
-        }
-        echo $response->getBody();
-    }
-
-    private function createRequestFromGlobals(): ServerRequestInterface
-    {
-        $server = $_SERVER;
-        $rawMethod = $server['REQUEST_METHOD'] ?? null;
-        $method = is_string($rawMethod) ? $rawMethod : 'GET';
-        $scheme = (!empty($server['HTTPS']) && 'off' !== $server['HTTPS']) ? 'https' : 'http';
-        $rawHost = $server['HTTP_HOST'] ?? $server['SERVER_NAME'] ?? null;
-        $host = is_string($rawHost) ? $rawHost : 'localhost';
-        $rawUri = $server['REQUEST_URI'] ?? null;
-        $uri = $scheme.'://'.$host.(is_string($rawUri) ? $rawUri : '/');
-
-        $requestFactory = $this->diContainer->get(ServerRequestFactoryInterface::class);
-        if (!$requestFactory instanceof ServerRequestFactoryInterface) {
-            throw new \RuntimeException(
-                'ServerRequestFactoryInterface must be registered in the container before running the application.'
-            );
-        }
-
-        $request = $requestFactory->createServerRequest($method, $uri, $server);
-
-        foreach ($server as $key => $value) {
-            if (!is_string($value)) {
-                continue;
-            }
-            if (str_starts_with($key, 'HTTP_')) {
-                $request = $request->withHeader(str_replace('_', '-', substr($key, 5)), $value);
-            } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH'], true) && '' !== $value) {
-                $request = $request->withHeader(str_replace('_', '-', $key), $value);
-            }
-        }
-
-        $request = $request
-            ->withCookieParams($_COOKIE)
-            ->withQueryParams($_GET)
-        ;
-
-        $rawContentType = $server['CONTENT_TYPE'] ?? null;
-        $contentType = is_string($rawContentType) ? $rawContentType : '';
-        if (str_starts_with($contentType, 'application/json')) {
-            $rawBody = (string) file_get_contents('php://input');
-            $parsed = json_decode($rawBody, true);
-            if (is_array($parsed)) {
-                $request = $request->withParsedBody($parsed);
-            }
-        } elseif (!empty($_POST)) {
-            $request = $request->withParsedBody($_POST);
-        }
-
-        return $request;
     }
 }
