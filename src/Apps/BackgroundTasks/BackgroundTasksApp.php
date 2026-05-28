@@ -4,20 +4,16 @@ declare(strict_types=1);
 
 namespace PhpMvc\BackgroundTasks;
 
-use PhpMvc\Application;
 use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
 use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksCommand;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
-final class BaseBackgroundTasksApp extends Application
+final class BackgroundTasksApp
 {
     private bool $shutdownRequested = false;
 
-    public function __construct(ContainerInterface $container, string $basePath)
-    {
-        parent::__construct($container, $basePath);
-    }
+    public function __construct(private readonly ContainerInterface $container) {}
 
     /**
      * @param array<string> $argv

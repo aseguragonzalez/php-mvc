@@ -6,7 +6,7 @@ require_once __DIR__ . '/{{autoloadPath}}';
 
 use DI\Container as DiContainer;
 use PhpMvc\MutableContainerInterface;
-use PhpMvc\BackgroundTasks\BaseBackgroundTasksApp;
+use PhpMvc\BackgroundTasks\BackgroundTasksApp;
 use PhpMvc\Config\MvcConfig;
 use {{namespace}}\BackgroundTasks\{{name}}BackgroundTasksBootstrap;
 
@@ -21,14 +21,10 @@ $backgroundTasksFolderPath = $config->normalizedBackgroundTasksFolderPath();
 
 // If the config field is empty (e.g. older apps), fall back to the conventional folder name.
 $backgroundTasksFolderPath = $backgroundTasksFolderPath !== '' ? $backgroundTasksFolderPath : 'BackgroundTasks';
-$backgroundTasksBasePath = $appBasePath . '/' . $backgroundTasksFolderPath;
 
 $container = new class extends DiContainer implements MutableContainerInterface {};
-{{name}}BackgroundTasksBootstrap::register($container, $backgroundTasksBasePath);
-$app = new BaseBackgroundTasksApp(
-    container: $container,
-    basePath: $backgroundTasksBasePath,
-);
+{{name}}BackgroundTasksBootstrap::register($container);
+$app = new BackgroundTasksApp(container: $container);
 
 $arguments = array_slice($argv ?? [], 1);
 exit($app->run(argc: count($arguments), argv: $arguments));

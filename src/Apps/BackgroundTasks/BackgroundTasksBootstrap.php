@@ -18,7 +18,7 @@ use PhpMvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
 use PhpMvc\BackgroundTasks\Infrastructure\TaskBusHandler;
 use PhpMvc\MutableContainerInterface;
 
-final class Dependencies
+final class BackgroundTasksBootstrap
 {
     public static function configure(MutableContainerInterface $container): void
     {

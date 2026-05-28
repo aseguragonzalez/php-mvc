@@ -9,6 +9,9 @@ use PhpMvc\MutableContainerInterface;
 use PhpMvc\Config\MvcConfig;
 use PhpMvc\Migrations\MigrationApp;
 use PhpMvc\Migrations\MigrationBootstrap;
+use PhpMvc\Migrations\MigrationSettings;
+use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 // __DIR__ points to the migration module folder under the app root.
 $appBasePath = dirname(__DIR__);
@@ -21,7 +24,30 @@ $migrationsFolderPath = $config->effectiveMigrationsModuleRelativePath();
 $migrationsBasePath = $appBasePath . '/' . $migrationsFolderPath . '/migrations';
 
 $migrationContainer = new class extends DiContainer implements MutableContainerInterface {};
-MigrationBootstrap::registerFromEnvironment($migrationContainer);
+
+$migrationSettings = new MigrationSettings(
+    host: getenv('MIGRATIONS_DATABASE_HOST') ?: 'localhost',
+    database: getenv('MIGRATIONS_DATABASE_NAME') ?: 'migrations',
+    user: getenv('MIGRATIONS_DATABASE_USER') ?: 'migrations',
+    password: getenv('MIGRATIONS_DATABASE_PASSWORD') ?: '',
+);
+$migrationContainer->set(MigrationSettings::class, $migrationSettings);
+
+$connection = new \PDO(
+    $migrationSettings->getDsn(),
+    $migrationSettings->user,
+    $migrationSettings->password,
+    [
+        \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+        \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+    ]
+);
+$migrationContainer->set(\PDO::class, $connection);
+
+$migrationContainer->set(LoggerInterface::class, new NullLogger());
+
+MigrationBootstrap::configure($migrationContainer);
+
 $migrationApp = new MigrationApp(
     container: $migrationContainer,
     basePath: $migrationsBasePath,

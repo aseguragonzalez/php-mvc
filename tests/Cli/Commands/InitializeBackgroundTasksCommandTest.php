@@ -136,7 +136,7 @@ final class InitializeBackgroundTasksCommandTest extends TestCase
             'App\Ports\MyApp\BackgroundTasks\MyAppBackgroundTasksBootstrap',
             $content
         );
-        $this->assertStringContainsString('BaseBackgroundTasksApp', $content);
+        $this->assertStringContainsString('BackgroundTasksApp', $content);
     }
 
     public function testGeneratedIndexPhpGuardsWhenBackgroundTasksDisabled(): void
