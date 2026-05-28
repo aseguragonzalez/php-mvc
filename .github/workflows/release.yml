@@ -43,6 +43,7 @@ jobs:
         node-version: 22
 
     - name: Run semantic-release
+      id: release
       uses: cycjimmy/semantic-release-action@v4
       with:
         extra_plugins: |
@@ -50,3 +51,29 @@ jobs:
           @semantic-release/git
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+    - name: Notify Packagist
+      run: |
+        VERSION="${{ steps.release.outputs.new_release_version }}"
+
+        if [ -z "$VERSION" ]; then
+          LATEST_TAG=$(git tag --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
+          VERSION="${LATEST_TAG#v}"
+        fi
+
+        if [ -z "$VERSION" ]; then
+          echo "No version to notify, skipping."
+          exit 0
+        fi
+
+        if curl -sf "https://packagist.org/packages/aseguragonzalez/php-mvc.json" | \
+           jq -e --arg v "v${VERSION}" '.package.versions[$v]' > /dev/null 2>&1; then
+          echo "v${VERSION} already synced on Packagist, skipping."
+        else
+          echo "Notifying Packagist for v${VERSION}..."
+          curl -sf -X POST \
+            "https://packagist.org/api/update-package?username=aseguragonzalez&apiToken=${PACKAGIST_TOKEN}" \
+            -d 'repository[url]=https://github.com/aseguragonzalez/php-mvc'
+        fi
+      env:
+        PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
