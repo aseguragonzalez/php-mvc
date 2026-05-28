@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/{{autoloadPath}}';
 
-use DI\Container;
+use DI\Container as DiContainer;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use {{namespace}}\{{name}}App;
 use {{namespace}}\{{name}}Bootstrap;
 
-$container = new Container();
+$container = new class extends DiContainer implements MutableContainerInterface {};
 {{name}}Bootstrap::register($container, __DIR__);
 $app = new {{name}}App(container: $container, basePath: __DIR__);
 $app->run();

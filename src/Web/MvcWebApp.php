@@ -24,10 +24,10 @@ use AlfonsoSG\Mvc\Views\I18nReplacer;
 use AlfonsoSG\Mvc\Views\ModelReplacer;
 use AlfonsoSG\Mvc\Views\ViewEngine;
 use AlfonsoSG\Mvc\Views\ViewValueResolver;
-use DI\Container;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
@@ -43,7 +43,7 @@ abstract class MvcWebApp extends Application
      * @param bool                            $enableCsrfProtection  whether to validate CSRF tokens on state-changing requests
      */
     protected function __construct(
-        private readonly Container $diContainer,
+        private readonly MutableContainerInterface $diContainer,
         string $basePath,
         private array $middlewares = [],
         private bool $requireAuthentication = false,
@@ -138,15 +138,12 @@ abstract class MvcWebApp extends Application
 
     private function configureMvc(): void
     {
-        $psr17Factory = new Psr17Factory();
-        $this->diContainer->set(Psr17Factory::class, $psr17Factory);
-        $this->diContainer->set(ResponseFactoryInterface::class, $psr17Factory);
-        $this->diContainer->set(ServerRequestCreator::class, new ServerRequestCreator(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-        ));
+        $responseFactory = $this->diContainer->get(ResponseFactoryInterface::class);
+        if (!$responseFactory instanceof ResponseFactoryInterface) {
+            throw new \RuntimeException(
+                'ResponseFactoryInterface must be registered in the container before running the application.'
+            );
+        }
         $this->diContainer->set(Router::class, $this->router());
         $this->diContainer->set(FileManager::class, $this->diContainer->get(DefaultFileManager::class));
         $resolver = new ViewValueResolver();
@@ -169,17 +166,12 @@ abstract class MvcWebApp extends Application
 
     private function handleRequest(RequestContext $requestContext): void
     {
-        $requestCreator = $this->diContainer->get(ServerRequestCreator::class);
-        if (!$requestCreator instanceof ServerRequestCreator) {
-            throw new \RuntimeException('ServerRequestCreator not found in container');
-        }
-
         $pipeline = $this->diContainer->get(RequestHandlerInterface::class);
         if (!$pipeline instanceof RequestHandlerInterface) {
             throw new \RuntimeException('RequestHandlerInterface not found in container');
         }
 
-        $request = $requestCreator->fromGlobals();
+        $request = $this->createRequestFromGlobals();
         $response = $pipeline->handle(
             $request->withAttribute(RequestContext::class, $requestContext)
         );
@@ -191,5 +183,49 @@ abstract class MvcWebApp extends Application
             }
         }
         echo $response->getBody();
+    }
+
+    private function createRequestFromGlobals(): ServerRequestInterface
+    {
+        $server = $_SERVER;
+        $method = $server['REQUEST_METHOD'] ?? 'GET';
+        $scheme = (!empty($server['HTTPS']) && 'off' !== $server['HTTPS']) ? 'https' : 'http';
+        $host = $server['HTTP_HOST'] ?? ($server['SERVER_NAME'] ?? 'localhost');
+        $uri = $scheme . '://' . $host . ($server['REQUEST_URI'] ?? '/');
+
+        $requestFactory = $this->diContainer->get(ServerRequestFactoryInterface::class);
+        if (!$requestFactory instanceof ServerRequestFactoryInterface) {
+            throw new \RuntimeException(
+                'ServerRequestFactoryInterface must be registered in the container before running the application.'
+            );
+        }
+
+        $request = $requestFactory->createServerRequest($method, $uri, $server);
+
+        foreach ($server as $key => $value) {
+            if (str_starts_with($key, 'HTTP_')) {
+                $request = $request->withHeader(str_replace('_', '-', substr($key, 5)), $value);
+            } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH'], true) && '' !== $value) {
+                $request = $request->withHeader(str_replace('_', '-', $key), $value);
+            }
+        }
+
+        $request = $request
+            ->withCookieParams($_COOKIE)
+            ->withQueryParams($_GET)
+        ;
+
+        $contentType = $server['CONTENT_TYPE'] ?? '';
+        if (str_starts_with($contentType, 'application/json')) {
+            $rawBody = (string) file_get_contents('php://input');
+            $parsed = json_decode($rawBody, true);
+            if (is_array($parsed)) {
+                $request = $request->withParsedBody($parsed);
+            }
+        } elseif (!empty($_POST)) {
+            $request = $request->withParsedBody($_POST);
+        }
+
+        return $request;
     }
 }

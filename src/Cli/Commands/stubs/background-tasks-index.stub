@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/{{autoloadPath}}';
 
-use DI\Container;
+use DI\Container as DiContainer;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use AlfonsoSG\Mvc\BackgroundTasks\BaseBackgroundTasksApp;
 use AlfonsoSG\Mvc\Config\MvcConfig;
 use {{namespace}}\BackgroundTasks\{{name}}BackgroundTasksBootstrap;
@@ -22,7 +23,7 @@ $backgroundTasksFolderPath = $config->normalizedBackgroundTasksFolderPath();
 $backgroundTasksFolderPath = $backgroundTasksFolderPath !== '' ? $backgroundTasksFolderPath : 'BackgroundTasks';
 $backgroundTasksBasePath = $appBasePath . '/' . $backgroundTasksFolderPath;
 
-$container = new Container();
+$container = new class extends DiContainer implements MutableContainerInterface {};
 {{name}}BackgroundTasksBootstrap::register($container, $backgroundTasksBasePath);
 $app = new BaseBackgroundTasksApp(
     container: $container,

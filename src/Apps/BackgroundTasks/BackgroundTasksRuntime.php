@@ -6,11 +6,11 @@ namespace AlfonsoSG\Mvc\BackgroundTasks;
 
 use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandler;
 use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 
 final class BackgroundTasksRuntime
 {
-    public static function register(Container $container): void
+    public static function register(MutableContainerInterface $container): void
     {
         /** @var BackgroundTasksSettings $settings */
         $settings = $container->get(BackgroundTasksSettings::class);

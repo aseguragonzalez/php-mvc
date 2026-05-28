@@ -31,11 +31,11 @@ use AlfonsoSG\Mvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
 use AlfonsoSG\Mvc\Security\Infrastructure\SqlSignInSessionRepository;
 use AlfonsoSG\Mvc\Security\Infrastructure\SqlSignUpChallengeRepository;
 use AlfonsoSG\Mvc\Security\Infrastructure\SqlUserIdentityRepository;
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 
 final class Dependencies
 {
-    public static function configure(Container $container): void
+    public static function configure(MutableContainerInterface $container): void
     {
         $container->set(UserIdentityRepository::class, $container->get(SqlUserIdentityRepository::class));
         $container->set(SignInSessionRepository::class, $container->get(SqlSignInSessionRepository::class));

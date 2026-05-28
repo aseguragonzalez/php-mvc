@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace {{namespace}};
 
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use AlfonsoSG\Mvc\MvcWebApp;
 use AlfonsoSG\Mvc\Routes\Router;
 use {{namespace}}\Controllers\RouterBuilder;
 
 final class {{name}}App extends MvcWebApp
 {
-    public function __construct(Container $container, string $basePath)
+    public function __construct(MutableContainerInterface $container, string $basePath)
     {
         parent::__construct($container, $basePath);
     }

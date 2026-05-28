@@ -11,8 +11,8 @@ use AlfonsoSG\Mvc\Responses\StatusCode;
 use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
 use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
 use AlfonsoSG\Mvc\Security\IdentityManager;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\ServerRequest;
+use Tests\Support\Psr7\TestPsr17Factory;
+use Tests\Support\Psr7\TestServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
 
@@ -23,7 +23,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 final class AuthenticationTest extends TestCase
 {
-    private Psr17Factory $psrFactory;
+    private TestPsr17Factory $psrFactory;
     private AuthSettings $settings;
     private RequestContext $context;
     private IdentityManager $identityManager;
@@ -31,7 +31,7 @@ final class AuthenticationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->psrFactory = new Psr17Factory();
+        $this->psrFactory = new TestPsr17Factory();
         $this->settings = new AuthSettings(
             cookieName: 'auth_token',
             signInPath: '/login',
@@ -56,7 +56,7 @@ final class AuthenticationTest extends TestCase
             responseFactory: $this->psrFactory,
         );
 
-        $request = new ServerRequest('GET', '/')
+        $request = new TestServerRequest('GET', '/')
             ->withCookieParams(['auth_token' => $token])
             ->withAttribute(RequestContext::class, $this->context)
         ;
@@ -79,7 +79,7 @@ final class AuthenticationTest extends TestCase
             responseFactory: $this->psrFactory,
         );
 
-        $request = new ServerRequest('GET', '/')
+        $request = new TestServerRequest('GET', '/')
             ->withCookieParams(['auth_token' => 'expired_token'])
             ->withAttribute(RequestContext::class, $this->context)
         ;

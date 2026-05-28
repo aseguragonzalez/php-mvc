@@ -13,7 +13,7 @@ use AlfonsoSG\Mvc\Routes\Route;
 use AlfonsoSG\Mvc\Routes\RouteMethod;
 use AlfonsoSG\Mvc\Routes\Router;
 use AlfonsoSG\Mvc\Security\Identity;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -45,7 +45,7 @@ final class AuthorizationTest extends TestCase
         );
         $this->middleware = new Authorization(
             settings: $this->settings,
-            responseFactory: new Psr17Factory(),
+            responseFactory: new TestPsr17Factory(),
             router: self::createRouter(),
         );
     }

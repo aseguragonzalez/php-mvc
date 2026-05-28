@@ -10,7 +10,7 @@ use AlfonsoSG\Mvc\Middlewares\ErrorHandling;
 use AlfonsoSG\Mvc\Requests\RequestContext;
 use AlfonsoSG\Mvc\Responses\StatusCode;
 use AlfonsoSG\Mvc\Views\ViewEngine;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
@@ -32,7 +32,7 @@ final class ErrorHandlingTest extends TestCase
 
     protected function setUp(): void
     {
-        $psrFactory = new Psr17Factory();
+        $psrFactory = new TestPsr17Factory();
         $this->logger = $this->createMock(LoggerInterface::class);
         $this->settings = new ErrorSettings(
             errorsMapping: [\InvalidArgumentException::class => new ErrorMapping(400, 'custom_error', 'custom_error')],

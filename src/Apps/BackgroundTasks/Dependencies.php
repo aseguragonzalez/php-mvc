@@ -16,11 +16,11 @@ use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\MapTaskHandlerRegistry;
 use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\PdoTransactionRunner;
 use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
 use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\TaskBusHandler;
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 
 final class Dependencies
 {
-    public static function configure(Container $container): void
+    public static function configure(MutableContainerInterface $container): void
     {
         $container->set(TaskHandlerRegistry::class, $container->get(MapTaskHandlerRegistry::class));
         $container->set(TaskRepository::class, $container->get(SqlTaskRepository::class));

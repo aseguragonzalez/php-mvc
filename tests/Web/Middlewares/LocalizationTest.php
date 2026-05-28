@@ -9,7 +9,7 @@ use AlfonsoSG\Mvc\Middlewares\Localization;
 use AlfonsoSG\Mvc\Requests\RequestContext;
 use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
 use AlfonsoSG\Mvc\Responses\StatusCode;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface;
@@ -21,7 +21,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 final class LocalizationTest extends TestCase
 {
-    private Psr17Factory $requestFactory;
+    private TestPsr17Factory $requestFactory;
     private Localization $middleware;
     private RequestHandlerInterface $next;
     private string $cookieName = 'lang';
@@ -29,7 +29,7 @@ final class LocalizationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->requestFactory = new Psr17Factory();
+        $this->requestFactory = new TestPsr17Factory();
         $next = $this->createStub(RequestHandlerInterface::class);
         $next->method('handle')->willReturn($this->requestFactory->createResponse(200));
         $this->next = $next;
@@ -42,7 +42,7 @@ final class LocalizationTest extends TestCase
                 defaultValue: $this->defaultValue,
                 setUrl: '/set-language',
             ),
-            responseFactory: new Psr17Factory(),
+            responseFactory: new TestPsr17Factory(),
         );
     }
 

@@ -23,7 +23,7 @@ use AlfonsoSG\Mvc\Views\I18nReplacer;
 use AlfonsoSG\Mvc\Views\ModelReplacer;
 use AlfonsoSG\Mvc\Views\ViewEngine;
 use AlfonsoSG\Mvc\Views\ViewValueResolver;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
@@ -40,7 +40,7 @@ final class RequestHandlerTest extends TestCase
 {
     private ActionParameterBuilder $actionParameterBuilder;
     private ContainerInterface $container;
-    private Psr17Factory $requestFactory;
+    private TestPsr17Factory $requestFactory;
     private ResponseFactoryInterface $responseFactory;
     private Router $router;
     private HtmlViewEngineSettings $settings;
@@ -53,8 +53,8 @@ final class RequestHandlerTest extends TestCase
         $containerMock->method('get')->willReturn(new TestController());
         $this->actionParameterBuilder = new ActionParameterBuilder();
         $this->container = $containerMock;
-        $this->requestFactory = new Psr17Factory();
-        $this->responseFactory = new Psr17Factory();
+        $this->requestFactory = new TestPsr17Factory();
+        $this->responseFactory = new TestPsr17Factory();
         $this->router = new Router(routes: [
             Route::create(RouteMethod::Get, Path::create('/test'), TestController::class, 'index'),
             Route::create(RouteMethod::Get, Path::create('/test/redirect'), TestController::class, 'redirect'),

@@ -30,13 +30,11 @@ use AlfonsoSG\Mvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
 use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlDbClient;
 use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlMigrationRepository;
 use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
-use DI\Container;
-
-use function DI\factory;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 
 final class Dependencies
 {
-    public static function configure(Container $container): void
+    public static function configure(MutableContainerInterface $container): void
     {
         /** @var MigrationSettings $settings */
         $settings = $container->get(MigrationSettings::class);
@@ -55,19 +53,21 @@ final class Dependencies
         $container->set(FileManager::class, $container->get(DefaultFileManager::class));
         $container->set(MigrationRepository::class, $container->get(SqlMigrationRepository::class));
         $container->set(DbClient::class, $container->get(SqlDbClient::class));
+
+        /** @var MigrationRepository $repo */
+        $repo = $container->get(MigrationRepository::class);
+        /** @var DbClient $db */
+        $db = $container->get(DbClient::class);
+
         $container->set(
             MigrationExecutorHandler::class,
-            factory(function (MigrationRepository $r, DbClient $c, MigrationSettings $s) {
-                return new MigrationExecutorHandler($r, $c, $s->database);
-            }),
+            new MigrationExecutorHandler($repo, $db, $settings->database),
         );
         $container->set(MigrationExecutor::class, $container->get(MigrationExecutorHandler::class));
         $container->set(MigrationFileManager::class, $container->get(MigrationFileManagerHandler::class));
         $container->set(
             RollbackExecutorHandler::class,
-            factory(function (DbClient $c, MigrationSettings $s) {
-                return new RollbackExecutorHandler($c, $s->database);
-            }),
+            new RollbackExecutorHandler($db, $settings->database),
         );
         $container->set(RollbackExecutor::class, $container->get(RollbackExecutorHandler::class));
         $container->set(RunMigrations::class, $container->get(RunMigrationsHandler::class));
@@ -75,9 +75,7 @@ final class Dependencies
         $container->set(SchemaComparator::class, $container->get(SchemaComparatorHandler::class));
         $container->set(
             TestMigrationExecutorHandler::class,
-            factory(function (DbClient $c, MigrationSettings $s) {
-                return new TestMigrationExecutorHandler($c, $s->database);
-            }),
+            new TestMigrationExecutorHandler($db, $settings->database),
         );
         $container->set(TestMigrationExecutor::class, $container->get(TestMigrationExecutorHandler::class));
         $container->set(DatabaseBackupManager::class, $container->get(ShellDatabaseBackupManager::class));

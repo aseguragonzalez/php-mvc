@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace {{namespace}}\BackgroundTasks;
 
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksRuntime;
 use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksSettings;
 use AlfonsoSG\Mvc\LoggerSettings;
@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 
 final class {{name}}BackgroundTasksBootstrap
 {
-    public static function register(Container $container, string $basePath): void
+    public static function register(MutableContainerInterface $container, string $basePath): void
     {
         $handlerMap = [
             // 'task_type' => TaskHandlerClass::class,

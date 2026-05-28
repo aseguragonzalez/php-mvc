@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace AlfonsoSG\Mvc\Migrations;
 
 use AlfonsoSG\Mvc\LoggerSettings;
-use DI\Container;
+use AlfonsoSG\Mvc\MutableContainerInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
@@ -15,7 +15,7 @@ use Psr\Log\LoggerInterface;
 
 final class MigrationBootstrap
 {
-    public static function registerFromEnvironment(Container $container): void
+    public static function registerFromEnvironment(MutableContainerInterface $container): void
     {
         $container->set(
             LoggerSettings::class,
