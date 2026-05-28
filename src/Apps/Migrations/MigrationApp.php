@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations;
+namespace PhpMvc\Migrations;
 
-use AlfonsoSG\Mvc\Application;
-use AlfonsoSG\Mvc\Migrations\Application\RunMigrations;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigration;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigrationCommand;
+use PhpMvc\Application;
+use PhpMvc\Migrations\Application\RunMigrations;
+use PhpMvc\Migrations\Application\TestMigration;
+use PhpMvc\Migrations\Application\TestMigrationCommand;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 

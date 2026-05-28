@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Responses\Headers;
+namespace PhpMvc\Responses\Headers;
 
 final readonly class LastModified extends Header
 {

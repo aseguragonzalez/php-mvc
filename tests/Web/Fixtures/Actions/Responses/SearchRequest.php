@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions\Responses;
+namespace Tests\Unit\PhpMvc\Fixtures\Actions\Responses;
 
 final class SearchRequest
 {

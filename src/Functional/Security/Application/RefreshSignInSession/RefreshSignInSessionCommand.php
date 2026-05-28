@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\RefreshSignInSession;
+namespace PhpMvc\Security\Application\RefreshSignInSession;
 
 final readonly class RefreshSignInSessionCommand
 {

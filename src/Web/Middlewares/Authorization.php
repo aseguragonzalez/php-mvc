@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Middlewares;
+namespace PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\AuthSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\Headers\Location;
-use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Routes\AuthenticationRequiredException;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Routes\Router;
+use PhpMvc\AuthSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\Headers\Location;
+use PhpMvc\Responses\Headers\SetCookie;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Routes\AuthenticationRequiredException;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Routes\Router;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

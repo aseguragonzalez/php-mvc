@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\AuthSettings;
-use AlfonsoSG\Mvc\Middlewares\Authentication;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\IdentityManager;
+use PhpMvc\AuthSettings;
+use PhpMvc\Middlewares\Authentication;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\IdentityManager;
 use Tests\Support\Psr7\TestPsr17Factory;
 use Tests\Support\Psr7\TestServerRequest;
 use PHPUnit\Framework\TestCase;

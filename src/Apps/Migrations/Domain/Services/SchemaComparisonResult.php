@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Services;
+namespace PhpMvc\Migrations\Domain\Services;
 
 final class SchemaComparisonResult
 {

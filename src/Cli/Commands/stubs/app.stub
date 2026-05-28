@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace {{namespace}};
 
-use AlfonsoSG\Mvc\MutableContainerInterface;
-use AlfonsoSG\Mvc\MvcWebApp;
-use AlfonsoSG\Mvc\Routes\Router;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\MvcWebApp;
+use PhpMvc\Routes\Router;
 use {{namespace}}\Controllers\RouterBuilder;
 
 final class {{name}}App extends MvcWebApp

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignUp;
+namespace PhpMvc\Security\Application\SignUp;
 
 interface SignUp
 {

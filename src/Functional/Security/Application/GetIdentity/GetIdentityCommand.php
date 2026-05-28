@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\GetIdentity;
+namespace PhpMvc\Security\Application\GetIdentity;
 
 final readonly class GetIdentityCommand
 {

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks;
+namespace PhpMvc\BackgroundTasks;
 
-use AlfonsoSG\Mvc\Application;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksCommand;
+use PhpMvc\Application;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksCommand;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Routes;
+namespace PhpMvc\Routes;
 
 final class InvalidAction extends \Exception
 {

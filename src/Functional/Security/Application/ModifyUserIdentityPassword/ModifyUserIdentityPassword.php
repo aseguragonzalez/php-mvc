@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword;
+namespace PhpMvc\Security\Application\ModifyUserIdentityPassword;
 
 interface ModifyUserIdentityPassword
 {

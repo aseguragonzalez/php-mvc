@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Config\MvcConfig;
+use PhpMvc\Config\MvcConfig;
 
 final class MigrationsLeafPathResolver
 {

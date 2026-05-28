@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Responses;
+namespace PhpMvc\Responses;
 
 enum StatusCode: int
 {

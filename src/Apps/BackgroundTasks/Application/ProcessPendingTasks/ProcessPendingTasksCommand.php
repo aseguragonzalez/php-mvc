@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks;
+namespace PhpMvc\BackgroundTasks\Application\ProcessPendingTasks;
 
 final readonly class ProcessPendingTasksCommand
 {

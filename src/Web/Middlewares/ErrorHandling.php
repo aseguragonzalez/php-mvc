@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Middlewares;
+namespace PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\ErrorMapping;
-use AlfonsoSG\Mvc\ErrorSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Views\ViewEngine;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\ErrorMapping;
+use PhpMvc\ErrorSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Views\ViewEngine;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Actions;
+namespace PhpMvc\Actions;
 
 #[\Attribute(\Attribute::TARGET_PARAMETER)]
 final class ArrayOf

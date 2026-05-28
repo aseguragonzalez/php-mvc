@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Infrastructure;
+namespace Tests\Unit\PhpMvc\Security\Infrastructure;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\CurrentIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlSignInSessionRepository;
+use PhpMvc\Security\Domain\Entities\CurrentIdentity;
+use PhpMvc\Security\Domain\Entities\SignInChallenge;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Infrastructure\SqlSignInSessionRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

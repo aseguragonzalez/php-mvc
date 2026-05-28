@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Requests;
+namespace PhpMvc\Requests;
 
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Identity;
 
 final class RequestContext
 {

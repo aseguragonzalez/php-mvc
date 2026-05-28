@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Application;
+namespace PhpMvc\Migrations\Application;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Services\DatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScopeFactory;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaComparator;
+use PhpMvc\Migrations\Domain\Services\DatabaseBackupManager;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManager;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScopeFactory;
+use PhpMvc\Migrations\Domain\Services\SchemaComparator;
 
 final readonly class TestMigrationHandler implements TestMigration
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignIn;
+namespace PhpMvc\Security\Application\SignIn;
 
-use AlfonsoSG\Mvc\Security\Challenge;
+use PhpMvc\Security\Challenge;
 
 interface SignIn
 {

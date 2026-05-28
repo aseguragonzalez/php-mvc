@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations;
+namespace PhpMvc\Migrations;
 
-use AlfonsoSG\Mvc\LoggerSettings;
-use AlfonsoSG\Mvc\MutableContainerInterface;
+use PhpMvc\LoggerSettings;
+use PhpMvc\MutableContainerInterface;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;

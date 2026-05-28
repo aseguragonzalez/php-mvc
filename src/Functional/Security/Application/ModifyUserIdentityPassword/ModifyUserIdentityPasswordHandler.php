@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword;
+namespace PhpMvc\Security\Application\ModifyUserIdentityPassword;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserIsNotFoundException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\Domain\Exceptions\UserIsNotFoundException;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 
 final readonly class ModifyUserIdentityPasswordHandler implements ModifyUserIdentityPassword
 {

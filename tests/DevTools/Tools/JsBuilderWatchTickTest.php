@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Tools;
+namespace Tests\Unit\PhpMvc\Tools;
 
-use AlfonsoSG\Mvc\Tools\JsBuilder;
+use PhpMvc\Tools\JsBuilder;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Middlewares;
+namespace PhpMvc\Middlewares;
 
 use Psr\Http\Server\MiddlewareInterface;
 

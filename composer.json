@@ -7,7 +7,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "AlfonsoSG\\Mvc\\": [
+            "PhpMvc\\": [
                 "src/",
                 "src/Web/",
                 "src/Apps/",
@@ -20,7 +20,7 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\Support\\": "tests/Support/",
-            "Tests\\Unit\\AlfonsoSG\\Mvc\\": [
+            "Tests\\Unit\\PhpMvc\\": [
                 "tests/Web/",
                 "tests/Apps/",
                 "tests/Cli/",
@@ -57,8 +57,7 @@
         "friendsofphp/php-cs-fixer": "^3.95",
         "mikey179/vfsstream": "^1.6",
         "phpstan/phpstan": "^2.1",
-        "phpunit/phpunit": "^12.5",
-        "squizlabs/php_codesniffer": "^4.0"
+        "phpunit/phpunit": "^12.5"
     },
     "scripts": {
         "test": "phpunit",

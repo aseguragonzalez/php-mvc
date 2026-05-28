@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Routes;
+namespace Tests\Unit\PhpMvc\Routes;
 
-use AlfonsoSG\Mvc\Routes\AccessDeniedException;
-use AlfonsoSG\Mvc\Routes\AuthenticationRequiredException;
-use AlfonsoSG\Mvc\Routes\InvalidAction;
-use AlfonsoSG\Mvc\Routes\InvalidController;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Routes\AccessDeniedException;
+use PhpMvc\Routes\AuthenticationRequiredException;
+use PhpMvc\Routes\InvalidAction;
+use PhpMvc\Routes\InvalidController;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Security\Identity;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Routes\Route\RouteController;
+use Tests\Unit\PhpMvc\Fixtures\Routes\Route\RouteController;
 
 /**
  * @internal

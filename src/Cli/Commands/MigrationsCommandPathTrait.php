@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
 /**
  * Resolves the leaf `migrations` directory from --path or from mvc.config.json via --app-path.

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Actions\Responses;
+namespace Tests\Unit\PhpMvc\Actions\Responses;
 
-use AlfonsoSG\Mvc\Actions\Responses\RedirectTo;
-use AlfonsoSG\Mvc\Responses\Headers\AccessControlAllowMethods;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
-use AlfonsoSG\Mvc\Responses\Headers\Location;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Actions\Responses\RedirectTo;
+use PhpMvc\Responses\Headers\AccessControlAllowMethods;
+use PhpMvc\Responses\Headers\ContentType;
+use PhpMvc\Responses\Headers\Location;
+use PhpMvc\Responses\StatusCode;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 

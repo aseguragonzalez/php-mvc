@@ -5,10 +5,10 @@ declare(strict_types=1);
 require_once __DIR__ . '/{{autoloadPath}}';
 
 use DI\Container as DiContainer;
-use AlfonsoSG\Mvc\MutableContainerInterface;
-use AlfonsoSG\Mvc\Config\MvcConfig;
-use AlfonsoSG\Mvc\Migrations\MigrationApp;
-use AlfonsoSG\Mvc\Migrations\MigrationBootstrap;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\Config\MvcConfig;
+use PhpMvc\Migrations\MigrationApp;
+use PhpMvc\Migrations\MigrationBootstrap;
 
 // __DIR__ points to the migration module folder under the app root.
 $appBasePath = dirname(__DIR__);

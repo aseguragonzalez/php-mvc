@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Files;
+namespace PhpMvc\Files;
 
 interface FileManager
 {

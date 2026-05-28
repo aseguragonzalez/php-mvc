@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Views;
+namespace Tests\Unit\PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Views\ModelReplacer;
-use AlfonsoSG\Mvc\Views\ViewValueResolver;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Views\ModelReplacer;
+use PhpMvc\Views\ViewValueResolver;
 use PHPUnit\Framework\TestCase;
 
 /**

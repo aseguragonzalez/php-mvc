@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace {{namespace}}\BackgroundTasks;
 
-use AlfonsoSG\Mvc\MutableContainerInterface;
-use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksRuntime;
-use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksSettings;
-use AlfonsoSG\Mvc\LoggerSettings;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\BackgroundTasks\BackgroundTasksRuntime;
+use PhpMvc\BackgroundTasks\BackgroundTasksSettings;
+use PhpMvc\LoggerSettings;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;

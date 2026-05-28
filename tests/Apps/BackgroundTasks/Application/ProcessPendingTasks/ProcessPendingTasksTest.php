@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Application\ProcessPendingTasks;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksCommand;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Repositories\TaskRepository;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskBus;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TransactionRunner;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksCommand;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksHandler;
+use PhpMvc\BackgroundTasks\Domain\Repositories\TaskRepository;
+use PhpMvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Domain\TaskBus;
+use PhpMvc\BackgroundTasks\Domain\TransactionRunner;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;

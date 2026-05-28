@@ -1,9 +1,9 @@
-# alfonsosegura/mvc-framework
+# aseguragonzalez/php-mvc
 
-[![CI](https://github.com/aseguragonzalez/mvc-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/aseguragonzalez/mvc-framework/actions/workflows/ci.yml)
-[![Latest Version](https://img.shields.io/packagist/v/alfonsosegura/mvc-framework.svg)](https://packagist.org/packages/alfonsosegura/mvc-framework)
-[![PHP Version](https://img.shields.io/packagist/php-v/alfonsosegura/mvc-framework.svg)](https://packagist.org/packages/alfonsosegura/mvc-framework)
-[![License](https://img.shields.io/github/license/aseguragonzalez/mvc-framework.svg)](LICENSE)
+[![CI](https://github.com/aseguragonzalez/php-mvc/actions/workflows/ci.yml/badge.svg)](https://github.com/aseguragonzalez/php-mvc/actions/workflows/ci.yml)
+[![Latest Version](https://img.shields.io/packagist/v/aseguragonzalez/php-mvc.svg)](https://packagist.org/packages/aseguragonzalez/php-mvc)
+[![PHP Version](https://img.shields.io/packagist/php-v/aseguragonzalez/php-mvc.svg)](https://packagist.org/packages/aseguragonzalez/php-mvc)
+[![License](https://img.shields.io/github/license/aseguragonzalez/php-mvc.svg)](LICENSE)
 
 Lightweight PHP 8.3+ MVC framework built around DDD and Hexagonal Architecture. Provides a PSR-7/PSR-15 web layer, a dependency-injection container, a CLI scaffolding tool, and optional modules for database migrations, background tasks, and authentication.
 
@@ -15,7 +15,7 @@ Lightweight PHP 8.3+ MVC framework built around DDD and Hexagonal Architecture. 
 ## Installation
 
 ```bash
-composer require alfonsosegura/mvc-framework
+composer require aseguragonzalez/php-mvc
 ```
 
 ## Quickstart
@@ -31,8 +31,8 @@ This generates the folder structure, `mvc.config.json`, and a bootstrap file.
 ### 2. Define a controller
 
 ```php
-use AlfonsoSG\Mvc\Controllers\Controller;
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
+use PhpMvc\Controllers\Controller;
+use PhpMvc\Actions\Responses\ActionResponse;
 
 class HomeController extends Controller
 {
@@ -52,7 +52,7 @@ class HomeController extends Controller
 ### 3. Register routes
 
 ```php
-use AlfonsoSG\Mvc\Routes\Router;
+use PhpMvc\Routes\Router;
 
 $router = new Router();
 $router->get('/', HomeController::class, 'index');
@@ -62,7 +62,7 @@ $router->get('/items/{id}', HomeController::class, 'show');
 ### 4. Handle requests
 
 ```php
-use AlfonsoSG\Mvc\Requests\RequestHandler;
+use PhpMvc\Requests\RequestHandler;
 
 $handler = new RequestHandler($container, $router);
 $response = $handler->handle($serverRequest);
@@ -88,7 +88,7 @@ The `mvc` binary provides scaffolding and asset bundling commands:
 
 ### Security
 
-Sign-up, sign-in, password reset, and session refresh use cases are provided as application services under `AlfonsoSG\Mvc\Security\Application\`. Wire them through the DI container and expose them via controllers.
+Sign-up, sign-in, password reset, and session refresh use cases are provided as application services under `PhpMvc\Security\Application\`. Wire them through the DI container and expose them via controllers.
 
 ### Migrations
 
@@ -96,7 +96,7 @@ SQL migrations are stored as timestamped folders. See [`src/Apps/HowToMigrations
 
 ### Background tasks
 
-Register tasks and process them via `AlfonsoSG\Mvc\BackgroundTasks\Application\`. See [`src/Apps/HowToBackgroundTasks.md`](src/Apps/HowToBackgroundTasks.md).
+Register tasks and process them via `PhpMvc\BackgroundTasks\Application\`. See [`src/Apps/HowToBackgroundTasks.md`](src/Apps/HowToBackgroundTasks.md).
 
 ### Asset bundling
 

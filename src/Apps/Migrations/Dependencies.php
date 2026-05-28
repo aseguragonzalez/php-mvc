@@ -2,35 +2,35 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations;
+namespace PhpMvc\Migrations;
 
-use AlfonsoSG\Mvc\Files\DefaultFileManager;
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\Migrations\Application\RunMigrations;
-use AlfonsoSG\Mvc\Migrations\Application\RunMigrationsHandler;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigration;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigrationHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Clients\DbClient;
-use AlfonsoSG\Mvc\Migrations\Domain\Repositories\MigrationRepository;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\DatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationExecutorHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManagerHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScopeFactory;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutorHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaComparator;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaComparatorHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\TestMigrationExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\TestMigrationExecutorHandler;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\MigrationTestScopeFactoryHandler;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlDbClient;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlMigrationRepository;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
-use AlfonsoSG\Mvc\MutableContainerInterface;
+use PhpMvc\Files\DefaultFileManager;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Migrations\Application\RunMigrations;
+use PhpMvc\Migrations\Application\RunMigrationsHandler;
+use PhpMvc\Migrations\Application\TestMigration;
+use PhpMvc\Migrations\Application\TestMigrationHandler;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Repositories\MigrationRepository;
+use PhpMvc\Migrations\Domain\Services\DatabaseBackupManager;
+use PhpMvc\Migrations\Domain\Services\MigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\MigrationExecutorHandler;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManager;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManagerHandler;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScopeFactory;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutor;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutorHandler;
+use PhpMvc\Migrations\Domain\Services\SchemaComparator;
+use PhpMvc\Migrations\Domain\Services\SchemaComparatorHandler;
+use PhpMvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutorHandler;
+use PhpMvc\Migrations\Infrastructure\MigrationTestScopeFactoryHandler;
+use PhpMvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
+use PhpMvc\Migrations\Infrastructure\SqlDbClient;
+use PhpMvc\Migrations\Infrastructure\SqlMigrationRepository;
+use PhpMvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
+use PhpMvc\MutableContainerInterface;
 
 final class Dependencies
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions;
+namespace Tests\Unit\PhpMvc\Fixtures\Actions;
 
 final class WithoutDocsObject
 {

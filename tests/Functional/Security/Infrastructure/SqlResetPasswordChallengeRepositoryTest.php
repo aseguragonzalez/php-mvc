@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Infrastructure;
+namespace Tests\Unit\PhpMvc\Security\Infrastructure;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\ResetPasswordChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Entities\ResetPasswordChallenge;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

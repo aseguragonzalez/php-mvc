@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Middlewares\Localization;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Middlewares\Localization;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\Headers\SetCookie;
+use PhpMvc\Responses\StatusCode;
 use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;

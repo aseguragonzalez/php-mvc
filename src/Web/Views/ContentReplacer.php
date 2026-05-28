@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Views;
+namespace PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContext;
 
 interface ContentReplacer
 {

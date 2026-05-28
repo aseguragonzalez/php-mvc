@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignIn;
+namespace PhpMvc\Security\Application\SignIn;
 
 final readonly class SignInCommand
 {

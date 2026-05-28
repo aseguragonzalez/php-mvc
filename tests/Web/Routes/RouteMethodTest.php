@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Routes;
+namespace Tests\Unit\PhpMvc\Routes;
 
-use AlfonsoSG\Mvc\Routes\RouteMethod;
+use PhpMvc\Routes\RouteMethod;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScope;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScopeFactory;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutorHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\TestMigrationExecutorHandler;
-use AlfonsoSG\Mvc\Migrations\MigrationSettings;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScope;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScopeFactory;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutorHandler;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutorHandler;
+use PhpMvc\Migrations\MigrationSettings;
 
 final readonly class MigrationTestScopeFactoryHandler implements MigrationTestScopeFactory
 {

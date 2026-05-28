@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Repositories;
+namespace PhpMvc\Security\Domain\Repositories;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\ResetPasswordChallenge;
+use PhpMvc\Security\Domain\Entities\ResetPasswordChallenge;
 
 interface ResetPasswordChallengeRepository
 {

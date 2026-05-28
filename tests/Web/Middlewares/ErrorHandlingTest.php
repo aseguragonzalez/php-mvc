@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\ErrorMapping;
-use AlfonsoSG\Mvc\ErrorSettings;
-use AlfonsoSG\Mvc\Middlewares\ErrorHandling;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Views\ViewEngine;
+use PhpMvc\ErrorMapping;
+use PhpMvc\ErrorSettings;
+use PhpMvc\Middlewares\ErrorHandling;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Views\ViewEngine;
 use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

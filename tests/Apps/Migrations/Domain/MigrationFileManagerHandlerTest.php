@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Domain;
+namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManagerHandler;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManagerHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Routes;
+namespace Tests\Unit\PhpMvc\Routes;
 
-use AlfonsoSG\Mvc\Routes\DuplicatedRouteException;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteDoesNotFoundException;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Routes\Router;
+use PhpMvc\Routes\DuplicatedRouteException;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteDoesNotFoundException;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Routes\Router;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Routes\Router\RouterController;
+use Tests\Unit\PhpMvc\Fixtures\Routes\Router\RouterController;
 
 /**
  * @internal

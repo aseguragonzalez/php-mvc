@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Requests;
+namespace Tests\Unit\PhpMvc\Fixtures\Requests;
 
 final class FindRequest
 {

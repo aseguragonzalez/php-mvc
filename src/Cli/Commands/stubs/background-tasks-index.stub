@@ -5,9 +5,9 @@ declare(strict_types=1);
 require_once __DIR__ . '/{{autoloadPath}}';
 
 use DI\Container as DiContainer;
-use AlfonsoSG\Mvc\MutableContainerInterface;
-use AlfonsoSG\Mvc\BackgroundTasks\BaseBackgroundTasksApp;
-use AlfonsoSG\Mvc\Config\MvcConfig;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\BackgroundTasks\BaseBackgroundTasksApp;
+use PhpMvc\Config\MvcConfig;
 use {{namespace}}\BackgroundTasks\{{name}}BackgroundTasksBootstrap;
 
 // __DIR__ points to: {appRoot}/BackgroundTasks

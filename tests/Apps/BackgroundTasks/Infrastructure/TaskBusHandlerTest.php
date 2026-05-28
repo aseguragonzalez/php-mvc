@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\TaskBusHandler;
+use PhpMvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Domain\TaskHandler;
+use PhpMvc\BackgroundTasks\Domain\TaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Infrastructure\TaskBusHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Domain\Repositories;
+namespace PhpMvc\BackgroundTasks\Domain\Repositories;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Domain\Task;
 
 interface TaskRepository
 {

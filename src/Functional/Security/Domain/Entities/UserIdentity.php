@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Entities;
+namespace PhpMvc\Security\Domain\Entities;
 
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\InvalidCredentialsException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserBlockedException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserIsNotActiveException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UsernameIsNotEmailException;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Domain\Exceptions\InvalidCredentialsException;
+use PhpMvc\Security\Domain\Exceptions\UserBlockedException;
+use PhpMvc\Security\Domain\Exceptions\UserIsNotActiveException;
+use PhpMvc\Security\Domain\Exceptions\UsernameIsNotEmailException;
+use PhpMvc\Security\Identity;
 
 final readonly class UserIdentity implements Identity
 {

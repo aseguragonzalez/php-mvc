@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Application;
+namespace PhpMvc\Migrations\Application;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Exceptions\MigrationException;
-use AlfonsoSG\Mvc\Migrations\Domain\Repositories\MigrationRepository;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutor;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Exceptions\MigrationException;
+use PhpMvc\Migrations\Domain\Repositories\MigrationRepository;
+use PhpMvc\Migrations\Domain\Services\MigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManager;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutor;
 
 final readonly class RunMigrationsHandler implements RunMigrations
 {

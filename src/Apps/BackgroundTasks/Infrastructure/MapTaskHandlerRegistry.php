@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Domain\TaskHandler;
+use PhpMvc\BackgroundTasks\Domain\TaskHandlerRegistry;
 
 final class MapTaskHandlerRegistry implements TaskHandlerRegistry
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Exceptions;
+namespace PhpMvc\Security\Domain\Exceptions;
 
 final class UserIsNotFoundException extends \Exception
 {

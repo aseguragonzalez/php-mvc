@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Repositories;
+namespace PhpMvc\Migrations\Domain\Repositories;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Entities\Migration;
 
 interface MigrationRepository
 {

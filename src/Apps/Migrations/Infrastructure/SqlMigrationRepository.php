@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
-use AlfonsoSG\Mvc\Migrations\Domain\Repositories\MigrationRepository;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Repositories\MigrationRepository;
 
 final readonly class SqlMigrationRepository implements MigrationRepository
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
 /**
  * Resolves MVC app root from `--app-path` (default: current directory).

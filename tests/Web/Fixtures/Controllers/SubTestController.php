@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers;
+namespace Tests\Unit\PhpMvc\Fixtures\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
+use PhpMvc\Actions\Responses\ActionResponse;
 
 final class SubTestController extends TestController
 {

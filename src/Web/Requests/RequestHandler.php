@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Requests;
+namespace PhpMvc\Requests;
 
-use AlfonsoSG\Mvc\Actions\ActionParameterBuilder;
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Actions\Responses\LocalRedirectTo;
-use AlfonsoSG\Mvc\Actions\Responses\RedirectTo;
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Routes\Router;
-use AlfonsoSG\Mvc\Views\ViewEngine;
+use PhpMvc\Actions\ActionParameterBuilder;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Actions\Responses\LocalRedirectTo;
+use PhpMvc\Actions\Responses\RedirectTo;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Routes\Router;
+use PhpMvc\Views\ViewEngine;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;

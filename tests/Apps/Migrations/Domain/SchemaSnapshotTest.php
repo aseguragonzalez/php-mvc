@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Domain;
+namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\ColumnDefinition;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\TableDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\ColumnDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
+use PhpMvc\Migrations\Domain\ValueObjects\TableDefinition;
 use PHPUnit\Framework\TestCase;
 
 /**

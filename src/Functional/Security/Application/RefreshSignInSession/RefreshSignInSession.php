@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\RefreshSignInSession;
+namespace PhpMvc\Security\Application\RefreshSignInSession;
 
-use AlfonsoSG\Mvc\Security\Challenge;
+use PhpMvc\Security\Challenge;
 
 interface RefreshSignInSession
 {

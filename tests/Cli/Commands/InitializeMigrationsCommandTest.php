@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\ConsoleOutput;
-use AlfonsoSG\Mvc\Commands\InitializeMigrationsCommand;
-use AlfonsoSG\Mvc\Commands\MigrationsEnableCommand;
-use AlfonsoSG\Mvc\Commands\StubGenerator;
+use PhpMvc\Commands\ConsoleOutput;
+use PhpMvc\Commands\InitializeMigrationsCommand;
+use PhpMvc\Commands\MigrationsEnableCommand;
+use PhpMvc\Commands\StubGenerator;
 use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 

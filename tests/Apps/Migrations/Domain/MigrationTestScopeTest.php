@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Domain;
+namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScope;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\TestMigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScope;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutor;
+use PhpMvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutor;
 use PHPUnit\Framework\TestCase;
 
 /**

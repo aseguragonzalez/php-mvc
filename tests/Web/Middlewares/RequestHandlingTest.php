@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\Middlewares\RequestHandling;
+use PhpMvc\Middlewares\RequestHandling;
 use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;

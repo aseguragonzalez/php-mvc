@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Repositories;
+namespace PhpMvc\Security\Domain\Repositories;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
 
 interface UserIdentityRepository
 {

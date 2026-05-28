@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Exceptions;
+namespace PhpMvc\Migrations\Domain\Exceptions;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Entities\Script;
 
 final class MigrationException extends \Exception
 {

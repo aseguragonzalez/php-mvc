@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Actions\Responses;
+namespace Tests\Unit\PhpMvc\Actions\Responses;
 
-use AlfonsoSG\Mvc\Actions\Responses\LocalRedirectTo;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
+use PhpMvc\Actions\Responses\LocalRedirectTo;
+use PhpMvc\Responses\Headers\ContentType;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions\Responses\SearchRequest;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions\Responses\TestController;
+use Tests\Unit\PhpMvc\Fixtures\Actions\Responses\SearchRequest;
+use Tests\Unit\PhpMvc\Fixtures\Actions\Responses\TestController;
 
 /**
  * @internal

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions;
+namespace Tests\Unit\PhpMvc\Fixtures\Actions;
 
-use AlfonsoSG\Mvc\Actions\ArrayOf;
+use PhpMvc\Actions\ArrayOf;
 
 final class EmbeddedObject
 {

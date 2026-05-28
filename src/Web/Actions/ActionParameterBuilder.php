@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Actions;
+namespace PhpMvc\Actions;
 
-use AlfonsoSG\Mvc\Requests\InputNormalizer;
+use PhpMvc\Requests\InputNormalizer;
 
 final class ActionParameterBuilder
 {

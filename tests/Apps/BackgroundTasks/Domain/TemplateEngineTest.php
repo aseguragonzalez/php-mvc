@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Domain;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Domain;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TemplateEngine;
+use PhpMvc\BackgroundTasks\Domain\TemplateEngine;
 use PHPUnit\Framework\TestCase;
 
 /**

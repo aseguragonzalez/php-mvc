@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks;
+namespace PhpMvc\BackgroundTasks;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
-use AlfonsoSG\Mvc\MutableContainerInterface;
+use PhpMvc\BackgroundTasks\Domain\TaskHandler;
+use PhpMvc\BackgroundTasks\Domain\TaskHandlerRegistry;
+use PhpMvc\MutableContainerInterface;
 
 final class BackgroundTasksRuntime
 {

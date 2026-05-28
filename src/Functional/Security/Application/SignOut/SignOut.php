@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignOut;
+namespace PhpMvc\Security\Application\SignOut;
 
 interface SignOut
 {

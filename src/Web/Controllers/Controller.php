@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Controllers;
+namespace PhpMvc\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Actions\Responses\LocalRedirectTo;
-use AlfonsoSG\Mvc\Actions\Responses\RedirectTo;
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\Responses\Headers\Header;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Actions\Responses\LocalRedirectTo;
+use PhpMvc\Actions\Responses\RedirectTo;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\Responses\Headers\Header;
+use PhpMvc\Responses\StatusCode;
 
 abstract class Controller
 {

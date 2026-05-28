@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Domain\Entities;
+namespace Tests\Unit\PhpMvc\Security\Domain\Entities;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Domain\Entities\SignInChallenge;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Identity;
 use PHPUnit\Framework\TestCase;
 
 /**

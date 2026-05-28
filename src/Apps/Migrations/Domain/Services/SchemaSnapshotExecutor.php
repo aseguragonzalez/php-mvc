@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Services;
+namespace PhpMvc\Migrations\Domain\Services;
 
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
+use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
 
 interface SchemaSnapshotExecutor
 {

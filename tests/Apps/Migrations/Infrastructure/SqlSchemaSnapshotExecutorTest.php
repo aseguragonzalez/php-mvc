@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace Tests\Unit\PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
-use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
+use PhpMvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for considering contributing to `alfonsosegura/mvc-framework`.
+Thank you for considering contributing to `aseguragonzalez/php-mvc`.
 
 ## Requirements
 
@@ -10,8 +10,8 @@ Thank you for considering contributing to `alfonsosegura/mvc-framework`.
 ## Getting started
 
 ```bash
-git clone https://github.com/aseguragonzalez/mvc-framework.git
-cd mvc-framework
+git clone https://github.com/aseguragonzalez/php-mvc.git
+cd php-mvc
 make install
 ```
 

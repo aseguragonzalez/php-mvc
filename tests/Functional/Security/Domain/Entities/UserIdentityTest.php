@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Domain\Entities;
+namespace Tests\Unit\PhpMvc\Security\Domain\Entities;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\InvalidCredentialsException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserBlockedException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserIsNotActiveException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UsernameIsNotEmailException;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Exceptions\InvalidCredentialsException;
+use PhpMvc\Security\Domain\Exceptions\UserBlockedException;
+use PhpMvc\Security\Domain\Exceptions\UserIsNotActiveException;
+use PhpMvc\Security\Domain\Exceptions\UsernameIsNotEmailException;
 use PHPUnit\Framework\TestCase;
 
 /**

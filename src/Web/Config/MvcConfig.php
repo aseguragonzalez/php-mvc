@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Config;
+namespace PhpMvc\Config;
 
 final readonly class MvcConfig
 {

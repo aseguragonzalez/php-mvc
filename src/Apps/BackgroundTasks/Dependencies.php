@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks;
+namespace PhpMvc\BackgroundTasks;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\RegisterTask\RegisterTask;
-use AlfonsoSG\Mvc\BackgroundTasks\Application\RegisterTask\RegisterTaskHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Repositories\TaskRepository;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskBus;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TransactionRunner;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\MapTaskHandlerRegistry;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\PdoTransactionRunner;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\TaskBusHandler;
-use AlfonsoSG\Mvc\MutableContainerInterface;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasks;
+use PhpMvc\BackgroundTasks\Application\ProcessPendingTasks\ProcessPendingTasksHandler;
+use PhpMvc\BackgroundTasks\Application\RegisterTask\RegisterTask;
+use PhpMvc\BackgroundTasks\Application\RegisterTask\RegisterTaskHandler;
+use PhpMvc\BackgroundTasks\Domain\Repositories\TaskRepository;
+use PhpMvc\BackgroundTasks\Domain\TaskBus;
+use PhpMvc\BackgroundTasks\Domain\TaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Domain\TransactionRunner;
+use PhpMvc\BackgroundTasks\Infrastructure\MapTaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Infrastructure\PdoTransactionRunner;
+use PhpMvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
+use PhpMvc\BackgroundTasks\Infrastructure\TaskBusHandler;
+use PhpMvc\MutableContainerInterface;
 
 final class Dependencies
 {

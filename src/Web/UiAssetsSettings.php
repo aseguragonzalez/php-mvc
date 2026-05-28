@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc;
+namespace PhpMvc;
 
-use AlfonsoSG\Mvc\Config\MvcConfig;
+use PhpMvc\Config\MvcConfig;
 
 final readonly class UiAssetsSettings
 {

@@ -2,25 +2,25 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application;
+namespace Tests\Unit\PhpMvc\Security\Application;
 
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
-use AlfonsoSG\Mvc\Security\Application\DefaultIdentityManager;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentity;
-use AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPassword;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignIn;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOut;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUp;
-use AlfonsoSG\Mvc\Security\Challenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\InvalidCredentialsException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\ResetPasswordChallengeException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SignUpChallengeException;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserIsNotFoundException;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
+use PhpMvc\Security\Application\DefaultIdentityManager;
+use PhpMvc\Security\Application\GetIdentity\GetIdentity;
+use PhpMvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPassword;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
+use PhpMvc\Security\Application\SignIn\SignIn;
+use PhpMvc\Security\Application\SignOut\SignOut;
+use PhpMvc\Security\Application\SignUp\SignUp;
+use PhpMvc\Security\Challenge;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Exceptions\InvalidCredentialsException;
+use PhpMvc\Security\Domain\Exceptions\ResetPasswordChallengeException;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\Domain\Exceptions\SignUpChallengeException;
+use PhpMvc\Security\Domain\Exceptions\UserIsNotFoundException;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;

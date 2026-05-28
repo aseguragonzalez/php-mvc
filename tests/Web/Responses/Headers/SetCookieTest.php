@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Responses\Headers;
+namespace Tests\Unit\PhpMvc\Responses\Headers;
 
-use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
+use PhpMvc\Responses\Headers\SetCookie;
 use PHPUnit\Framework\TestCase;
 
 /**

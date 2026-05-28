@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Views;
+namespace Tests\Unit\PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Views\ViewValueResolver;
+use PhpMvc\Views\ViewValueResolver;
 use PHPUnit\Framework\TestCase;
 
 /**

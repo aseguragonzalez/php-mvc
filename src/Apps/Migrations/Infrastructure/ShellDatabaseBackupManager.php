@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Services\DatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\MigrationSettings;
+use PhpMvc\Migrations\Domain\Services\DatabaseBackupManager;
+use PhpMvc\Migrations\MigrationSettings;
 
 /** @note Requires MySQL/MariaDB CLI tools (`mysqldump`, `mysql`) on the server PATH. Not compatible with PostgreSQL or SQLite. */
 final readonly class ShellDatabaseBackupManager implements DatabaseBackupManager

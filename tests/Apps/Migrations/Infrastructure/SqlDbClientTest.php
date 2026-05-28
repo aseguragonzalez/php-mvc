@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace Tests\Unit\PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Infrastructure\SqlDbClient;
+use PhpMvc\Migrations\Infrastructure\SqlDbClient;
 use PHPUnit\Framework\TestCase;
 
 /**

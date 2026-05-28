@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandler;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\MapTaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Domain\TaskHandler;
+use PhpMvc\BackgroundTasks\Infrastructure\MapTaskHandlerRegistry;
 use PHPUnit\Framework\TestCase;
 
 /**

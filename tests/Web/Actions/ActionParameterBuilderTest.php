@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Actions;
+namespace Tests\Unit\PhpMvc\Actions;
 
-use AlfonsoSG\Mvc\Actions\ActionParameterBuilder;
+use PhpMvc\Actions\ActionParameterBuilder;
 use Faker\Factory as FakerFactory;
 use Faker\Generator as Faker;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions\RequestObject;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Actions\WithoutDocsObject;
+use Tests\Unit\PhpMvc\Fixtures\Actions\RequestObject;
+use Tests\Unit\PhpMvc\Fixtures\Actions\WithoutDocsObject;
 
 /**
  * @internal

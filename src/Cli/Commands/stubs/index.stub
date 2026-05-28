@@ -5,7 +5,7 @@ declare(strict_types=1);
 require_once __DIR__ . '/{{autoloadPath}}';
 
 use DI\Container as DiContainer;
-use AlfonsoSG\Mvc\MutableContainerInterface;
+use PhpMvc\MutableContainerInterface;
 use {{namespace}}\{{name}}App;
 use {{namespace}}\{{name}}Bootstrap;
 

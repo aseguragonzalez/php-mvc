@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Views;
+namespace PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestContextKeys;
+use PhpMvc\Files\FileManager;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContextKeys;
 
 final class I18nReplacer implements ContentReplacer
 {

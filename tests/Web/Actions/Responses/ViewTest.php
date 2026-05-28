@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Actions\Responses\Views;
+namespace Tests\Unit\PhpMvc\Actions\Responses\Views;
 
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\Responses\Headers\ContentType;
+use PhpMvc\Responses\StatusCode;
 use PHPUnit\Framework\TestCase;
 
 /**

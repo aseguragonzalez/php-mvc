@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\PdoTransactionRunner;
+use PhpMvc\BackgroundTasks\Infrastructure\PdoTransactionRunner;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

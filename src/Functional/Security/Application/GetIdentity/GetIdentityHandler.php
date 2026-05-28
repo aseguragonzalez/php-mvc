@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\GetIdentity;
+namespace PhpMvc\Security\Application\GetIdentity;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Identity;
 
 final readonly class GetIdentityHandler implements GetIdentity
 {

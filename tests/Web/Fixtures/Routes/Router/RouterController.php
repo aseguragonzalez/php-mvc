@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Routes\Router;
+namespace Tests\Unit\PhpMvc\Fixtures\Routes\Router;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Controllers\Controller;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Controllers\Controller;
 
 final class RouterController extends Controller
 {

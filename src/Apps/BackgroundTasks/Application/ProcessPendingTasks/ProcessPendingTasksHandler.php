@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Application\ProcessPendingTasks;
+namespace PhpMvc\BackgroundTasks\Application\ProcessPendingTasks;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Repositories\TaskRepository;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskBus;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TransactionRunner;
+use PhpMvc\BackgroundTasks\Domain\Repositories\TaskRepository;
+use PhpMvc\BackgroundTasks\Domain\TaskBus;
+use PhpMvc\BackgroundTasks\Domain\TransactionRunner;
 use Psr\Log\LoggerInterface;
 
 final readonly class ProcessPendingTasksHandler implements ProcessPendingTasks

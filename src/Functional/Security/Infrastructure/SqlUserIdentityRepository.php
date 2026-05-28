@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Infrastructure;
+namespace PhpMvc\Security\Infrastructure;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 
 final readonly class SqlUserIdentityRepository implements UserIdentityRepository
 {

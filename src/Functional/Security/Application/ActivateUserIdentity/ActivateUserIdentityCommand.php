@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity;
+namespace PhpMvc\Security\Application\ActivateUserIdentity;
 
 final readonly class ActivateUserIdentityCommand
 {

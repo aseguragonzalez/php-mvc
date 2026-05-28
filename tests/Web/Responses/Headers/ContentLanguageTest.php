@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Responses\Headers;
+namespace Tests\Unit\PhpMvc\Responses\Headers;
 
-use AlfonsoSG\Mvc\Responses\Headers\ContentLanguage;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
+use PhpMvc\Responses\Headers\ContentLanguage;
+use PhpMvc\Responses\Headers\ContentType;
 use PHPUnit\Framework\TestCase;
 
 /**

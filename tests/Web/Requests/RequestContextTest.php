@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Requests;
+namespace Tests\Unit\PhpMvc\Requests;
 
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Security\Identity;
 use PHPUnit\Framework\TestCase;
 
 /**

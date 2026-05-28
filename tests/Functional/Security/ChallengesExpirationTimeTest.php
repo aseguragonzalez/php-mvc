@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security;
+namespace Tests\Unit\PhpMvc\Security;
 
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\ChallengesExpirationTime;
 use PHPUnit\Framework\TestCase;
 
 /**

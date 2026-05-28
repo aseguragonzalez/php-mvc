@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
 final class ConsoleOutput
 {
