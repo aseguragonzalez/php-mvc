@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Middlewares;
+namespace PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestContextKeys;
-use AlfonsoSG\Mvc\Responses\Headers\ContentLanguage;
-use AlfonsoSG\Mvc\Responses\Headers\Location;
-use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContextKeys;
+use PhpMvc\Responses\Headers\ContentLanguage;
+use PhpMvc\Responses\Headers\Location;
+use PhpMvc\Responses\Headers\SetCookie;
+use PhpMvc\Responses\StatusCode;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignOut;
+namespace PhpMvc\Security\Application\SignOut;
 
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 
 final readonly class SignOutHandler implements SignOut
 {

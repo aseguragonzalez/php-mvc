@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\AuthSettings;
-use AlfonsoSG\Mvc\Middlewares\Authorization;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Routes\AccessDeniedException;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Routes\Router;
-use AlfonsoSG\Mvc\Security\Identity;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use PhpMvc\AuthSettings;
+use PhpMvc\Middlewares\Authorization;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Routes\AccessDeniedException;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Routes\Router;
+use PhpMvc\Security\Identity;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Routes\Route\RouteController;
+use Tests\Support\Psr7\TestPsr17Factory;
+use Tests\Unit\PhpMvc\Fixtures\Routes\Route\RouteController;
 
 /**
  * @internal
@@ -45,7 +45,7 @@ final class AuthorizationTest extends TestCase
         );
         $this->middleware = new Authorization(
             settings: $this->settings,
-            responseFactory: new Psr17Factory(),
+            responseFactory: new TestPsr17Factory(),
             router: self::createRouter(),
         );
     }

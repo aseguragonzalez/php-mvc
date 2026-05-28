@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Views;
+namespace Tests\Unit\PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Views\ContentReplacer;
-use AlfonsoSG\Mvc\Views\ContentReplacerPipeline;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Views\ContentReplacer;
+use PhpMvc\Views\ContentReplacerPipeline;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Views\OrderRecorder;
+use Tests\Unit\PhpMvc\Fixtures\Views\OrderRecorder;
 
 /**
  * @internal

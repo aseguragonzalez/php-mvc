@@ -2,38 +2,37 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc;
+namespace PhpMvc;
 
-use AlfonsoSG\Mvc\Files\DefaultFileManager;
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\Middlewares\Authentication;
-use AlfonsoSG\Mvc\Middlewares\Authorization;
-use AlfonsoSG\Mvc\Middlewares\CsrfProtection;
-use AlfonsoSG\Mvc\Middlewares\ErrorHandling;
-use AlfonsoSG\Mvc\Middlewares\Localization;
-use AlfonsoSG\Mvc\Middlewares\Middleware;
-use AlfonsoSG\Mvc\Middlewares\MiddlewarePipeline;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestHandler;
-use AlfonsoSG\Mvc\Routes\Router;
-use AlfonsoSG\Mvc\Views\BranchesReplacer;
-use AlfonsoSG\Mvc\Views\ContentReplacer;
-use AlfonsoSG\Mvc\Views\ContentReplacerPipeline;
-use AlfonsoSG\Mvc\Views\HtmlViewEngine;
-use AlfonsoSG\Mvc\Views\I18nReplacer;
-use AlfonsoSG\Mvc\Views\ModelReplacer;
-use AlfonsoSG\Mvc\Views\ViewEngine;
-use AlfonsoSG\Mvc\Views\ViewValueResolver;
-use DI\Container;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7Server\ServerRequestCreator;
+use PhpMvc\Files\DefaultFileManager;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Middlewares\Authentication;
+use PhpMvc\Middlewares\Authorization;
+use PhpMvc\Middlewares\CsrfProtection;
+use PhpMvc\Middlewares\ErrorHandling;
+use PhpMvc\Middlewares\Localization;
+use PhpMvc\Middlewares\Middleware;
+use PhpMvc\Middlewares\MiddlewarePipeline;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestHandler;
+use PhpMvc\Routes\Router;
+use PhpMvc\Views\BranchesReplacer;
+use PhpMvc\Views\ContentReplacer;
+use PhpMvc\Views\ContentReplacerPipeline;
+use PhpMvc\Views\HtmlViewEngine;
+use PhpMvc\Views\I18nReplacer;
+use PhpMvc\Views\ModelReplacer;
+use PhpMvc\Views\ViewEngine;
+use PhpMvc\Views\ViewValueResolver;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 
 /**
  * The base class for all MVC Web applications.
  */
-abstract class MvcWebApp extends Application
+abstract class MvcWebApp implements RequestHandlerInterface
 {
     /**
      * @param string                          $basePath              the base path of the application
@@ -43,31 +42,27 @@ abstract class MvcWebApp extends Application
      * @param bool                            $enableCsrfProtection  whether to validate CSRF tokens on state-changing requests
      */
     protected function __construct(
-        private readonly Container $diContainer,
-        string $basePath,
+        private readonly MutableContainerInterface $diContainer,
+        protected string $basePath,
         private array $middlewares = [],
         private bool $requireAuthentication = false,
         private bool $requireAuthorization = false,
         private bool $enableCsrfProtection = false,
-    ) {
-        parent::__construct($diContainer, $basePath);
-    }
+    ) {}
 
-    /**
-     * @param null|int      $argc The number of arguments passed to the application. Default is null.
-     * @param array<string> $argv The arguments to pass to the application. Default is an empty array.
-     *
-     * @return int the exit code of the application
-     */
-    public function run(?int $argc = null, array $argv = []): int
+    public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $requestContext = new RequestContext();
         $this->diContainer->set(RequestContext::class, $requestContext);
         $this->configureMvc();
         $this->buildMiddlewareChain();
-        $this->handleRequest($requestContext);
 
-        return 0;
+        $pipeline = $this->diContainer->get(RequestHandlerInterface::class);
+        if (!$pipeline instanceof RequestHandlerInterface) {
+            throw new \RuntimeException('RequestHandlerInterface not found in container');
+        }
+
+        return $pipeline->handle($request->withAttribute(RequestContext::class, $requestContext));
     }
 
     /**
@@ -119,34 +114,42 @@ abstract class MvcWebApp extends Application
         }
 
         if ($this->requireAuthorization && $this->requireAuthentication) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(Authorization::class), $pipeline);
+            /** @var Middleware $authz */
+            $authz = $this->diContainer->get(Authorization::class);
+            $pipeline = new MiddlewarePipeline($authz, $pipeline);
         }
 
         if ($this->requireAuthentication) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(Authentication::class), $pipeline);
+            /** @var Middleware $authn */
+            $authn = $this->diContainer->get(Authentication::class);
+            $pipeline = new MiddlewarePipeline($authn, $pipeline);
         }
 
         if ($this->enableCsrfProtection) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(CsrfProtection::class), $pipeline);
+            /** @var Middleware $csrf */
+            $csrf = $this->diContainer->get(CsrfProtection::class);
+            $pipeline = new MiddlewarePipeline($csrf, $pipeline);
         }
 
-        $pipeline = new MiddlewarePipeline($this->diContainer->get(Localization::class), $pipeline);
-        $pipeline = new MiddlewarePipeline($this->diContainer->get(ErrorHandling::class), $pipeline);
+        /** @var Middleware $localization */
+        $localization = $this->diContainer->get(Localization::class);
+        $pipeline = new MiddlewarePipeline($localization, $pipeline);
+
+        /** @var Middleware $errorHandling */
+        $errorHandling = $this->diContainer->get(ErrorHandling::class);
+        $pipeline = new MiddlewarePipeline($errorHandling, $pipeline);
 
         $this->diContainer->set(RequestHandlerInterface::class, $pipeline);
     }
 
     private function configureMvc(): void
     {
-        $psr17Factory = new Psr17Factory();
-        $this->diContainer->set(Psr17Factory::class, $psr17Factory);
-        $this->diContainer->set(ResponseFactoryInterface::class, $psr17Factory);
-        $this->diContainer->set(ServerRequestCreator::class, new ServerRequestCreator(
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-            $psr17Factory,
-        ));
+        $responseFactory = $this->diContainer->get(ResponseFactoryInterface::class);
+        if (!$responseFactory instanceof ResponseFactoryInterface) {
+            throw new \RuntimeException(
+                'ResponseFactoryInterface must be registered in the container before running the application.'
+            );
+        }
         $this->diContainer->set(Router::class, $this->router());
         $this->diContainer->set(FileManager::class, $this->diContainer->get(DefaultFileManager::class));
         $resolver = new ViewValueResolver();
@@ -165,31 +168,5 @@ abstract class MvcWebApp extends Application
         );
         $this->diContainer->set(ViewEngine::class, $this->diContainer->get(HtmlViewEngine::class));
         $this->diContainer->set(RequestHandlerInterface::class, $this->diContainer->get(RequestHandler::class));
-    }
-
-    private function handleRequest(RequestContext $requestContext): void
-    {
-        $requestCreator = $this->diContainer->get(ServerRequestCreator::class);
-        if (!$requestCreator instanceof ServerRequestCreator) {
-            throw new \RuntimeException('ServerRequestCreator not found in container');
-        }
-
-        $pipeline = $this->diContainer->get(RequestHandlerInterface::class);
-        if (!$pipeline instanceof RequestHandlerInterface) {
-            throw new \RuntimeException('RequestHandlerInterface not found in container');
-        }
-
-        $request = $requestCreator->fromGlobals();
-        $response = $pipeline->handle(
-            $request->withAttribute(RequestContext::class, $requestContext)
-        );
-
-        http_response_code($response->getStatusCode());
-        foreach ($response->getHeaders() as $name => $values) {
-            foreach ($values as $value) {
-                header("{$name}: {$value}", false);
-            }
-        }
-        echo $response->getBody();
     }
 }

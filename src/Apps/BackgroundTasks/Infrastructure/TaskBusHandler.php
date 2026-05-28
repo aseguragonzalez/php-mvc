@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskBus;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TaskHandlerRegistry;
+use PhpMvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Domain\TaskBus;
+use PhpMvc\BackgroundTasks\Domain\TaskHandlerRegistry;
 
 final readonly class TaskBusHandler implements TaskBus
 {

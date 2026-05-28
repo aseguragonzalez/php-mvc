@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers;
+namespace Tests\Unit\PhpMvc\Fixtures\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Controllers\Controller;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Controllers\Controller;
 
 final class HomeController extends Controller
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\SignUp;
+namespace Tests\Unit\PhpMvc\Security\Application\SignUp;
 
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUpCommand;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUpHandler;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignUpChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
-use AlfonsoSG\Mvc\Security\Domain\Services\ChallengeNotificator;
+use PhpMvc\Security\Application\SignUp\SignUpCommand;
+use PhpMvc\Security\Application\SignUp\SignUpHandler;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Repositories\SignUpChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Services\ChallengeNotificator;
 use PHPUnit\Framework\TestCase;
 
 /**

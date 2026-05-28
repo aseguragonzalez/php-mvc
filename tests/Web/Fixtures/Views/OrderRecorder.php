@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Views;
+namespace Tests\Unit\PhpMvc\Fixtures\Views;
 
 /** Helper for pipeline test so PHPStan knows the order property. */
 final class OrderRecorder

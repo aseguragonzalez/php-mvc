@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Infrastructure;
+namespace PhpMvc\Security\Infrastructure;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\CurrentIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Entities\CurrentIdentity;
+use PhpMvc\Security\Domain\Entities\SignInChallenge;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 
 final readonly class SqlSignInSessionRepository implements SignInSessionRepository
 {

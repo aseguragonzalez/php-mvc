@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Services;
+namespace PhpMvc\Migrations\Domain\Services;
 
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Entities\Script;
 
 final readonly class MigrationFileManagerHandler implements MigrationFileManager
 {

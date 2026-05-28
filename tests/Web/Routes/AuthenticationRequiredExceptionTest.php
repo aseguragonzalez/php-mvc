@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Routes;
+namespace Tests\Unit\PhpMvc\Routes;
 
-use AlfonsoSG\Mvc\Routes\AuthenticationRequiredException;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
+use PhpMvc\Routes\AuthenticationRequiredException;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Routes\Route\RouteController;
+use Tests\Unit\PhpMvc\Fixtures\Routes\Route\RouteController;
 
 /**
  * @internal

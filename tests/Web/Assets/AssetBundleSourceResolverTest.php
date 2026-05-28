@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Assets;
+namespace Tests\Unit\PhpMvc\Assets;
 
-use AlfonsoSG\Mvc\Assets\AssetBundleSourceResolver;
-use AlfonsoSG\Mvc\Config\AssetRouteGroup;
-use AlfonsoSG\Mvc\Config\MvcConfig;
+use PhpMvc\Assets\AssetBundleSourceResolver;
+use PhpMvc\Config\AssetRouteGroup;
+use PhpMvc\Config\MvcConfig;
 use PHPUnit\Framework\TestCase;
 
 /**

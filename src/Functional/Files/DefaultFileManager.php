@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Files;
+namespace PhpMvc\Files;
 
 final class DefaultFileManager implements FileManager
 {

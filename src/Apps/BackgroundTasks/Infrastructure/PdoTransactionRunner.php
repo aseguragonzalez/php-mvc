@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\TransactionRunner;
+use PhpMvc\BackgroundTasks\Domain\TransactionRunner;
 
 final readonly class PdoTransactionRunner implements TransactionRunner
 {

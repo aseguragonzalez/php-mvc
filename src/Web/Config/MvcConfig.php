@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Config;
+namespace PhpMvc\Config;
 
 final readonly class MvcConfig
 {
@@ -295,37 +295,14 @@ final readonly class MvcConfig
             if (!is_array($item)) {
                 continue;
             }
-            // @var array<string, mixed> $item
             $groups[] = new AssetRouteGroup(
-                label: self::getString($item, 'label', ''),
-                js: self::getStringList($item, 'js'),
-                css: self::getStringList($item, 'css'),
+                label: self::getStringFromMixed($item, 'label', ''),
+                js: self::getStringListFromMixed($item, 'js'),
+                css: self::getStringListFromMixed($item, 'css'),
             );
         }
 
         return $groups;
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     *
-     * @return list<string>
-     */
-    private static function getStringList(array $data, string $key): array
-    {
-        $value = $data[$key] ?? [];
-        if (!is_array($value)) {
-            return [];
-        }
-
-        $out = [];
-        foreach ($value as $item) {
-            if (is_string($item) && '' !== $item) {
-                $out[] = $item;
-            }
-        }
-
-        return $out;
     }
 
     /**
@@ -383,6 +360,41 @@ final readonly class MvcConfig
         }
         $value = $data[$key];
         if (!is_int($value)) {
+            return $default;
+        }
+
+        return $value;
+    }
+
+    /**
+     * @param array<mixed, mixed> $data
+     *
+     * @return list<string>
+     */
+    private static function getStringListFromMixed(array $data, string $key): array
+    {
+        $value = $data[$key] ?? [];
+        if (!is_array($value)) {
+            return [];
+        }
+
+        $out = [];
+        foreach ($value as $item) {
+            if (is_string($item) && '' !== $item) {
+                $out[] = $item;
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * @param array<mixed, mixed> $data
+     */
+    private static function getStringFromMixed(array $data, string $key, string $default): string
+    {
+        $value = $data[$key] ?? $default;
+        if (!is_string($value)) {
             return $default;
         }
 

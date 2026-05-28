@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
-
-use AlfonsoSG\Mvc\Migrations\MigrationApp;
-use AlfonsoSG\Mvc\Migrations\MigrationBootstrap;
-use DI\Container;
+namespace PhpMvc\Commands;
 
 final class MigrationsTestCommand implements Command
 {
@@ -23,15 +19,10 @@ final class MigrationsTestCommand implements Command
         ?\Closure $migrationRunner = null,
     ) {
         $this->migrationRunner = $migrationRunner ?? static function (string $basePath, array $argv): int {
-            $container = new Container();
-            MigrationBootstrap::registerFromEnvironment($container);
-            $app = new MigrationApp(
-                container: $container,
-                basePath: $basePath,
+            throw new \LogicException(
+                'No migration runner provided. Inject a \Closure(string, array<string>): int when constructing '
+                .MigrationsTestCommand::class.'. See the framework documentation for an example bootstrap.'
             );
-
-            // @var array<string> $argv
-            return $app->run(count($argv), $argv);
         };
     }
 

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\SignOut;
+namespace Tests\Unit\PhpMvc\Security\Application\SignOut;
 
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOutCommand;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOutHandler;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Application\SignOut\SignOutCommand;
+use PhpMvc\Security\Application\SignOut\SignOutHandler;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
 /**
  * Writes timestamped migration folders for the default SQL-backed background_tasks table.

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\SignIn;
+namespace Tests\Unit\PhpMvc\Security\Application\SignIn;
 
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignInCommand;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignInHandler;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Application\SignIn\SignInCommand;
+use PhpMvc\Security\Application\SignIn\SignInHandler;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity;
+namespace PhpMvc\Security\Application\ActivateUserIdentity;
 
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SignUpChallengeException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignUpChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Exceptions\SignUpChallengeException;
+use PhpMvc\Security\Domain\Repositories\SignUpChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 
 final readonly class ActivateUserIdentityHandler implements ActivateUserIdentity
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Domain;
+namespace PhpMvc\BackgroundTasks\Domain;
 
 final readonly class TemplateEngine
 {

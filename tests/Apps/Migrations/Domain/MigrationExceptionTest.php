@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Domain;
+namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
-use AlfonsoSG\Mvc\Migrations\Domain\Exceptions\MigrationException;
+use PhpMvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Exceptions\MigrationException;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Domain\Exceptions;
+namespace Tests\Unit\PhpMvc\Security\Domain\Exceptions;
 
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\UserIsNotFoundException;
+use PhpMvc\Security\Domain\Exceptions\UserIsNotFoundException;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\ConsoleOutput;
-use AlfonsoSG\Mvc\Commands\CreateBundleCommand;
-use AlfonsoSG\Mvc\Config\MvcConfig;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Commands\ConsoleOutput;
+use PhpMvc\Commands\CreateBundleCommand;
+use PhpMvc\Config\MvcConfig;
 use PHPUnit\Framework\TestCase;
 
 /**

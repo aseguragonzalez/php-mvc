@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Infrastructure;
+namespace PhpMvc\Security\Infrastructure;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignUpChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignUpChallengeRepository;
+use PhpMvc\Security\Domain\Entities\SignUpChallenge;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\SignUpChallengeRepository;
 
 final readonly class SqlSignUpChallengeRepository implements SignUpChallengeRepository
 {

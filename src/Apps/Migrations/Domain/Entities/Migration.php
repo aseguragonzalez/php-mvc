@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Entities;
+namespace PhpMvc\Migrations\Domain\Entities;
 
 final readonly class Migration
 {

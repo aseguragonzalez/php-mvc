@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\ValueObjects;
+namespace PhpMvc\Migrations\Domain\ValueObjects;
 
 final readonly class ColumnDefinition
 {

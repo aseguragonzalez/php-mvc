@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Clients;
+namespace PhpMvc\Migrations\Domain\Clients;
 
 interface DbClient
 {

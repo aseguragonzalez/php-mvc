@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Files;
+namespace Tests\Unit\PhpMvc\Files;
 
-use AlfonsoSG\Mvc\Files\DefaultFileManager;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Files\DefaultFileManager;
 use PHPUnit\Framework\TestCase;
 
 /**

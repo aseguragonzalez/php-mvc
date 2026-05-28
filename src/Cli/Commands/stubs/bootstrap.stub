@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace {{namespace}};
 
-use DI\Container;
-use AlfonsoSG\Mvc\AuthSettings;
-use AlfonsoSG\Mvc\Config\MvcConfig;
-use AlfonsoSG\Mvc\ErrorMapping;
-use AlfonsoSG\Mvc\ErrorSettings;
-use AlfonsoSG\Mvc\HtmlViewEngineSettings;
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\LoggerSettings;
-use AlfonsoSG\Mvc\UiAssetsSettings;
-use AlfonsoSG\Mvc\Routes\AccessDeniedException;
-use AlfonsoSG\Mvc\Routes\AuthenticationRequiredException;
-use AlfonsoSG\Mvc\Routes\RouteDoesNotFoundException;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\AuthSettings;
+use PhpMvc\Config\MvcConfig;
+use PhpMvc\ErrorMapping;
+use PhpMvc\ErrorSettings;
+use PhpMvc\HtmlViewEngineSettings;
+use PhpMvc\LanguageSettings;
+use PhpMvc\LoggerSettings;
+use PhpMvc\UiAssetsSettings;
+use PhpMvc\Routes\AccessDeniedException;
+use PhpMvc\Routes\AuthenticationRequiredException;
+use PhpMvc\Routes\RouteDoesNotFoundException;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
@@ -26,14 +26,14 @@ use Psr\Log\LoggerInterface;
 
 final class {{name}}Bootstrap
 {
-    public static function register(Container $container, string $basePath): void
+    public static function register(MutableContainerInterface $container, string $basePath): void
     {
         self::registerSettings($container, $basePath);
         self::registerLogging($container);
         self::registerDependencies($container);
     }
 
-    private static function registerSettings(Container $container, string $basePath): void
+    private static function registerSettings(MutableContainerInterface $container, string $basePath): void
     {
         $container->set(AuthSettings::class, new AuthSettings('/accounts/sign-in', '/accounts/sign-out'));
         $container->set(ErrorSettings::class, self::errorSettings());
@@ -66,7 +66,7 @@ final class {{name}}Bootstrap
         );
     }
 
-    private static function registerLogging(Container $container): void
+    private static function registerLogging(MutableContainerInterface $container): void
     {
         /** @var LoggerSettings $loggerSettings */
         $loggerSettings = $container->get(LoggerSettings::class);
@@ -90,7 +90,7 @@ final class {{name}}Bootstrap
         $container->set(LoggerInterface::class, $logger);
     }
 
-    private static function registerDependencies(Container $container): void
+    private static function registerDependencies(MutableContainerInterface $container): void
     {
         /** @var {{name}}Settings $settings */
         $settings = $container->get({{name}}Settings::class);

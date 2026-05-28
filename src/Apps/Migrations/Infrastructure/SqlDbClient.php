@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
 
 final readonly class SqlDbClient implements DbClient
 {

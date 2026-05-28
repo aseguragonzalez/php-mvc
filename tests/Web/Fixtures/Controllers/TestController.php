@@ -2,17 +2,17 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers;
+namespace Tests\Unit\PhpMvc\Fixtures\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Controllers\Controller;
-use AlfonsoSG\Mvc\Responses\Headers\Header;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Controllers\Controller;
+use PhpMvc\Responses\Headers\Header;
+use PhpMvc\Responses\StatusCode;
 use Psr\Http\Message\ServerRequestInterface;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Requests\EditRequest;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Requests\FindRequest;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Requests\ListRequest;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Requests\SearchRequest;
+use Tests\Unit\PhpMvc\Fixtures\Requests\EditRequest;
+use Tests\Unit\PhpMvc\Fixtures\Requests\FindRequest;
+use Tests\Unit\PhpMvc\Fixtures\Requests\ListRequest;
+use Tests\Unit\PhpMvc\Fixtures\Requests\SearchRequest;
 
 class TestController extends Controller
 {

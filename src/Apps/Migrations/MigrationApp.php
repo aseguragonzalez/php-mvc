@@ -2,29 +2,23 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations;
+namespace PhpMvc\Migrations;
 
-use AlfonsoSG\Mvc\Application;
-use AlfonsoSG\Mvc\Migrations\Application\RunMigrations;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigration;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigrationCommand;
+use PhpMvc\Migrations\Application\RunMigrations;
+use PhpMvc\Migrations\Application\TestMigration;
+use PhpMvc\Migrations\Application\TestMigrationCommand;
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
-final class MigrationApp extends Application
+final class MigrationApp
 {
-    public function __construct(ContainerInterface $container, string $basePath)
-    {
-        parent::__construct($container, $basePath);
-    }
+    public function __construct(
+        private readonly ContainerInterface $container,
+        private readonly string $basePath,
+    ) {}
 
     /**
-     * Run the application with the given arguments.
-     *
-     * @param null|int      $argc The number of arguments passed to the application. Default is null.
-     * @param array<string> $argv The arguments to pass to the application. Default is an empty array.
-     *
-     * @return int the exit code of the application
+     * @param array<string> $argv
      */
     public function run(?int $argc = null, array $argv = []): int
     {
@@ -58,11 +52,9 @@ final class MigrationApp extends Application
     }
 
     /**
-     * Parse the arguments and return the command and the migration name.
+     * @param array<string> $argv
      *
-     * @param array<string> $argv The arguments to pass to the application. Default is an empty array.
-     *
-     * @return array<string, string> the command and the arguments
+     * @return array<string, string>
      */
     private function parseArguments(array $argv = []): array
     {

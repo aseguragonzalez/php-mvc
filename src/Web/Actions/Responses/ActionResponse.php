@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Actions\Responses;
+namespace PhpMvc\Actions\Responses;
 
-use AlfonsoSG\Mvc\Responses\Headers\Header;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Responses\Headers\Header;
+use PhpMvc\Responses\StatusCode;
 
 abstract class ActionResponse
 {

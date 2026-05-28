@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Services;
+namespace PhpMvc\Security\Domain\Services;
 
-use AlfonsoSG\Mvc\Security\Domain\Entities\ResetPasswordChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignUpChallenge;
+use PhpMvc\Security\Domain\Entities\ResetPasswordChallenge;
+use PhpMvc\Security\Domain\Entities\SignUpChallenge;
 
 interface ChallengeNotificator
 {

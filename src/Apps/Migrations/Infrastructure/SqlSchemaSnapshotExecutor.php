@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\ColumnDefinition;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\ForeignKeyDefinition;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\IndexDefinition;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\TableDefinition;
+use PhpMvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\ValueObjects\ColumnDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\ForeignKeyDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\IndexDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
+use PhpMvc\Migrations\Domain\ValueObjects\TableDefinition;
 
 final readonly class SqlSchemaSnapshotExecutor implements SchemaSnapshotExecutor
 {
@@ -102,9 +102,11 @@ final readonly class SqlSchemaSnapshotExecutor implements SchemaSnapshotExecutor
             'table_name' => $tableName,
         ]);
 
+        /** @var array<int, array<string, null|string>> $rows */
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         $columns = [];
-        while (($row = $stmt->fetch(\PDO::FETCH_ASSOC)) !== false) {
-            // @var array<string, string|null> $row
+        foreach ($rows as $row) {
             $columns[] = ColumnDefinition::new(
                 name: (string) $row['COLUMN_NAME'],
                 type: (string) $row['COLUMN_TYPE'],

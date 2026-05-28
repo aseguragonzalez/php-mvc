@@ -2,72 +2,77 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations;
+namespace PhpMvc\Migrations;
 
-use AlfonsoSG\Mvc\LoggerSettings;
-use DI\Container;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\Processor\PsrLogMessageProcessor;
-use Psr\Log\LoggerInterface;
+use PhpMvc\Files\DefaultFileManager;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Migrations\Application\RunMigrations;
+use PhpMvc\Migrations\Application\RunMigrationsHandler;
+use PhpMvc\Migrations\Application\TestMigration;
+use PhpMvc\Migrations\Application\TestMigrationHandler;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Repositories\MigrationRepository;
+use PhpMvc\Migrations\Domain\Services\DatabaseBackupManager;
+use PhpMvc\Migrations\Domain\Services\MigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\MigrationExecutorHandler;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManager;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManagerHandler;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScopeFactory;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutor;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutorHandler;
+use PhpMvc\Migrations\Domain\Services\SchemaComparator;
+use PhpMvc\Migrations\Domain\Services\SchemaComparatorHandler;
+use PhpMvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutorHandler;
+use PhpMvc\Migrations\Infrastructure\MigrationTestScopeFactoryHandler;
+use PhpMvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
+use PhpMvc\Migrations\Infrastructure\SqlDbClient;
+use PhpMvc\Migrations\Infrastructure\SqlMigrationRepository;
+use PhpMvc\Migrations\Infrastructure\SqlSchemaSnapshotExecutor;
+use PhpMvc\MutableContainerInterface;
 
 final class MigrationBootstrap
 {
-    public static function registerFromEnvironment(Container $container): void
+    public static function configure(MutableContainerInterface $container): void
     {
+        /** @var MigrationSettings $settings */
+        $settings = $container->get(MigrationSettings::class);
+
+        $container->set(FileManager::class, $container->get(DefaultFileManager::class));
+        $container->set(MigrationRepository::class, $container->get(SqlMigrationRepository::class));
+        $container->set(DbClient::class, $container->get(SqlDbClient::class));
+
+        /** @var MigrationRepository $repo */
+        $repo = $container->get(MigrationRepository::class);
+
+        /** @var DbClient $db */
+        $db = $container->get(DbClient::class);
+
         $container->set(
-            LoggerSettings::class,
-            new LoggerSettings(
-                environment: getenv('ENVIRONMENT') ?: 'local',
-                serviceName: getenv('MIGRATIONS_SERVICE_NAME') ?: 'migrations',
-                serviceVersion: getenv('MIGRATIONS_SERVICE_VERSION') ?: '1.0.0',
-                logLevel: getenv('MIGRATIONS_LOG_LEVEL') ?: 'debug',
-            ),
+            MigrationExecutorHandler::class,
+            new MigrationExecutorHandler($repo, $db, $settings->database),
         );
+        $container->set(MigrationExecutor::class, $container->get(MigrationExecutorHandler::class));
+        $container->set(MigrationFileManager::class, $container->get(MigrationFileManagerHandler::class));
         $container->set(
-            MigrationSettings::class,
-            new MigrationSettings(
-                host: getenv('MIGRATIONS_DATABASE_HOST') ?: 'localhost',
-                database: getenv('MIGRATIONS_DATABASE_NAME') ?: 'migrations',
-                user: getenv('MIGRATIONS_DATABASE_USER') ?: 'migrations',
-                password: getenv('MIGRATIONS_DATABASE_PASSWORD') ?: '',
-            ),
+            RollbackExecutorHandler::class,
+            new RollbackExecutorHandler($db, $settings->database),
         );
-
-        /** @var LoggerSettings $loggerSettings */
-        $loggerSettings = $container->get(LoggerSettings::class);
-
-        $handler = new StreamHandler(
-            stream: 'php://stdout',
-            level: self::logLevelFromSettings($loggerSettings)
+        $container->set(RollbackExecutor::class, $container->get(RollbackExecutorHandler::class));
+        $container->set(RunMigrations::class, $container->get(RunMigrationsHandler::class));
+        $container->set(SchemaSnapshotExecutor::class, $container->get(SqlSchemaSnapshotExecutor::class));
+        $container->set(SchemaComparator::class, $container->get(SchemaComparatorHandler::class));
+        $container->set(
+            TestMigrationExecutorHandler::class,
+            new TestMigrationExecutorHandler($db, $settings->database),
         );
-        $handler->setFormatter(new LineFormatter(
-            format: '[%datetime%] %level_name%: %message%',
-            dateFormat: 'Y-m-d H:i:s',
-            allowInlineLineBreaks: true,
-            ignoreEmptyContextAndExtra: true,
-            includeStacktraces: false,
-        ));
-
-        $logger = new Logger($loggerSettings->serviceName);
-        $logger->pushHandler($handler);
-        $logger->pushProcessor(new PsrLogMessageProcessor());
-
-        $container->set(LoggerInterface::class, $logger);
-
-        Dependencies::configure($container);
-    }
-
-    private static function logLevelFromSettings(LoggerSettings $loggerSettings): Level
-    {
-        $logLevel = $loggerSettings->logLevel;
-        $logLevels = ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
-        if (!in_array($logLevel, $logLevels)) {
-            throw new \InvalidArgumentException("Invalid log level: {$logLevel}");
-        }
-
-        return Level::fromName($logLevel);
+        $container->set(TestMigrationExecutor::class, $container->get(TestMigrationExecutorHandler::class));
+        $container->set(DatabaseBackupManager::class, $container->get(ShellDatabaseBackupManager::class));
+        $container->set(
+            MigrationTestScopeFactory::class,
+            $container->get(MigrationTestScopeFactoryHandler::class),
+        );
+        $container->set(TestMigration::class, $container->get(TestMigrationHandler::class));
     }
 }

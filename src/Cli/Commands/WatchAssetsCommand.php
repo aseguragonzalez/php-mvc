@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Commands;
+namespace PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Assets\AssetBundleSourceResolver;
-use AlfonsoSG\Mvc\Config\MvcConfig;
-use AlfonsoSG\Mvc\Tools\CssBuilder;
-use AlfonsoSG\Mvc\Tools\JsBuilder;
+use PhpMvc\Assets\AssetBundleSourceResolver;
+use PhpMvc\Config\MvcConfig;
+use PhpMvc\Tools\CssBuilder;
+use PhpMvc\Tools\JsBuilder;
 
 final class WatchAssetsCommand implements Command
 {

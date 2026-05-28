@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken;
+namespace PhpMvc\Security\Application\ResetPasswordFromToken;
 
 final readonly class ResetPasswordFromTokenCommand
 {

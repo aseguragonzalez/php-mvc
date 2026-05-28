@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\RefreshSignInSession;
+namespace PhpMvc\Security\Application\RefreshSignInSession;
 
-use AlfonsoSG\Mvc\Security\Challenge;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Challenge;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 
 final readonly class RefreshSignInSessionHandler implements RefreshSignInSession
 {

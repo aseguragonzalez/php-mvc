@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\BackgroundTasks\Infrastructure;
+namespace Tests\Unit\PhpMvc\BackgroundTasks\Infrastructure;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
-use AlfonsoSG\Mvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
+use PhpMvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Infrastructure\SqlTaskRepository;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

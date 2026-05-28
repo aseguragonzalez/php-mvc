@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Application\RegisterTask;
+namespace PhpMvc\BackgroundTasks\Application\RegisterTask;
 
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Repositories\TaskRepository;
-use AlfonsoSG\Mvc\BackgroundTasks\Domain\Task;
+use PhpMvc\BackgroundTasks\Domain\Repositories\TaskRepository;
+use PhpMvc\BackgroundTasks\Domain\Task;
 
 final readonly class RegisterTaskHandler implements RegisterTask
 {

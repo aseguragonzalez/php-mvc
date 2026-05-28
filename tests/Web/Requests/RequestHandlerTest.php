@@ -2,34 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Requests;
+namespace Tests\Unit\PhpMvc\Requests;
 
-use AlfonsoSG\Mvc\Actions\ActionParameterBuilder;
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\HtmlViewEngineSettings;
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestContextKeys;
-use AlfonsoSG\Mvc\Requests\RequestHandler;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
-use AlfonsoSG\Mvc\Routes\Router;
-use AlfonsoSG\Mvc\Security\Identity;
-use AlfonsoSG\Mvc\Views\BranchesReplacer;
-use AlfonsoSG\Mvc\Views\ContentReplacerPipeline;
-use AlfonsoSG\Mvc\Views\HtmlViewEngine;
-use AlfonsoSG\Mvc\Views\I18nReplacer;
-use AlfonsoSG\Mvc\Views\ModelReplacer;
-use AlfonsoSG\Mvc\Views\ViewEngine;
-use AlfonsoSG\Mvc\Views\ViewValueResolver;
-use Nyholm\Psr7\Factory\Psr17Factory;
+use PhpMvc\Actions\ActionParameterBuilder;
+use PhpMvc\Files\FileManager;
+use PhpMvc\HtmlViewEngineSettings;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContextKeys;
+use PhpMvc\Requests\RequestHandler;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
+use PhpMvc\Routes\Router;
+use PhpMvc\Security\Identity;
+use PhpMvc\Views\BranchesReplacer;
+use PhpMvc\Views\ContentReplacerPipeline;
+use PhpMvc\Views\HtmlViewEngine;
+use PhpMvc\Views\I18nReplacer;
+use PhpMvc\Views\ModelReplacer;
+use PhpMvc\Views\ViewEngine;
+use PhpMvc\Views\ViewValueResolver;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers\TestController;
+use Tests\Support\Psr7\TestPsr17Factory;
+use Tests\Unit\PhpMvc\Fixtures\Controllers\TestController;
 
 /**
  * @internal
@@ -40,7 +40,7 @@ final class RequestHandlerTest extends TestCase
 {
     private ActionParameterBuilder $actionParameterBuilder;
     private ContainerInterface $container;
-    private Psr17Factory $requestFactory;
+    private TestPsr17Factory $requestFactory;
     private ResponseFactoryInterface $responseFactory;
     private Router $router;
     private HtmlViewEngineSettings $settings;
@@ -53,8 +53,8 @@ final class RequestHandlerTest extends TestCase
         $containerMock->method('get')->willReturn(new TestController());
         $this->actionParameterBuilder = new ActionParameterBuilder();
         $this->container = $containerMock;
-        $this->requestFactory = new Psr17Factory();
-        $this->responseFactory = new Psr17Factory();
+        $this->requestFactory = new TestPsr17Factory();
+        $this->responseFactory = new TestPsr17Factory();
         $this->router = new Router(routes: [
             Route::create(RouteMethod::Get, Path::create('/test'), TestController::class, 'index'),
             Route::create(RouteMethod::Get, Path::create('/test/redirect'), TestController::class, 'redirect'),

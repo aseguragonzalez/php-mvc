@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace {{namespace}}\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\ActionResponse;
-use AlfonsoSG\Mvc\Controllers\Controller;
-use AlfonsoSG\Mvc\Routes\Path;
-use AlfonsoSG\Mvc\Routes\Route;
-use AlfonsoSG\Mvc\Routes\RouteMethod;
+use PhpMvc\Actions\Responses\ActionResponse;
+use PhpMvc\Controllers\Controller;
+use PhpMvc\Routes\Path;
+use PhpMvc\Routes\Route;
+use PhpMvc\Routes\RouteMethod;
 
 final class HomeController extends Controller
 {

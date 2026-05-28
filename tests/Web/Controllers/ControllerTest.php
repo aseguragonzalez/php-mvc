@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Controllers;
+namespace Tests\Unit\PhpMvc\Controllers;
 
-use AlfonsoSG\Mvc\Actions\Responses\LocalRedirectTo;
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\Responses\Headers\AccessControlAllowMethods;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
-use AlfonsoSG\Mvc\Responses\Headers\Location;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Actions\Responses\LocalRedirectTo;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\Responses\Headers\AccessControlAllowMethods;
+use PhpMvc\Responses\Headers\ContentType;
+use PhpMvc\Responses\Headers\Location;
+use PhpMvc\Responses\StatusCode;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers\HomeController;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers\SubTestController;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Controllers\TestController;
+use Tests\Unit\PhpMvc\Fixtures\Controllers\HomeController;
+use Tests\Unit\PhpMvc\Fixtures\Controllers\SubTestController;
+use Tests\Unit\PhpMvc\Fixtures\Controllers\TestController;
 
 /**
  * @internal

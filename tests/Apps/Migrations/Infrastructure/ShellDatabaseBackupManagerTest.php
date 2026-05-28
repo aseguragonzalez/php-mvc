@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Infrastructure;
+namespace Tests\Unit\PhpMvc\Migrations\Infrastructure;
 
-use AlfonsoSG\Mvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\MigrationSettings;
+use PhpMvc\Migrations\Infrastructure\ShellDatabaseBackupManager;
+use PhpMvc\Migrations\MigrationSettings;
 use PHPUnit\Framework\TestCase;
 
 /**

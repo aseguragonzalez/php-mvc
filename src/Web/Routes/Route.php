@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Routes;
+namespace PhpMvc\Routes;
 
-use AlfonsoSG\Mvc\Controllers\Controller;
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Controllers\Controller;
+use PhpMvc\Security\Identity;
 
 final class Route
 {

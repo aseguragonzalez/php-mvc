@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Middlewares;
+namespace PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\Headers\SetCookie;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\Headers\SetCookie;
+use PhpMvc\Responses\StatusCode;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;

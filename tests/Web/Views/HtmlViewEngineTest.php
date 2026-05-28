@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Views;
+namespace Tests\Unit\PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\HtmlViewEngineSettings;
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestContextKeys;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Security\Identity;
-use AlfonsoSG\Mvc\UiAssetsSettings;
-use AlfonsoSG\Mvc\Views\BranchesReplacer;
-use AlfonsoSG\Mvc\Views\ContentReplacerPipeline;
-use AlfonsoSG\Mvc\Views\HtmlViewEngine;
-use AlfonsoSG\Mvc\Views\I18nReplacer;
-use AlfonsoSG\Mvc\Views\ModelReplacer;
-use AlfonsoSG\Mvc\Views\ViewValueResolver;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\Files\FileManager;
+use PhpMvc\HtmlViewEngineSettings;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContextKeys;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Security\Identity;
+use PhpMvc\UiAssetsSettings;
+use PhpMvc\Views\BranchesReplacer;
+use PhpMvc\Views\ContentReplacerPipeline;
+use PhpMvc\Views\HtmlViewEngine;
+use PhpMvc\Views\I18nReplacer;
+use PhpMvc\Views\ModelReplacer;
+use PhpMvc\Views\ViewValueResolver;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\AlfonsoSG\Mvc\Fixtures\Views\BranchModel;
+use Tests\Unit\PhpMvc\Fixtures\Views\BranchModel;
 
 /**
  * @internal

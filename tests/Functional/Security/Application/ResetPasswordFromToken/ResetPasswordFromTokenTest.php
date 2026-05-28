@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken;
+namespace Tests\Unit\PhpMvc\Security\Application\ResetPasswordFromToken;
 
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenCommand;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenHandler;
-use AlfonsoSG\Mvc\Security\Domain\Entities\ResetPasswordChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenCommand;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenHandler;
+use PhpMvc\Security\Domain\Entities\ResetPasswordChallenge;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

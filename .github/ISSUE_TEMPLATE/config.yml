@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+- name: Report a security vulnerability (private)
+  url: https://github.com/aseguragonzalez/php-mvc/security/advisories/new
+  about: Report a security vulnerability privately. Do not open a public issue.
+- name: Discussions
+  url: https://github.com/aseguragonzalez/php-mvc/discussions
+  about: Ask questions or discuss ideas about the package

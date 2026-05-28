@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\ConsoleOutput;
-use AlfonsoSG\Mvc\Commands\MigrationsCreateCommand;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Commands\ConsoleOutput;
+use PhpMvc\Commands\MigrationsCreateCommand;
 use PHPUnit\Framework\TestCase;
 
 /**

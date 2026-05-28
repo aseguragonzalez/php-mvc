@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Config;
+namespace Tests\Unit\PhpMvc\Config;
 
-use AlfonsoSG\Mvc\Config\MvcConfig;
-use AlfonsoSG\Mvc\UiAssetsSettings;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Config\MvcConfig;
+use PhpMvc\UiAssetsSettings;
 use PHPUnit\Framework\TestCase;
 
 /**

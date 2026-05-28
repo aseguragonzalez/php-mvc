@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Assets;
+namespace PhpMvc\Assets;
 
-use AlfonsoSG\Mvc\Config\AssetRouteGroup;
-use AlfonsoSG\Mvc\Config\MvcConfig;
+use PhpMvc\Config\AssetRouteGroup;
+use PhpMvc\Config\MvcConfig;
 
 /**
  * Resolves merged, deduplicated source paths and output directories for asset bundling CLI.

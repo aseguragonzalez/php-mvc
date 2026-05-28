@@ -2,40 +2,40 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security;
+namespace PhpMvc\Security;
 
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityHandler;
-use AlfonsoSG\Mvc\Security\Application\DefaultIdentityManager;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentity;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentityHandler;
-use AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
-use AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPasswordHandler;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSessionHandler;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPassword;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPasswordHandler;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenHandler;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignIn;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignInHandler;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOut;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOutHandler;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUp;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUpHandler;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignUpChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlSignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlSignUpChallengeRepository;
-use AlfonsoSG\Mvc\Security\Infrastructure\SqlUserIdentityRepository;
-use DI\Container;
+use PhpMvc\MutableContainerInterface;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityHandler;
+use PhpMvc\Security\Application\DefaultIdentityManager;
+use PhpMvc\Security\Application\GetIdentity\GetIdentity;
+use PhpMvc\Security\Application\GetIdentity\GetIdentityHandler;
+use PhpMvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
+use PhpMvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPasswordHandler;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSessionHandler;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPassword;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPasswordHandler;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenHandler;
+use PhpMvc\Security\Application\SignIn\SignIn;
+use PhpMvc\Security\Application\SignIn\SignInHandler;
+use PhpMvc\Security\Application\SignOut\SignOut;
+use PhpMvc\Security\Application\SignOut\SignOutHandler;
+use PhpMvc\Security\Application\SignUp\SignUp;
+use PhpMvc\Security\Application\SignUp\SignUpHandler;
+use PhpMvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Repositories\SignUpChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
+use PhpMvc\Security\Infrastructure\SqlSignInSessionRepository;
+use PhpMvc\Security\Infrastructure\SqlSignUpChallengeRepository;
+use PhpMvc\Security\Infrastructure\SqlUserIdentityRepository;
 
 final class Dependencies
 {
-    public static function configure(Container $container): void
+    public static function configure(MutableContainerInterface $container): void
     {
         $container->set(UserIdentityRepository::class, $container->get(SqlUserIdentityRepository::class));
         $container->set(SignInSessionRepository::class, $container->get(SqlSignInSessionRepository::class));

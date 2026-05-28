@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Entities;
+namespace PhpMvc\Security\Domain\Entities;
 
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Identity;
 
 final readonly class CurrentIdentity implements Identity
 {

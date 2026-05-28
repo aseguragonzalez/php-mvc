@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\RefreshSignInSession;
+namespace Tests\Unit\PhpMvc\Security\Application\RefreshSignInSession;
 
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSessionCommand;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSessionHandler;
-use AlfonsoSG\Mvc\Security\Challenge;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSessionCommand;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSessionHandler;
+use PhpMvc\Security\Challenge;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

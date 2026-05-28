@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\RequestResetPassword;
+namespace PhpMvc\Security\Application\RequestResetPassword;
 
 final readonly class RequestResetPasswordCommand
 {

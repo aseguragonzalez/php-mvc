@@ -1,6 +1,6 @@
 parameters:
     phpVersion: 80400
-    level: 8
+    level: max
     paths:
         - src
     excludePaths:

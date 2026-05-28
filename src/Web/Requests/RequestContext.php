@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Requests;
+namespace PhpMvc\Requests;
 
-use AlfonsoSG\Mvc\Security\Identity;
+use PhpMvc\Security\Identity;
 
 final class RequestContext
 {
@@ -55,9 +55,10 @@ final class RequestContext
     public function getIdentity(): Identity
     {
         $this->checkIfKeyExists('identity');
+        $identity = $this->keys['identity'];
+        assert($identity instanceof Identity);
 
-        // @var Identity
-        return $this->keys['identity'];
+        return $identity;
     }
 
     public function setIdentityToken(string $token): void

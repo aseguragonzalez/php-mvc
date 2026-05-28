@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Services;
+namespace PhpMvc\Migrations\Domain\Services;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Clients\DbClient;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Entities\Script;
 
 final readonly class RollbackExecutorHandler implements RollbackExecutor
 {

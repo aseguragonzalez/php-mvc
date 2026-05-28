@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Application;
+namespace PhpMvc\Migrations\Application;
 
 interface TestMigration
 {

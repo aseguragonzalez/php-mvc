@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Application;
+namespace Tests\Unit\PhpMvc\Migrations\Application;
 
-use AlfonsoSG\Mvc\Migrations\Application\TestMigrationCommand;
-use AlfonsoSG\Mvc\Migrations\Application\TestMigrationHandler;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\DatabaseBackupManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationFileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScope;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\MigrationTestScopeFactory;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaComparator;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaComparisonResult;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\TestMigrationExecutor;
-use AlfonsoSG\Mvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
+use PhpMvc\Migrations\Application\TestMigrationCommand;
+use PhpMvc\Migrations\Application\TestMigrationHandler;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Services\DatabaseBackupManager;
+use PhpMvc\Migrations\Domain\Services\MigrationFileManager;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScope;
+use PhpMvc\Migrations\Domain\Services\MigrationTestScopeFactory;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutor;
+use PhpMvc\Migrations\Domain\Services\SchemaComparator;
+use PhpMvc\Migrations\Domain\Services\SchemaComparisonResult;
+use PhpMvc\Migrations\Domain\Services\SchemaSnapshotExecutor;
+use PhpMvc\Migrations\Domain\Services\TestMigrationExecutor;
+use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 

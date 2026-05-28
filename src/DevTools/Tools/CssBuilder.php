@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Tools;
+namespace PhpMvc\Tools;
 
 final readonly class CssBuilder
 {

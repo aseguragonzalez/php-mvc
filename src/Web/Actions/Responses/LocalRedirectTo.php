@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Actions\Responses;
+namespace PhpMvc\Actions\Responses;
 
-use AlfonsoSG\Mvc\Controllers\Controller;
-use AlfonsoSG\Mvc\Responses\Headers\ContentType;
-use AlfonsoSG\Mvc\Responses\Headers\Header;
-use AlfonsoSG\Mvc\Responses\StatusCode;
+use PhpMvc\Controllers\Controller;
+use PhpMvc\Responses\Headers\ContentType;
+use PhpMvc\Responses\Headers\Header;
+use PhpMvc\Responses\StatusCode;
 use Psr\Http\Message\ServerRequestInterface;
 
 final class LocalRedirectTo extends ActionResponse

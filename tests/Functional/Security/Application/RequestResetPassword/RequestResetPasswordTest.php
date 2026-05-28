@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\RequestResetPassword;
+namespace Tests\Unit\PhpMvc\Security\Application\RequestResetPassword;
 
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPasswordCommand;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPasswordHandler;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
-use AlfonsoSG\Mvc\Security\Domain\Services\ChallengeNotificator;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPasswordCommand;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPasswordHandler;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Services\ChallengeNotificator;
 use PHPUnit\Framework\TestCase;
 
 /**

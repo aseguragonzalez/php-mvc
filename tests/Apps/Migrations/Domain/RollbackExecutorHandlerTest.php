@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Migrations\Domain;
+namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\Migrations\Domain\Clients\DbClient;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Script;
-use AlfonsoSG\Mvc\Migrations\Domain\Services\RollbackExecutorHandler;
+use PhpMvc\Files\FileManager;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Entities\Script;
+use PhpMvc\Migrations\Domain\Services\RollbackExecutorHandler;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

@@ -1,0 +1,68 @@
+site_name: PHP MVC
+site_url: https://aseguragonzalez.github.io/php-mvc/
+repo_url: https://github.com/aseguragonzalez/php-mvc
+repo_name: aseguragonzalez/php-mvc
+
+theme:
+  name: material
+  features:
+  - navigation.tabs
+  - navigation.top
+  - content.code.annotate
+  - content.code.copy
+
+plugins:
+- search
+- mike:
+    version_selector: true
+
+extra:
+  version:
+    provider: mike
+
+markdown_extensions:
+- pymdownx.superfences:
+    custom_fences:
+    - name: mermaid
+      class: mermaid
+      format: !!python/name:pymdownx.superfences.fence_code_format
+
+extra_css:
+- stylesheets/php.css
+
+extra_javascript:
+- https://unpkg.com/mermaid@11/dist/mermaid.esm.min.mjs
+
+exclude_docs: |
+  README.md
+
+validation:
+  links:
+    unrecognized_links: ignore
+    anchors: ignore
+
+nav:
+- Home: index.md
+- Getting Started:
+  - Installation: getting-started/installation.md
+  - Quickstart: getting-started/quickstart.md
+  - Configuration Reference: getting-started/configuration.md
+- Core Concepts:
+  - Architecture: core-concepts/architecture.md
+  - Request Lifecycle: core-concepts/request-lifecycle.md
+- Web Layer:
+  - Routing: web/routing.md
+  - Controllers: web/controllers.md
+  - Views & Templates: web/views.md
+  - Middleware: web/middleware.md
+  - Request Binding: web/request-binding.md
+- Security:
+  - Authentication: security/authentication.md
+  - Authorization: security/authorization.md
+  - CSRF Protection: security/csrf.md
+  - Identity Manager: security/identity-manager.md
+- Modules:
+  - Database Migrations: modules/migrations.md
+  - Background Tasks: modules/background-tasks.md
+  - Asset Bundling: modules/assets.md
+- CLI Reference: cli/reference.md

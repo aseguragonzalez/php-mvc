@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Entities;
+namespace PhpMvc\Migrations\Domain\Entities;
 
-use AlfonsoSG\Mvc\Files\FileManager;
+use PhpMvc\Files\FileManager;
 
 final readonly class Script
 {

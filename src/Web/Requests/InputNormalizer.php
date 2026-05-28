@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Requests;
+namespace PhpMvc\Requests;
 
 /**
  * Centralized helpers to normalize and coerce raw request input values.

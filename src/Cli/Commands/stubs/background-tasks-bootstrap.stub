@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace {{namespace}}\BackgroundTasks;
 
-use DI\Container;
-use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksRuntime;
-use AlfonsoSG\Mvc\BackgroundTasks\BackgroundTasksSettings;
-use AlfonsoSG\Mvc\LoggerSettings;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
 use Monolog\Level;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
+use PhpMvc\BackgroundTasks\BackgroundTasksBootstrap;
+use PhpMvc\BackgroundTasks\BackgroundTasksSettings;
+use PhpMvc\LoggerSettings;
+use PhpMvc\MutableContainerInterface;
 use Psr\Log\LoggerInterface;
 
 final class {{name}}BackgroundTasksBootstrap
 {
-    public static function register(Container $container, string $basePath): void
+    public static function register(MutableContainerInterface $container): void
     {
         $handlerMap = [
             // 'task_type' => TaskHandlerClass::class,
@@ -32,16 +32,15 @@ final class {{name}}BackgroundTasksBootstrap
                 logLevel: getenv('{{envPrefix}}_LOG_LEVEL') ?: 'debug',
             ),
         );
-        $container->set(
-            BackgroundTasksSettings::class,
-            new BackgroundTasksSettings(
-                host: getenv('{{envPrefix}}_DATABASE_HOST') ?: 'localhost',
-                database: getenv('{{envPrefix}}_DATABASE_NAME') ?: '{{nameSnake}}',
-                user: getenv('{{envPrefix}}_DATABASE_USER') ?: 'root',
-                password: getenv('{{envPrefix}}_DATABASE_PASSWORD') ?: '',
-                handlerMap: $handlerMap,
-            ),
+
+        $settings = new BackgroundTasksSettings(
+            host: getenv('{{envPrefix}}_DATABASE_HOST') ?: 'localhost',
+            database: getenv('{{envPrefix}}_DATABASE_NAME') ?: '{{nameSnake}}',
+            user: getenv('{{envPrefix}}_DATABASE_USER') ?: 'root',
+            password: getenv('{{envPrefix}}_DATABASE_PASSWORD') ?: '',
+            handlerMap: $handlerMap,
         );
+        $container->set(BackgroundTasksSettings::class, $settings);
 
         /** @var LoggerSettings $loggerSettings */
         $loggerSettings = $container->get(LoggerSettings::class);
@@ -64,9 +63,20 @@ final class {{name}}BackgroundTasksBootstrap
 
         $container->set(LoggerInterface::class, $logger);
 
-        // Register app-specific container bindings here before BackgroundTasksRuntime::register().
+        $connection = new \PDO(
+            $settings->getDsn(),
+            $settings->user,
+            $settings->password,
+            [
+                \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+                \PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+            ]
+        );
+        $container->set(\PDO::class, $connection);
 
-        BackgroundTasksRuntime::register($container);
+        // Register app-specific container bindings here before BackgroundTasksBootstrap::configure().
+
+        BackgroundTasksBootstrap::configure($container);
     }
 
     private static function logLevelFromSettings(LoggerSettings $loggerSettings): Level

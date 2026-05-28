@@ -2,29 +2,29 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application;
+namespace PhpMvc\Security\Application;
 
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityCommand;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentity;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentityCommand;
-use AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
-use AlfonsoSG\Mvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPasswordCommand;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
-use AlfonsoSG\Mvc\Security\Application\RefreshSignInSession\RefreshSignInSessionCommand;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPassword;
-use AlfonsoSG\Mvc\Security\Application\RequestResetPassword\RequestResetPasswordCommand;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
-use AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenCommand;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignIn;
-use AlfonsoSG\Mvc\Security\Application\SignIn\SignInCommand;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOut;
-use AlfonsoSG\Mvc\Security\Application\SignOut\SignOutCommand;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUp;
-use AlfonsoSG\Mvc\Security\Application\SignUp\SignUpCommand;
-use AlfonsoSG\Mvc\Security\Challenge;
-use AlfonsoSG\Mvc\Security\Identity;
-use AlfonsoSG\Mvc\Security\IdentityManager;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityCommand;
+use PhpMvc\Security\Application\GetIdentity\GetIdentity;
+use PhpMvc\Security\Application\GetIdentity\GetIdentityCommand;
+use PhpMvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPassword;
+use PhpMvc\Security\Application\ModifyUserIdentityPassword\ModifyUserIdentityPasswordCommand;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSession;
+use PhpMvc\Security\Application\RefreshSignInSession\RefreshSignInSessionCommand;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPassword;
+use PhpMvc\Security\Application\RequestResetPassword\RequestResetPasswordCommand;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromToken;
+use PhpMvc\Security\Application\ResetPasswordFromToken\ResetPasswordFromTokenCommand;
+use PhpMvc\Security\Application\SignIn\SignIn;
+use PhpMvc\Security\Application\SignIn\SignInCommand;
+use PhpMvc\Security\Application\SignOut\SignOut;
+use PhpMvc\Security\Application\SignOut\SignOutCommand;
+use PhpMvc\Security\Application\SignUp\SignUp;
+use PhpMvc\Security\Application\SignUp\SignUpCommand;
+use PhpMvc\Security\Challenge;
+use PhpMvc\Security\Identity;
+use PhpMvc\Security\IdentityManager;
 
 final readonly class DefaultIdentityManager implements IdentityManager
 {

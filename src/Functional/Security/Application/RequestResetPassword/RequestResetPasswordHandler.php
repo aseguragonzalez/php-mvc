@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\RequestResetPassword;
+namespace PhpMvc\Security\Application\RequestResetPassword;
 
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\ResetPasswordChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
-use AlfonsoSG\Mvc\Security\Domain\Services\ChallengeNotificator;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\ResetPasswordChallenge;
+use PhpMvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Services\ChallengeNotificator;
 
 final readonly class RequestResetPasswordHandler implements RequestResetPassword
 {

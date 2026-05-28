@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\ConsoleOutput;
-use AlfonsoSG\Mvc\Commands\InitializeBackgroundTasksCommand;
-use AlfonsoSG\Mvc\Commands\StubGenerator;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Commands\ConsoleOutput;
+use PhpMvc\Commands\InitializeBackgroundTasksCommand;
+use PhpMvc\Commands\StubGenerator;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -136,7 +136,7 @@ final class InitializeBackgroundTasksCommandTest extends TestCase
             'App\Ports\MyApp\BackgroundTasks\MyAppBackgroundTasksBootstrap',
             $content
         );
-        $this->assertStringContainsString('BaseBackgroundTasksApp', $content);
+        $this->assertStringContainsString('BackgroundTasksApp', $content);
     }
 
     public function testGeneratedIndexPhpGuardsWhenBackgroundTasksDisabled(): void

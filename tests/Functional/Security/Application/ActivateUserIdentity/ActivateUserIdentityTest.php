@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity;
+namespace Tests\Unit\PhpMvc\Security\Application\ActivateUserIdentity;
 
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityCommand;
-use AlfonsoSG\Mvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityHandler;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignUpChallenge;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignUpChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityCommand;
+use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityHandler;
+use PhpMvc\Security\Domain\Entities\SignUpChallenge;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Repositories\SignUpChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

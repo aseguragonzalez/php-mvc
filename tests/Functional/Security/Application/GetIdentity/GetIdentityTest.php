@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Security\Application\GetIdentity;
+namespace Tests\Unit\PhpMvc\Security\Application\GetIdentity;
 
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentityCommand;
-use AlfonsoSG\Mvc\Security\Application\GetIdentity\GetIdentityHandler;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Application\GetIdentity\GetIdentityCommand;
+use PhpMvc\Security\Application\GetIdentity\GetIdentityHandler;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
 use PHPUnit\Framework\TestCase;
 
 /**

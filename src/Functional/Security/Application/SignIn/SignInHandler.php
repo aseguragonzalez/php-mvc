@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\SignIn;
+namespace PhpMvc\Security\Application\SignIn;
 
-use AlfonsoSG\Mvc\Security\Challenge;
-use AlfonsoSG\Mvc\Security\ChallengesExpirationTime;
-use AlfonsoSG\Mvc\Security\Domain\Entities\SignInSession;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\InvalidCredentialsException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\SignInSessionRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Challenge;
+use PhpMvc\Security\ChallengesExpirationTime;
+use PhpMvc\Security\Domain\Entities\SignInSession;
+use PhpMvc\Security\Domain\Exceptions\InvalidCredentialsException;
+use PhpMvc\Security\Domain\Repositories\SignInSessionRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 
 final readonly class SignInHandler implements SignIn
 {

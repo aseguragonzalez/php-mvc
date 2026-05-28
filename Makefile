@@ -1,33 +1,24 @@
-.PHONY: build install test cs cs-fix stan check shell
-
-# Inside a container: run commands directly.
-# Outside: delegate to docker-compose.
-ifneq ($(wildcard /.dockerenv),)
-  RUN :=
-else
-  RUN := docker compose run --rm app
-endif
-
-build:
-	docker compose build
+.PHONY: install test cs cs-fix stan check all docs-serve
 
 install:
-	$(RUN) composer install
+	composer install
 
 test:
-	$(RUN) composer test
+	composer test
 
 cs:
-	$(RUN) composer cs
+	composer cs
 
 cs-fix:
-	$(RUN) composer cs:fix
+	composer cs:fix
 
 stan:
-	$(RUN) composer stan
+	composer stan
 
 check:
-	$(RUN) composer check
+	composer check
 
-shell:
-	docker compose run --rm app bash
+all: install cs-fix check
+
+docs-serve:
+	@$(HOME)/.venv/bin/mkdocs serve --dev-addr=0.0.0.0:8001

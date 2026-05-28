@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Application\ResetPasswordFromToken;
+namespace PhpMvc\Security\Application\ResetPasswordFromToken;
 
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\ResetPasswordChallengeException;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
-use AlfonsoSG\Mvc\Security\Domain\Repositories\UserIdentityRepository;
+use PhpMvc\Security\Domain\Exceptions\ResetPasswordChallengeException;
+use PhpMvc\Security\Domain\Repositories\ResetPasswordChallengeRepository;
+use PhpMvc\Security\Domain\Repositories\UserIdentityRepository;
 
 final readonly class ResetPasswordFromTokenHandler implements ResetPasswordFromToken
 {

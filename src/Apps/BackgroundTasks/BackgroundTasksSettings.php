@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks;
+namespace PhpMvc\BackgroundTasks;
 
 final readonly class BackgroundTasksSettings
 {

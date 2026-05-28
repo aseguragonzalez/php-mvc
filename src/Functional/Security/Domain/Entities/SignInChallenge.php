@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Security\Domain\Entities;
+namespace PhpMvc\Security\Domain\Entities;
 
 final class SignInChallenge extends BaseChallenge
 {

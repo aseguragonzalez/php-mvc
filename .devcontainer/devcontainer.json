@@ -1,23 +1,10 @@
 {
-  "name": "PHP MVC Framework",
-  "build": {
-    "dockerfile": "../Dockerfile",
-    "args": {
-      "PHP_VERSION": "8.4"
-    }
-  },
+  "appPort": [
+    "8001:8001"
+  ],
   "containerEnv": {
     "XDEBUG_MODE": "coverage,debug,develop"
   },
-  "forwardPorts": [9003],
-  "portsAttributes": {
-    "9003": {
-      "label": "Xdebug",
-      "onAutoForward": "notify"
-    }
-  },
-  "postCreateCommand": "composer install",
-  "remoteUser": "root",
   "customizations": {
     "vscode": {
       "extensions": [
@@ -31,12 +18,30 @@
         "wongjn.php-sniffer"
       ],
       "settings": {
-        "terminal.integrated.defaultProfile.linux": "bash",
+        "intelephense.environment.phpVersion": "8.4",
         "php.validate.executablePath": "/usr/local/bin/php",
         "phpunit.php": "/usr/local/bin/php",
-        "phpunit.phpunit": "/app/vendor/bin/phpunit",
-        "intelephense.environment.phpVersion": "8.4"
+        "phpunit.phpunit": "/workspaces/php-mvc/vendor/bin/phpunit",
+        "terminal.integrated.defaultProfile.linux": "bash"
       }
     }
-  }
+  },
+  "forwardPorts": [
+    8001,
+    9003
+  ],
+  "image": "mcr.microsoft.com/devcontainers/php:8.4-bookworm",
+  "name": "PHP MVC Framework",
+  "portsAttributes": {
+    "8001": {
+      "label": "MkDocs",
+      "onAutoForward": "openBrowser"
+    },
+    "9003": {
+      "label": "Xdebug",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": "sudo apt-get install -y python3.11-venv && composer install && python3 -m venv /home/vscode/.venv && /home/vscode/.venv/bin/pip install -r requirements.txt && echo 'source ~/.venv/bin/activate' >> ~/.bashrc && echo 'source ~/.venv/bin/activate' >> ~/.zshrc",
+  "remoteUser": "vscode"
 }

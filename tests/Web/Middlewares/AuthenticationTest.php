@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Middlewares;
+namespace Tests\Unit\PhpMvc\Middlewares;
 
-use AlfonsoSG\Mvc\AuthSettings;
-use AlfonsoSG\Mvc\Middlewares\Authentication;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Responses\StatusCode;
-use AlfonsoSG\Mvc\Security\Domain\Entities\UserIdentity;
-use AlfonsoSG\Mvc\Security\Domain\Exceptions\SessionExpiredException;
-use AlfonsoSG\Mvc\Security\IdentityManager;
-use Nyholm\Psr7\Factory\Psr17Factory;
-use Nyholm\Psr7\ServerRequest;
+use PhpMvc\AuthSettings;
+use PhpMvc\Middlewares\Authentication;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Responses\StatusCode;
+use PhpMvc\Security\Domain\Entities\UserIdentity;
+use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
+use PhpMvc\Security\IdentityManager;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
+use Tests\Support\Psr7\TestServerRequest;
 
 /**
  * @internal
@@ -23,7 +23,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  */
 final class AuthenticationTest extends TestCase
 {
-    private Psr17Factory $psrFactory;
+    private TestPsr17Factory $psrFactory;
     private AuthSettings $settings;
     private RequestContext $context;
     private IdentityManager $identityManager;
@@ -31,7 +31,7 @@ final class AuthenticationTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->psrFactory = new Psr17Factory();
+        $this->psrFactory = new TestPsr17Factory();
         $this->settings = new AuthSettings(
             cookieName: 'auth_token',
             signInPath: '/login',
@@ -56,7 +56,7 @@ final class AuthenticationTest extends TestCase
             responseFactory: $this->psrFactory,
         );
 
-        $request = new ServerRequest('GET', '/')
+        $request = new TestServerRequest('GET', '/')
             ->withCookieParams(['auth_token' => $token])
             ->withAttribute(RequestContext::class, $this->context)
         ;
@@ -79,7 +79,7 @@ final class AuthenticationTest extends TestCase
             responseFactory: $this->psrFactory,
         );
 
-        $request = new ServerRequest('GET', '/')
+        $request = new TestServerRequest('GET', '/')
             ->withCookieParams(['auth_token' => 'expired_token'])
             ->withAttribute(RequestContext::class, $this->context)
         ;

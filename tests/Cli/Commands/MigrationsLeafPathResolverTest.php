@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\MigrationsLeafPathResolver;
-use AlfonsoSG\Mvc\Config\MvcConfig;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Commands\MigrationsLeafPathResolver;
+use PhpMvc\Config\MvcConfig;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc;
+namespace PhpMvc;
 
 final readonly class ErrorMapping
 {

@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Commands;
+namespace Tests\Unit\PhpMvc\Commands;
 
-use AlfonsoSG\Mvc\Commands\BackgroundTasksDisableCommand;
-use AlfonsoSG\Mvc\Commands\BackgroundTasksEnableCommand;
-use AlfonsoSG\Mvc\Commands\BackgroundTasksRunCommand;
-use AlfonsoSG\Mvc\Commands\ConsoleOutput;
-use AlfonsoSG\Mvc\Config\MvcConfig;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Commands\BackgroundTasksDisableCommand;
+use PhpMvc\Commands\BackgroundTasksEnableCommand;
+use PhpMvc\Commands\BackgroundTasksRunCommand;
+use PhpMvc\Commands\ConsoleOutput;
+use PhpMvc\Config\MvcConfig;
 use PHPUnit\Framework\TestCase;
 
 /**

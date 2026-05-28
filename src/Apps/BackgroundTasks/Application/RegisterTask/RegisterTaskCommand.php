@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\BackgroundTasks\Application\RegisterTask;
+namespace PhpMvc\BackgroundTasks\Application\RegisterTask;
 
 final readonly class RegisterTaskCommand
 {

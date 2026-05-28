@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Views;
+namespace PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Actions\Responses\View;
-use AlfonsoSG\Mvc\HtmlViewEngineSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\UiAssetsSettings;
+use PhpMvc\Actions\Responses\View;
+use PhpMvc\HtmlViewEngineSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\UiAssetsSettings;
 
 final class HtmlViewEngine implements ViewEngine
 {

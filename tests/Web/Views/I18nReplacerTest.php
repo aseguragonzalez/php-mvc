@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\AlfonsoSG\Mvc\Views;
+namespace Tests\Unit\PhpMvc\Views;
 
-use AlfonsoSG\Mvc\Files\FileManager;
-use AlfonsoSG\Mvc\LanguageSettings;
-use AlfonsoSG\Mvc\Requests\RequestContext;
-use AlfonsoSG\Mvc\Requests\RequestContextKeys;
-use AlfonsoSG\Mvc\Views\I18nReplacer;
+use PhpMvc\Files\FileManager;
+use PhpMvc\LanguageSettings;
+use PhpMvc\Requests\RequestContext;
+use PhpMvc\Requests\RequestContextKeys;
+use PhpMvc\Views\I18nReplacer;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 

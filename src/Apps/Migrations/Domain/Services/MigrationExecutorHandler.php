@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Migrations\Domain\Services;
+namespace PhpMvc\Migrations\Domain\Services;
 
-use AlfonsoSG\Mvc\Migrations\Domain\Clients\DbClient;
-use AlfonsoSG\Mvc\Migrations\Domain\Entities\Migration;
-use AlfonsoSG\Mvc\Migrations\Domain\Exceptions\MigrationException;
-use AlfonsoSG\Mvc\Migrations\Domain\Repositories\MigrationRepository;
+use PhpMvc\Migrations\Domain\Clients\DbClient;
+use PhpMvc\Migrations\Domain\Entities\Migration;
+use PhpMvc\Migrations\Domain\Exceptions\MigrationException;
+use PhpMvc\Migrations\Domain\Repositories\MigrationRepository;
 
 final readonly class MigrationExecutorHandler implements MigrationExecutor
 {

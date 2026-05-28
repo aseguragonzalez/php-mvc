@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace AlfonsoSG\Mvc\Views;
+namespace PhpMvc\Views;
 
 /**
  * Resolves a path expression (e.g. "model->customer->address->street", "items[0]->name")
