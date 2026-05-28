@@ -11,10 +11,10 @@ use PhpMvc\Responses\StatusCode;
 use PhpMvc\Security\Domain\Entities\UserIdentity;
 use PhpMvc\Security\Domain\Exceptions\SessionExpiredException;
 use PhpMvc\Security\IdentityManager;
-use Tests\Support\Psr7\TestPsr17Factory;
-use Tests\Support\Psr7\TestServerRequest;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Server\RequestHandlerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
+use Tests\Support\Psr7\TestServerRequest;
 
 /**
  * @internal

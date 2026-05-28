@@ -21,29 +21,43 @@ final class TestResponse implements ResponseInterface
         $this->body = new TestStream();
     }
 
-    public function getStatusCode(): int { return $this->statusCode; }
+    public function getStatusCode(): int
+    {
+        return $this->statusCode;
+    }
 
-    public function getReasonPhrase(): string { return $this->reasonPhrase; }
+    public function getReasonPhrase(): string
+    {
+        return $this->reasonPhrase;
+    }
 
     public function withStatus(int $code, string $reasonPhrase = ''): static
     {
         $clone = clone $this;
         $clone->statusCode = $code;
         $clone->reasonPhrase = $reasonPhrase;
+
         return $clone;
     }
 
-    public function getProtocolVersion(): string { return $this->protocolVersion; }
+    public function getProtocolVersion(): string
+    {
+        return $this->protocolVersion;
+    }
 
     public function withProtocolVersion(string $version): static
     {
         $clone = clone $this;
         $clone->protocolVersion = $version;
+
         return $clone;
     }
 
     /** @return array<string, list<string>> */
-    public function getHeaders(): array { return $this->headers; }
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
 
     public function hasHeader(string $name): bool
     {
@@ -65,6 +79,7 @@ final class TestResponse implements ResponseInterface
     {
         $clone = clone $this;
         $clone->headers[strtolower($name)] = array_values((array) $value);
+
         return $clone;
     }
 
@@ -74,6 +89,7 @@ final class TestResponse implements ResponseInterface
         $key = strtolower($name);
         $existing = $clone->headers[$key] ?? [];
         $clone->headers[$key] = array_merge($existing, array_values((array) $value));
+
         return $clone;
     }
 
@@ -81,15 +97,20 @@ final class TestResponse implements ResponseInterface
     {
         $clone = clone $this;
         unset($clone->headers[strtolower($name)]);
+
         return $clone;
     }
 
-    public function getBody(): StreamInterface { return $this->body; }
+    public function getBody(): StreamInterface
+    {
+        return $this->body;
+    }
 
     public function withBody(StreamInterface $body): static
     {
         $clone = clone $this;
         $clone->body = $body;
+
         return $clone;
     }
 }

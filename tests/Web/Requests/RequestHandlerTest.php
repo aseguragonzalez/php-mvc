@@ -23,12 +23,12 @@ use PhpMvc\Views\I18nReplacer;
 use PhpMvc\Views\ModelReplacer;
 use PhpMvc\Views\ViewEngine;
 use PhpMvc\Views\ViewValueResolver;
-use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
 use Tests\Unit\PhpMvc\Fixtures\Controllers\TestController;
 
 /**

@@ -1,115 +1,68 @@
-# aseguragonzalez/php-mvc
+# PHP MVC
 
+[![Packagist Version](https://img.shields.io/packagist/v/aseguragonzalez/php-mvc)](https://packagist.org/packages/aseguragonzalez/php-mvc)
+[![PHP](https://img.shields.io/packagist/php-v/aseguragonzalez/php-mvc)](https://packagist.org/packages/aseguragonzalez/php-mvc)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![CI](https://github.com/aseguragonzalez/php-mvc/actions/workflows/ci.yml/badge.svg)](https://github.com/aseguragonzalez/php-mvc/actions/workflows/ci.yml)
-[![Latest Version](https://img.shields.io/packagist/v/aseguragonzalez/php-mvc.svg)](https://packagist.org/packages/aseguragonzalez/php-mvc)
-[![PHP Version](https://img.shields.io/packagist/php-v/aseguragonzalez/php-mvc.svg)](https://packagist.org/packages/aseguragonzalez/php-mvc)
-[![License](https://img.shields.io/github/license/aseguragonzalez/php-mvc.svg)](LICENSE)
+[![codecov](https://codecov.io/gh/aseguragonzalez/php-mvc/branch/main/graph/badge.svg)](https://codecov.io/gh/aseguragonzalez/php-mvc)
+[![PHPStan](https://img.shields.io/badge/PHPStan-max-blue)](https://phpstan.org/)
+[![PSR-15](https://img.shields.io/badge/PSR--15-compatible-brightgreen)](https://www.php-fig.org/psr/psr-15/)
 
-Lightweight PHP 8.3+ MVC framework built around DDD and Hexagonal Architecture. Provides a PSR-7/PSR-15 web layer, a dependency-injection container, a CLI scaffolding tool, and optional modules for database migrations, background tasks, and authentication.
+Lightweight PHP 8.4+ MVC framework for building simple web applications. Routing, controllers, middleware, views, and a small set of opt-in modules (migrations, authentication, background tasks) — with only PSR standard interfaces as runtime dependencies.
 
 ## Requirements
 
-- PHP 8.3 or 8.4
-- Composer
+- PHP 8.4 or later
+- Composer 2.x
 
-## Installation
+## Getting started
+
+### Install
 
 ```bash
 composer require aseguragonzalez/php-mvc
 ```
 
-## Quickstart
-
-### 1. Scaffold a new app
+### Create an app
 
 ```bash
-vendor/bin/mvc create-app ./src/Ports/MyApp --name=MyApp --namespace=App\\Ports\\MyApp
+vendor/bin/mvc create-app ./src/MyApp --name=MyApp --namespace=App\\MyApp
 ```
 
-This generates the folder structure, `mvc.config.json`, and a bootstrap file.
+This generates the folder structure, a bootstrap file, and an `mvc.config.json` configuration file.
 
-### 2. Define a controller
+### Enable optional modules
 
-```php
-use PhpMvc\Controllers\Controller;
-use PhpMvc\Actions\Responses\ActionResponse;
+Each module is opt-in and can be activated through the CLI:
 
-class HomeController extends Controller
-{
-    public function index(): ActionResponse
-    {
-        return $this->view();               // renders Home/index
-    }
-
-    public function show(int $id): ActionResponse
-    {
-        $model = /* … */;
-        return $this->view(model: $model);  // renders Home/show
-    }
-}
+```bash
+vendor/bin/mvc migrations:enable   # SQL migrations via timestamped scripts
+vendor/bin/mvc auth:enable         # Authentication and authorization
+vendor/bin/mvc bg-tasks:enable     # Background task processing
 ```
 
-### 3. Register routes
+Once enabled, each module exposes additional CLI commands (e.g. `migrations:create`, `migrations:run`). See the [CLI reference](https://aseguragonzalez.github.io/php-mvc/cli/reference/) for the full list.
 
-```php
-use PhpMvc\Routes\Router;
+## Documentation
 
-$router = new Router();
-$router->get('/', HomeController::class, 'index');
-$router->get('/items/{id}', HomeController::class, 'show');
-```
+Full documentation is available at [aseguragonzalez.github.io/php-mvc](https://aseguragonzalez.github.io/php-mvc/).
 
-### 4. Handle requests
+## Built with
 
-```php
-use PhpMvc\Requests\RequestHandler;
-
-$handler = new RequestHandler($container, $router);
-$response = $handler->handle($serverRequest);
-```
-
-## CLI
-
-The `mvc` binary provides scaffolding and asset bundling commands:
-
-| Command | Description |
-|---|---|
-| `mvc create-app` | Scaffold a new MVC app |
-| `mvc migrations:enable` | Enable the migrations module |
-| `mvc migrations:create` | Create a new timestamped migration |
-| `mvc migrations:run` | Run all pending migrations |
-| `mvc migrations:test` | Test a single migration (apply + rollback) |
-| `mvc auth:enable` | Enable the authentication module |
-| `mvc bg-tasks:enable` | Enable the background tasks module |
-| `mvc watch-assets` | Watch and rebuild JS/CSS bundles (dev) |
-| `mvc create-bundle` | Build minified JS/CSS bundles (production) |
-
-## Modules
-
-### Security
-
-Sign-up, sign-in, password reset, and session refresh use cases are provided as application services under `PhpMvc\Security\Application\`. Wire them through the DI container and expose them via controllers.
-
-### Migrations
-
-SQL migrations are stored as timestamped folders. See [`src/Apps/HowToMigrations.md`](src/Apps/HowToMigrations.md) for the full workflow.
-
-### Background tasks
-
-Register tasks and process them via `PhpMvc\BackgroundTasks\Application\`. See [`src/Apps/HowToBackgroundTasks.md`](src/Apps/HowToBackgroundTasks.md).
-
-### Asset bundling
-
-Merge and optionally minify JS/CSS sources via the CLI. See [`src/Web/HowToAssets.md`](src/Web/HowToAssets.md).
+- [PHPUnit](https://phpunit.de/) ^12.5 — test suite
+- [PHPStan](https://phpstan.org/) ^2.1 — static analysis at max level
+- [PHP-CS-Fixer](https://cs.symfony.com/) ^3.95 — code style
+- [FakerPHP](https://fakerphp.org/) ^1.24 — test data generation
+- [vfsStream](https://github.com/bovigo/vfsStream) ^1.6 — virtual filesystem for tests
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md).
+Contributions are welcome. Please read [CONTRIBUTING.md](.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](.github/CODE_OF_CONDUCT.md) before opening a pull request.
 
 ## Security
 
-See [SECURITY.md](SECURITY.md) for the responsible disclosure process.
+See [SECURITY.md](.github/SECURITY.md) for the responsible disclosure process.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+[MIT License](LICENSE). Copyright (c) 2026 Alfonso Segura.

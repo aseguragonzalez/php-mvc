@@ -10,13 +10,13 @@ use PhpMvc\Middlewares\ErrorHandling;
 use PhpMvc\Requests\RequestContext;
 use PhpMvc\Responses\StatusCode;
 use PhpMvc\Views\ViewEngine;
-use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Psr\Log\LoggerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
 
 /**
  * @internal

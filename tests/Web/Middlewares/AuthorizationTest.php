@@ -13,12 +13,12 @@ use PhpMvc\Routes\Route;
 use PhpMvc\Routes\RouteMethod;
 use PhpMvc\Routes\Router;
 use PhpMvc\Security\Identity;
-use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\UriInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
 use Tests\Unit\PhpMvc\Fixtures\Routes\Route\RouteController;
 
 /**

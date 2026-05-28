@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Actions;
 
-use PhpMvc\Actions\ActionParameterBuilder;
 use Faker\Factory as FakerFactory;
 use Faker\Generator as Faker;
+use PhpMvc\Actions\ActionParameterBuilder;
 use PHPUnit\Framework\TestCase;
 use Tests\Unit\PhpMvc\Fixtures\Actions\RequestObject;
 use Tests\Unit\PhpMvc\Fixtures\Actions\WithoutDocsObject;

@@ -4,7 +4,7 @@ Thank you for considering contributing to `aseguragonzalez/php-mvc`.
 
 ## Requirements
 
-- PHP 8.3 or 8.4
+- PHP 8.4+
 - Docker (recommended) or a local PHP environment with Composer
 
 ## Getting started
@@ -17,7 +17,7 @@ make install
 
 ## Development workflow
 
-All commands can be run via `make` (they delegate to Docker internally):
+All commands can be run via `make`:
 
 | Command | Description |
 |---|---|

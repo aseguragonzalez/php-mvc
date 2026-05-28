@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Commands;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Commands\ConsoleOutput;
 use PhpMvc\Commands\MigrationsTestCommand;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**

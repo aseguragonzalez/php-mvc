@@ -24,7 +24,6 @@ use PhpMvc\Views\I18nReplacer;
 use PhpMvc\Views\ModelReplacer;
 use PhpMvc\Views\ViewEngine;
 use PhpMvc\Views\ViewValueResolver;
-use PhpMvc\MutableContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -119,19 +118,30 @@ abstract class MvcWebApp extends Application
         }
 
         if ($this->requireAuthorization && $this->requireAuthentication) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(Authorization::class), $pipeline);
+            /** @var Middleware $authz */
+            $authz = $this->diContainer->get(Authorization::class);
+            $pipeline = new MiddlewarePipeline($authz, $pipeline);
         }
 
         if ($this->requireAuthentication) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(Authentication::class), $pipeline);
+            /** @var Middleware $authn */
+            $authn = $this->diContainer->get(Authentication::class);
+            $pipeline = new MiddlewarePipeline($authn, $pipeline);
         }
 
         if ($this->enableCsrfProtection) {
-            $pipeline = new MiddlewarePipeline($this->diContainer->get(CsrfProtection::class), $pipeline);
+            /** @var Middleware $csrf */
+            $csrf = $this->diContainer->get(CsrfProtection::class);
+            $pipeline = new MiddlewarePipeline($csrf, $pipeline);
         }
 
-        $pipeline = new MiddlewarePipeline($this->diContainer->get(Localization::class), $pipeline);
-        $pipeline = new MiddlewarePipeline($this->diContainer->get(ErrorHandling::class), $pipeline);
+        /** @var Middleware $localization */
+        $localization = $this->diContainer->get(Localization::class);
+        $pipeline = new MiddlewarePipeline($localization, $pipeline);
+
+        /** @var Middleware $errorHandling */
+        $errorHandling = $this->diContainer->get(ErrorHandling::class);
+        $pipeline = new MiddlewarePipeline($errorHandling, $pipeline);
 
         $this->diContainer->set(RequestHandlerInterface::class, $pipeline);
     }
@@ -188,10 +198,13 @@ abstract class MvcWebApp extends Application
     private function createRequestFromGlobals(): ServerRequestInterface
     {
         $server = $_SERVER;
-        $method = $server['REQUEST_METHOD'] ?? 'GET';
+        $rawMethod = $server['REQUEST_METHOD'] ?? null;
+        $method = is_string($rawMethod) ? $rawMethod : 'GET';
         $scheme = (!empty($server['HTTPS']) && 'off' !== $server['HTTPS']) ? 'https' : 'http';
-        $host = $server['HTTP_HOST'] ?? ($server['SERVER_NAME'] ?? 'localhost');
-        $uri = $scheme . '://' . $host . ($server['REQUEST_URI'] ?? '/');
+        $rawHost = $server['HTTP_HOST'] ?? $server['SERVER_NAME'] ?? null;
+        $host = is_string($rawHost) ? $rawHost : 'localhost';
+        $rawUri = $server['REQUEST_URI'] ?? null;
+        $uri = $scheme.'://'.$host.(is_string($rawUri) ? $rawUri : '/');
 
         $requestFactory = $this->diContainer->get(ServerRequestFactoryInterface::class);
         if (!$requestFactory instanceof ServerRequestFactoryInterface) {
@@ -203,6 +216,9 @@ abstract class MvcWebApp extends Application
         $request = $requestFactory->createServerRequest($method, $uri, $server);
 
         foreach ($server as $key => $value) {
+            if (!is_string($value)) {
+                continue;
+            }
             if (str_starts_with($key, 'HTTP_')) {
                 $request = $request->withHeader(str_replace('_', '-', substr($key, 5)), $value);
             } elseif (in_array($key, ['CONTENT_TYPE', 'CONTENT_LENGTH'], true) && '' !== $value) {
@@ -215,7 +231,8 @@ abstract class MvcWebApp extends Application
             ->withQueryParams($_GET)
         ;
 
-        $contentType = $server['CONTENT_TYPE'] ?? '';
+        $rawContentType = $server['CONTENT_TYPE'] ?? null;
+        $contentType = is_string($rawContentType) ? $rawContentType : '';
         if (str_starts_with($contentType, 'application/json')) {
             $rawBody = (string) file_get_contents('php://input');
             $parsed = json_decode($rawBody, true);

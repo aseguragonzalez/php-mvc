@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Config;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Config\MvcConfig;
 use PhpMvc\UiAssetsSettings;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**

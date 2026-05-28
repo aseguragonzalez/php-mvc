@@ -14,15 +14,20 @@ final class TestServerRequest implements ServerRequestInterface
     private array $headers = [];
     private string $protocolVersion = '1.1';
     private StreamInterface $body;
+
     /** @var array<string, mixed> */
     private array $serverParams;
+
     /** @var array<string, string> */
     private array $cookieParams = [];
+
     /** @var array<string, mixed> */
     private array $queryParams = [];
+
     /** @var array<string, mixed> */
     private array $attributes = [];
     private array|object|null $parsedBody = null;
+
     /** @var array<mixed> */
     private array $uploadedFiles = [];
     private UriInterface $uri;
@@ -32,7 +37,7 @@ final class TestServerRequest implements ServerRequestInterface
      */
     public function __construct(
         private string $method,
-        UriInterface|string $uri,
+        string|UriInterface $uri,
         array $serverParams = [],
     ) {
         $this->uri = is_string($uri) ? new TestUri($uri) : $uri;
@@ -44,9 +49,10 @@ final class TestServerRequest implements ServerRequestInterface
     {
         $target = $this->uri->getPath() ?: '/';
         $query = $this->uri->getQuery();
-        if ($query !== '') {
-            $target .= '?' . $query;
+        if ('' !== $query) {
+            $target .= '?'.$query;
         }
+
         return $target;
     }
 
@@ -55,35 +61,50 @@ final class TestServerRequest implements ServerRequestInterface
         return clone $this;
     }
 
-    public function getMethod(): string { return $this->method; }
+    public function getMethod(): string
+    {
+        return $this->method;
+    }
 
     public function withMethod(string $method): static
     {
         $clone = clone $this;
         $clone->method = $method;
+
         return $clone;
     }
 
-    public function getUri(): UriInterface { return $this->uri; }
+    public function getUri(): UriInterface
+    {
+        return $this->uri;
+    }
 
     public function withUri(UriInterface $uri, bool $preserveHost = false): static
     {
         $clone = clone $this;
         $clone->uri = $uri;
+
         return $clone;
     }
 
-    public function getProtocolVersion(): string { return $this->protocolVersion; }
+    public function getProtocolVersion(): string
+    {
+        return $this->protocolVersion;
+    }
 
     public function withProtocolVersion(string $version): static
     {
         $clone = clone $this;
         $clone->protocolVersion = $version;
+
         return $clone;
     }
 
     /** @return array<string, list<string>> */
-    public function getHeaders(): array { return $this->headers; }
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
 
     public function hasHeader(string $name): bool
     {
@@ -105,6 +126,7 @@ final class TestServerRequest implements ServerRequestInterface
     {
         $clone = clone $this;
         $clone->headers[strtolower($name)] = array_values((array) $value);
+
         return $clone;
     }
 
@@ -114,6 +136,7 @@ final class TestServerRequest implements ServerRequestInterface
         $key = strtolower($name);
         $existing = $clone->headers[$key] ?? [];
         $clone->headers[$key] = array_merge($existing, array_values((array) $value));
+
         return $clone;
     }
 
@@ -121,65 +144,92 @@ final class TestServerRequest implements ServerRequestInterface
     {
         $clone = clone $this;
         unset($clone->headers[strtolower($name)]);
+
         return $clone;
     }
 
-    public function getBody(): StreamInterface { return $this->body; }
+    public function getBody(): StreamInterface
+    {
+        return $this->body;
+    }
 
     public function withBody(StreamInterface $body): static
     {
         $clone = clone $this;
         $clone->body = $body;
+
         return $clone;
     }
 
     /** @return array<string, mixed> */
-    public function getServerParams(): array { return $this->serverParams; }
+    public function getServerParams(): array
+    {
+        return $this->serverParams;
+    }
 
     /** @return array<string, string> */
-    public function getCookieParams(): array { return $this->cookieParams; }
+    public function getCookieParams(): array
+    {
+        return $this->cookieParams;
+    }
 
     /** @param array<string, string> $cookies */
     public function withCookieParams(array $cookies): static
     {
         $clone = clone $this;
         $clone->cookieParams = $cookies;
+
         return $clone;
     }
 
     /** @return array<string, mixed> */
-    public function getQueryParams(): array { return $this->queryParams; }
+    public function getQueryParams(): array
+    {
+        return $this->queryParams;
+    }
 
     /** @param array<string, mixed> $query */
     public function withQueryParams(array $query): static
     {
         $clone = clone $this;
         $clone->queryParams = $query;
+
         return $clone;
     }
 
     /** @return array<mixed> */
-    public function getUploadedFiles(): array { return $this->uploadedFiles; }
+    public function getUploadedFiles(): array
+    {
+        return $this->uploadedFiles;
+    }
 
     /** @param array<mixed> $uploadedFiles */
     public function withUploadedFiles(array $uploadedFiles): static
     {
         $clone = clone $this;
         $clone->uploadedFiles = $uploadedFiles;
+
         return $clone;
     }
 
-    public function getParsedBody(): array|object|null { return $this->parsedBody; }
+    public function getParsedBody(): array|object|null
+    {
+        return $this->parsedBody;
+    }
 
     public function withParsedBody($data): static
     {
         $clone = clone $this;
         $clone->parsedBody = $data;
+
         return $clone;
     }
 
     /** @return array<string, mixed> */
-    public function getAttributes(): array { return $this->attributes; }
+    public function getAttributes(): array
+    {
+        return $this->attributes;
+    }
 
     public function getAttribute(string $name, $default = null): mixed
     {
@@ -190,6 +240,7 @@ final class TestServerRequest implements ServerRequestInterface
     {
         $clone = clone $this;
         $clone->attributes[$name] = $value;
+
         return $clone;
     }
 
@@ -197,6 +248,7 @@ final class TestServerRequest implements ServerRequestInterface
     {
         $clone = clone $this;
         unset($clone->attributes[$name]);
+
         return $clone;
     }
 }

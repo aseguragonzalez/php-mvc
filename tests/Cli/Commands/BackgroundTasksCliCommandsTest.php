@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Commands;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Commands\BackgroundTasksDisableCommand;
 use PhpMvc\Commands\BackgroundTasksEnableCommand;
 use PhpMvc\Commands\BackgroundTasksRunCommand;
 use PhpMvc\Commands\ConsoleOutput;
 use PhpMvc\Config\MvcConfig;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**

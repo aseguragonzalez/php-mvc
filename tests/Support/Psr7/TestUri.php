@@ -21,7 +21,7 @@ final class TestUri implements UriInterface
         $parts = parse_url($uri) ?: [];
         $this->scheme = strtolower($parts['scheme'] ?? '');
         $user = $parts['user'] ?? '';
-        $this->userInfo = $user !== '' && isset($parts['pass']) ? $user . ':' . $parts['pass'] : $user;
+        $this->userInfo = '' !== $user && isset($parts['pass']) ? $user.':'.$parts['pass'] : $user;
         $this->host = strtolower($parts['host'] ?? '');
         $this->port = isset($parts['port']) ? (int) $parts['port'] : null;
         $this->path = $parts['path'] ?? '';
@@ -29,38 +29,88 @@ final class TestUri implements UriInterface
         $this->fragment = $parts['fragment'] ?? '';
     }
 
-    public function getScheme(): string { return $this->scheme; }
+    public function __toString(): string
+    {
+        $uri = '';
+        if ('' !== $this->scheme) {
+            $uri .= $this->scheme.':';
+        }
+        $authority = $this->getAuthority();
+        if ('' !== $authority) {
+            $uri .= '//'.$authority;
+        }
+        $uri .= $this->path;
+        if ('' !== $this->query) {
+            $uri .= '?'.$this->query;
+        }
+        if ('' !== $this->fragment) {
+            $uri .= '#'.$this->fragment;
+        }
+
+        return $uri;
+    }
+
+    public function getScheme(): string
+    {
+        return $this->scheme;
+    }
 
     public function getAuthority(): string
     {
         $authority = $this->host;
-        if ($this->userInfo !== '') {
-            $authority = $this->userInfo . '@' . $authority;
+        if ('' !== $this->userInfo) {
+            $authority = $this->userInfo.'@'.$authority;
         }
-        if ($this->port !== null) {
-            $authority .= ':' . $this->port;
+        if (null !== $this->port) {
+            $authority .= ':'.$this->port;
         }
+
         return $authority;
     }
 
-    public function getUserInfo(): string { return $this->userInfo; }
-    public function getHost(): string { return $this->host; }
-    public function getPort(): ?int { return $this->port; }
-    public function getPath(): string { return $this->path; }
-    public function getQuery(): string { return $this->query; }
-    public function getFragment(): string { return $this->fragment; }
+    public function getUserInfo(): string
+    {
+        return $this->userInfo;
+    }
+
+    public function getHost(): string
+    {
+        return $this->host;
+    }
+
+    public function getPort(): ?int
+    {
+        return $this->port;
+    }
+
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    public function getQuery(): string
+    {
+        return $this->query;
+    }
+
+    public function getFragment(): string
+    {
+        return $this->fragment;
+    }
 
     public function withScheme(string $scheme): UriInterface
     {
         $clone = clone $this;
         $clone->scheme = strtolower($scheme);
+
         return $clone;
     }
 
     public function withUserInfo(string $user, ?string $password = null): UriInterface
     {
         $clone = clone $this;
-        $clone->userInfo = $user !== '' && $password !== null ? $user . ':' . $password : $user;
+        $clone->userInfo = '' !== $user && null !== $password ? $user.':'.$password : $user;
+
         return $clone;
     }
 
@@ -68,6 +118,7 @@ final class TestUri implements UriInterface
     {
         $clone = clone $this;
         $clone->host = strtolower($host);
+
         return $clone;
     }
 
@@ -75,6 +126,7 @@ final class TestUri implements UriInterface
     {
         $clone = clone $this;
         $clone->port = $port;
+
         return $clone;
     }
 
@@ -82,6 +134,7 @@ final class TestUri implements UriInterface
     {
         $clone = clone $this;
         $clone->path = $path;
+
         return $clone;
     }
 
@@ -89,6 +142,7 @@ final class TestUri implements UriInterface
     {
         $clone = clone $this;
         $clone->query = $query;
+
         return $clone;
     }
 
@@ -96,26 +150,7 @@ final class TestUri implements UriInterface
     {
         $clone = clone $this;
         $clone->fragment = $fragment;
-        return $clone;
-    }
 
-    public function __toString(): string
-    {
-        $uri = '';
-        if ($this->scheme !== '') {
-            $uri .= $this->scheme . ':';
-        }
-        $authority = $this->getAuthority();
-        if ($authority !== '') {
-            $uri .= '//' . $authority;
-        }
-        $uri .= $this->path;
-        if ($this->query !== '') {
-            $uri .= '?' . $this->query;
-        }
-        if ($this->fragment !== '') {
-            $uri .= '#' . $this->fragment;
-        }
-        return $uri;
+        return $clone;
     }
 }

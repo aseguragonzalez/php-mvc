@@ -6,12 +6,8 @@ namespace PhpMvc\Migrations;
 
 use PhpMvc\LoggerSettings;
 use PhpMvc\MutableContainerInterface;
-use Monolog\Formatter\LineFormatter;
-use Monolog\Handler\StreamHandler;
-use Monolog\Level;
-use Monolog\Logger;
-use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LoggerInterface;
+use Psr\Log\NullLogger;
 
 final class MigrationBootstrap
 {
@@ -36,38 +32,8 @@ final class MigrationBootstrap
             ),
         );
 
-        /** @var LoggerSettings $loggerSettings */
-        $loggerSettings = $container->get(LoggerSettings::class);
-
-        $handler = new StreamHandler(
-            stream: 'php://stdout',
-            level: self::logLevelFromSettings($loggerSettings)
-        );
-        $handler->setFormatter(new LineFormatter(
-            format: '[%datetime%] %level_name%: %message%',
-            dateFormat: 'Y-m-d H:i:s',
-            allowInlineLineBreaks: true,
-            ignoreEmptyContextAndExtra: true,
-            includeStacktraces: false,
-        ));
-
-        $logger = new Logger($loggerSettings->serviceName);
-        $logger->pushHandler($handler);
-        $logger->pushProcessor(new PsrLogMessageProcessor());
-
-        $container->set(LoggerInterface::class, $logger);
+        $container->set(LoggerInterface::class, new NullLogger());
 
         Dependencies::configure($container);
-    }
-
-    private static function logLevelFromSettings(LoggerSettings $loggerSettings): Level
-    {
-        $logLevel = $loggerSettings->logLevel;
-        $logLevels = ['debug', 'info', 'notice', 'warning', 'error', 'critical', 'alert', 'emergency'];
-        if (!in_array($logLevel, $logLevels)) {
-            throw new \InvalidArgumentException("Invalid log level: {$logLevel}");
-        }
-
-        return Level::fromName($logLevel);
     }
 }

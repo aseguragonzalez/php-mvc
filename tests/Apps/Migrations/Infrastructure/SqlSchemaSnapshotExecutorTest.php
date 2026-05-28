@@ -215,12 +215,10 @@ final class SqlSchemaSnapshotExecutorTest extends TestCase
             ->with(['database_name' => 'test_db', 'table_name' => $tableName])
         ;
 
-        $fetchCount = count($columns) + 1; // One call per row + one false to end loop
-        $fetchReturns = array_values(array_merge($columns, [false]));
-        $stmt->expects($this->exactly($fetchCount))
-            ->method('fetch')
+        $stmt->expects($this->once())
+            ->method('fetchAll')
             ->with(\PDO::FETCH_ASSOC)
-            ->willReturnOnConsecutiveCalls(...$fetchReturns)
+            ->willReturn($columns)
         ;
     }
 

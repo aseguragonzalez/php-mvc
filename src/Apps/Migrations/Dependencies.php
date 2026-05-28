@@ -56,6 +56,7 @@ final class Dependencies
 
         /** @var MigrationRepository $repo */
         $repo = $container->get(MigrationRepository::class);
+
         /** @var DbClient $db */
         $db = $container->get(DbClient::class);
 

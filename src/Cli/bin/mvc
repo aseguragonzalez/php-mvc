@@ -17,11 +17,11 @@ if (isset($_composer_autoload_path)) {
         $dir = dirname($dir);
     }
 
-    if (!class_exists(\AlfonsoSG\Mvc\Commands\MvcCli::class)) {
+    if (!class_exists(\PhpMvc\Commands\MvcCli::class)) {
         fwrite(STDERR, "Could not find vendor/autoload.php\n");
         exit(1);
     }
 }
 
-$cli = new \AlfonsoSG\Mvc\Commands\MvcCli();
+$cli = new \PhpMvc\Commands\MvcCli();
 exit($cli->run($_SERVER['argv'] ?? []));

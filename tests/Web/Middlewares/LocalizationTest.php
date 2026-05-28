@@ -9,10 +9,10 @@ use PhpMvc\Middlewares\Localization;
 use PhpMvc\Requests\RequestContext;
 use PhpMvc\Responses\Headers\SetCookie;
 use PhpMvc\Responses\StatusCode;
-use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
 
 /**
  * @internal

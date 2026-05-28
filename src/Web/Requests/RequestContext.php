@@ -55,9 +55,10 @@ final class RequestContext
     public function getIdentity(): Identity
     {
         $this->checkIfKeyExists('identity');
+        $identity = $this->keys['identity'];
+        assert($identity instanceof Identity);
 
-        // @var Identity
-        return $this->keys['identity'];
+        return $identity;
     }
 
     public function setIdentityToken(string $token): void

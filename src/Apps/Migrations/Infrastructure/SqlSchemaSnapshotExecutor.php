@@ -102,9 +102,11 @@ final readonly class SqlSchemaSnapshotExecutor implements SchemaSnapshotExecutor
             'table_name' => $tableName,
         ]);
 
+        /** @var array<int, array<string, null|string>> $rows */
+        $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
         $columns = [];
-        while (($row = $stmt->fetch(\PDO::FETCH_ASSOC)) !== false) {
-            // @var array<string, string|null> $row
+        foreach ($rows as $row) {
             $columns[] = ColumnDefinition::new(
                 name: (string) $row['COLUMN_NAME'],
                 type: (string) $row['COLUMN_TYPE'],

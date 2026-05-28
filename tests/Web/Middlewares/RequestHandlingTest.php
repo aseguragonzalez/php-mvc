@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Tests\Unit\PhpMvc\Middlewares;
 
 use PhpMvc\Middlewares\RequestHandling;
-use Tests\Support\Psr7\TestPsr17Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\MockObject\Stub;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Tests\Support\Psr7\TestPsr17Factory;
 
 /**
  * @internal

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PhpMvc\Security;
 
+use PhpMvc\MutableContainerInterface;
 use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentity;
 use PhpMvc\Security\Application\ActivateUserIdentity\ActivateUserIdentityHandler;
 use PhpMvc\Security\Application\DefaultIdentityManager;
@@ -31,7 +32,6 @@ use PhpMvc\Security\Infrastructure\SqlResetPasswordChallengeRepository;
 use PhpMvc\Security\Infrastructure\SqlSignInSessionRepository;
 use PhpMvc\Security\Infrastructure\SqlSignUpChallengeRepository;
 use PhpMvc\Security\Infrastructure\SqlUserIdentityRepository;
-use PhpMvc\MutableContainerInterface;
 
 final class Dependencies
 {

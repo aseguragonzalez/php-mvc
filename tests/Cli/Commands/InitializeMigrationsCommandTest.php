@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Commands;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Commands\ConsoleOutput;
 use PhpMvc\Commands\InitializeMigrationsCommand;
 use PhpMvc\Commands\MigrationsEnableCommand;
 use PhpMvc\Commands\StubGenerator;
-use org\bovigo\vfs\vfsStream;
 use PHPUnit\Framework\TestCase;
 
 /**

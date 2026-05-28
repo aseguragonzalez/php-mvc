@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace PhpMvc\Commands;
 
-
 final class MigrationsTestCommand implements Command
 {
     use MigrationsCommandPathTrait;

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Files;
 
-use PhpMvc\Files\DefaultFileManager;
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Files\DefaultFileManager;
 use PHPUnit\Framework\TestCase;
 
 /**
