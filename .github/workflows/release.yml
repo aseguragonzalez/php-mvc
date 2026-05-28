@@ -2,20 +2,51 @@ name: Release
 
 on:
   push:
-    tags:
-    - v*.*.*
+    branches:
+    - main
+
+permissions: {}
 
 jobs:
+  quality:
+    uses: ./.github/workflows/quality.yml
+    permissions:
+      contents: read
+    secrets: inherit
+
   release:
-    name: Create GitHub Release
+    name: Release
+    needs: quality
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
+      pull-requests: write
 
     steps:
-    - uses: actions/checkout@v6
-
-    - name: Create release
-      uses: softprops/action-gh-release@v3
+    - name: Create GitHub App token
+      uses: actions/create-github-app-token@v1
+      id: app-token
       with:
-        generate_release_notes: true
+        app-id: ${{ secrets.RELEASER_APP_ID }}
+        private-key: ${{ secrets.RELEASER_PRIVATE_KEY }}
+
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ steps.app-token.outputs.token }}
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22
+
+    - name: Run semantic-release
+      uses: cycjimmy/semantic-release-action@v4
+      with:
+        extra_plugins: |
+          @semantic-release/changelog
+          @semantic-release/git
+      env:
+        GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
