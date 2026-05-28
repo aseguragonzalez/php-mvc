@@ -19,6 +19,7 @@ una vez extraído `src/Framework/Mvc/` de `resbooking`.
 | 1.4 | Actualizar los 21 stubs del CLI con el nuevo namespace | `Cli/Commands/stubs/**` | M |
 | 1.5 | Corregir `composer.json`: type, autoload, metadata | `composer.json` | S |
 | 1.6 | ~~Añadir tests para el nuevo hashing de contraseñas~~ ✅ | `tests/` | — |
+| 1.7 | ~~Eliminar dependencias concretas no-PSR de `require`~~ ✅ | `composer.json`, `src/`, `tests/` | L |
 
 ### Notas sobre 1.2 / 1.3
 
@@ -87,22 +88,22 @@ Rector. Afecta también a:
 ## Checklist de publicación
 
 ### Código
-- [ ] Namespace vendor root en todos los archivos y stubs
-- [ ] `composer.json` con `"type": "library"`, autoload PSR-4 correcto, metadata completa
+- [x] Namespace `AlfonsoSG\Mvc\` en todos los archivos y stubs
+- [x] `composer.json` con `"type": "library"`, autoload PSR-4 correcto, metadata completa
+- [x] Solo `psr/*` en `require`; `MutableContainerInterface` como abstracción interna
 
 ### CI/CD
-- [ ] Actions actualizados (`checkout@v4`, `composer-install@v3`)
-- [ ] Matrix PHP 8.3 + 8.4
-- [ ] CI corriendo en push a `main` y en PR
-- [ ] Workflow de release configurado
-- [ ] Coverage subiendo a Codecov o Coveralls
+- [x] Actions actualizados (`checkout@v4`, `composer-install@v3`)
+- [x] Matrix PHP 8.3 + 8.4
+- [x] CI corriendo en push a `main` y en PR
+- [x] Workflow de release configurado
+- [x] Coverage subiendo a Codecov
 
 ### Documentación y repositorio
-- [ ] `README.md` con quickstart, requisitos, instalación y ejemplos
-- [ ] `CHANGELOG.md` con entrada `v0.1.0`
-- [ ] `CONTRIBUTING.md`
-- [ ] `SECURITY.md`
-- [ ] `LICENSE`
+- [x] `README.md` con quickstart, requisitos, instalación y ejemplos
+- [x] `CHANGELOG.md` con entrada `v0.1.0`
+- [x] `CONTRIBUTING.md`
+- [x] `SECURITY.md`
 - [ ] Tag `v0.1.0` creado en Git
 - [ ] Paquete registrado en Packagist con webhook de auto-update
 

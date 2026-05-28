@@ -32,6 +32,7 @@
 | 1.4 | Actualizar los 25 stubs de la CLI con el nuevo namespace | `src/Cli/Commands/stubs/**` | M | ✅ |
 | 1.5 | Crear `composer.json` correcto en la raíz | `composer.json` | S | ✅ |
 | 1.6 | ~~Añadir tests para el nuevo hashing de contraseñas~~ | `tests/` | — | ✅ |
+| 1.7 | Eliminar dependencias concretas no-PSR de `require` | `composer.json`, `src/`, `tests/` | L | ✅ |
 
 ### 1.2 — Namespace vendor root
 
@@ -78,6 +79,15 @@ También afecta:
 - `.php-cs-fixer.dist.php` → `->in(__DIR__)`
 - Tests en `tests/`
 
+### 1.7 — Eliminación de dependencias concretas no-PSR ✅
+
+- `nyholm/psr7`, `nyholm/psr7-server`, `php-di/php-di` eliminados de `require`
+- `psr/http-factory` añadido a `require`
+- `MutableContainerInterface` creado en `src/` (extiende PSR-11 + `set()`)
+- `MvcWebApp`: `ServerRequestCreator::fromGlobals()` sustituido por `createRequestFromGlobals()` usando `ServerRequestFactoryInterface` del contenedor
+- CLI stubs: type hints usan `MutableContainerInterface`; entry points usan adaptador anónimo `new class extends DiContainer implements MutableContainerInterface {}`
+- Tests: implementaciones PSR-7/PSR-17 mínimas en `tests/Support/Psr7/`
+
 ### 1.5 — `composer.json` objetivo
 
 ```json
@@ -98,13 +108,8 @@ También afecta:
   "prefer-stable": true,
   "require": {
     "php": "^8.3 || ^8.4",
-    "aseguragonzalez/php-seedwork": "^0.1.1",
-    "monolog/monolog": "^3.10",
-    "nyholm/psr7": "^1.8",
-    "nyholm/psr7-server": "^1.1",
-    "php-di/php-di": "^7.0",
-    "phpmailer/phpmailer": "^7.0",
     "psr/container": "^2.0",
+    "psr/http-factory": "^1.1",
     "psr/http-message": "^2.0",
     "psr/http-server-handler": "^1.0",
     "psr/http-server-middleware": "^1.0",
@@ -315,29 +320,29 @@ jobs:
 ## Checklist de publicación
 
 ### Código
-- [ ] Namespace `AlfonsoSG\Mvc\` en todos los archivos PHP y stubs (207 archivos)
-- [ ] `composer.json` con `"type": "library"`, autoload PSR-4 correcto, metadata completa
-- [ ] Binario en `bin/mvc` (no en `src/`)
+- [x] Namespace `AlfonsoSG\Mvc\` en todos los archivos PHP y stubs
+- [x] `composer.json` con `"type": "library"`, autoload PSR-4 correcto, metadata completa
+- [x] Binario en `bin/mvc`
+- [x] Solo `psr/*` en `require` (nyholm, php-di eliminados); `MutableContainerInterface` en `src/`
 
 ### Calidad
-- [ ] `phpstan.neon` nivel 8 sin errores
-- [ ] `.php-cs-fixer.dist.php` sin diferencias
-- [ ] `phpunit.xml` con suites `unit` e `integration`
-- [ ] Tests pasando con nuevos namespaces
+- [x] `phpstan.neon` nivel 8 sin errores
+- [x] `.php-cs-fixer.dist.php` sin diferencias
+- [x] `phpunit.xml` configurado
+- [x] 723/723 tests pasando
 
 ### CI/CD
-- [ ] `checkout@v4`, `composer-install@v3`
-- [ ] Matrix PHP 8.3 + 8.4
-- [ ] CI en push a `main` y en PR
-- [ ] Workflow de release configurado
-- [ ] Coverage subiendo a Codecov
+- [x] `checkout@v4`, `composer-install@v3`
+- [x] Matrix PHP 8.3 + 8.4
+- [x] CI en push a `main` y en PR
+- [x] Workflow de release configurado
+- [x] Coverage subiendo a Codecov
 
 ### Documentación y repositorio
-- [ ] `README.md` con quickstart, requisitos, instalación y ejemplos
-- [ ] `CHANGELOG.md` con entrada `v0.1.0`
-- [ ] `CONTRIBUTING.md`
-- [ ] `SECURITY.md`
-- [ ] `LICENSE`
+- [x] `README.md` con quickstart, requisitos, instalación y ejemplos
+- [x] `CHANGELOG.md` con entrada `v0.1.0`
+- [x] `CONTRIBUTING.md`
+- [x] `SECURITY.md`
 - [ ] Tag `v0.1.0` creado en Git
 - [ ] Paquete registrado en Packagist con webhook de auto-update
 
