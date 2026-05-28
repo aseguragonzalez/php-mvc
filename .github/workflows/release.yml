@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     tags:
-      - "v*.*.*"
+    - v*.*.*
 
 jobs:
   release:
@@ -13,9 +13,9 @@ jobs:
       contents: write
 
     steps:
-      - uses: actions/checkout@v6
+    - uses: actions/checkout@v6
 
-      - name: Create release
-        uses: softprops/action-gh-release@v3
-        with:
-          generate_release_notes: true
+    - name: Create release
+      uses: softprops/action-gh-release@v3
+      with:
+        generate_release_notes: true

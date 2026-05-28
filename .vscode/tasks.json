@@ -1,88 +1,88 @@
 {
-  "version": "2.0.0",
   "tasks": [
     {
-      "label": "install",
-      "type": "shell",
       "command": "make install",
       "group": "build",
+      "label": "install",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
-      }
+        "panel": "shared",
+        "reveal": "always"
+      },
+      "type": "shell"
     },
     {
-      "label": "test",
-      "type": "shell",
       "command": "make test",
       "group": {
-        "kind": "test",
-        "isDefault": true
+        "isDefault": true,
+        "kind": "test"
       },
+      "label": "test",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+        "panel": "shared",
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     },
     {
-      "label": "cs",
-      "type": "shell",
       "command": "make cs",
       "group": "test",
+      "label": "cs",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+        "panel": "shared",
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     },
     {
-      "label": "cs:fix",
-      "type": "shell",
       "command": "make cs-fix",
       "group": "build",
+      "label": "cs:fix",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+        "panel": "shared",
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     },
     {
-      "label": "stan",
-      "type": "shell",
       "command": "make stan",
       "group": "test",
+      "label": "stan",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+        "panel": "shared",
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     },
     {
-      "label": "check",
-      "type": "shell",
       "command": "make check",
       "group": {
-        "kind": "build",
-        "isDefault": true
+        "isDefault": true,
+        "kind": "build"
       },
+      "label": "check",
       "presentation": {
-        "reveal": "always",
-        "panel": "shared"
+        "panel": "shared",
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     },
     {
-      "label": "shell",
-      "type": "shell",
       "command": "make shell",
       "group": "build",
+      "label": "shell",
       "presentation": {
-        "reveal": "always",
+        "focus": true,
         "panel": "dedicated",
-        "focus": true
+        "reveal": "always"
       },
-      "problemMatcher": []
+      "problemMatcher": [],
+      "type": "shell"
     }
-  ]
+  ],
+  "version": "2.0.0"
 }

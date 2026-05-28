@@ -90,4 +90,3 @@ $app->addMiddleware(RateLimitMiddleware::class);
 ```
 
 The middleware is resolved from the container, so constructor injection works. Multiple `addMiddleware()` calls run in registration order.
-
