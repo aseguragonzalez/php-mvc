@@ -19,6 +19,7 @@ use PhpMvc\Views\ViewEngine;
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Tests\Support\Psr7\TestPsr17Factory;
@@ -38,7 +39,7 @@ final class MvcWebAppTest extends TestCase
 
         $passThrough = $this->createStub(MiddlewareInterface::class);
         $passThrough->method('process')->willReturnCallback(
-            static fn ($req, $next) => $next->handle($req)
+            static fn (ServerRequestInterface $req, RequestHandlerInterface $next) => $next->handle($req)
         );
 
         $handlerStub = $this->createStub(RequestHandlerInterface::class);
@@ -77,15 +78,16 @@ final class MvcWebAppTest extends TestCase
         $factory = new TestPsr17Factory();
         $request = $factory->createServerRequest('GET', '/');
 
+        /** @var null|ServerRequestInterface $capturedRequest */
         $capturedRequest = null;
         $passThrough = $this->createStub(MiddlewareInterface::class);
         $passThrough->method('process')->willReturnCallback(
-            static fn ($req, $next) => $next->handle($req)
+            static fn (ServerRequestInterface $req, RequestHandlerInterface $next) => $next->handle($req)
         );
 
         $handlerStub = $this->createStub(RequestHandlerInterface::class);
         $handlerStub->method('handle')->willReturnCallback(
-            static function ($req) use ($factory, &$capturedRequest) {
+            static function (ServerRequestInterface $req) use ($factory, &$capturedRequest) {
                 $capturedRequest = $req;
 
                 return $factory->createResponse(200);

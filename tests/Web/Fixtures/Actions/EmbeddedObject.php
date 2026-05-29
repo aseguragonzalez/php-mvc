@@ -8,6 +8,14 @@ use PhpMvc\Actions\ArrayOf;
 
 final class EmbeddedObject
 {
+    /**
+     * @param list<bool>               $boolItems
+     * @param list<\DateTime>          $dateTimeItems
+     * @param list<\DateTimeImmutable> $dateTimeImmutableItems
+     * @param list<float>              $floatItems
+     * @param list<int>                $intItems
+     * @param list<string>             $stringItems
+     */
     public function __construct(
         #[ArrayOf('bool')]
         public readonly array $boolItems = [],

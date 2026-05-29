@@ -18,6 +18,7 @@ final class TestPsr17Factory implements ResponseFactoryInterface, ServerRequestF
         return new TestResponse($code, $reasonPhrase);
     }
 
+    /** @param array<string, mixed> $serverParams */
     public function createServerRequest(string $method, $uri, array $serverParams = []): ServerRequestInterface
     {
         return new TestServerRequest($method, $uri, $serverParams);

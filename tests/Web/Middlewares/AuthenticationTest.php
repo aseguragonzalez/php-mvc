@@ -26,7 +26,6 @@ final class AuthenticationTest extends TestCase
     private TestPsr17Factory $psrFactory;
     private AuthSettings $settings;
     private RequestContext $context;
-    private IdentityManager $identityManager;
     private RequestHandlerInterface $next;
 
     protected function setUp(): void
@@ -38,7 +37,6 @@ final class AuthenticationTest extends TestCase
             signOutPath: '/logout',
         );
         $this->context = new RequestContext();
-        $this->identityManager = $this->createStub(IdentityManager::class);
         $next = $this->createStub(RequestHandlerInterface::class);
         $next->method('handle')->willReturn($this->psrFactory->createResponse(200));
         $this->next = $next;
