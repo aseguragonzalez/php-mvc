@@ -4,28 +4,44 @@ Thank you for considering contributing to `aseguragonzalez/php-mvc`.
 
 ## Requirements
 
-- PHP 8.4+
-- Docker (recommended) or a local PHP environment with Composer
+- Docker and the [Dev Containers CLI](https://github.com/devcontainers/cli) (`devcontainer` command), **or** VS Code with the [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers).
+
+PHP and Composer are **not** required on the host — they run exclusively inside the dev container.
 
 ## Getting started
+
+Clone the repository and start the dev container:
 
 ```bash
 git clone https://github.com/aseguragonzalez/php-mvc.git
 cd php-mvc
-make install
+devcontainer up --workspace-folder .
+```
+
+Install dependencies inside the container:
+
+```bash
+devcontainer exec --workspace-folder . make install
 ```
 
 ## Development workflow
 
-All commands can be run via `make`:
+All make targets must be run inside the dev container. Running them directly on the host will fail because PHP and Composer are only available inside the container.
+
+```bash
+devcontainer exec --workspace-folder . make <target>
+```
 
 | Command | Description |
 |---|---|
+| `make install` | Install Composer dependencies |
 | `make test` | Run the test suite |
 | `make cs` | Check code style (dry-run) |
 | `make cs-fix` | Auto-fix code style |
-| `make stan` | Run static analysis (PHPStan level 8) |
-| `make check` | Run cs + stan + test |
+| `make stan` | Run static analysis (PHPStan max) |
+| `make check` | Run `cs + stan + test` |
+| `make all` | Run `install + cs-fix + check` |
+| `make docs-serve` | Serve the documentation site on port 8001 |
 
 ## Submitting changes
 
