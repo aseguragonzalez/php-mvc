@@ -25,14 +25,14 @@ jobs:
 
     steps:
     - name: Create GitHub App token
-      uses: actions/create-github-app-token@v1
+      uses: actions/create-github-app-token@v3
       id: app-token
       with:
         app-id: ${{ secrets.RELEASER_APP_ID }}
         private-key: ${{ secrets.RELEASER_PRIVATE_KEY }}
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-depth: 0
         token: ${{ steps.app-token.outputs.token }}
@@ -51,29 +51,3 @@ jobs:
           @semantic-release/git
       env:
         GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-    - name: Notify Packagist
-      run: |
-        VERSION="${{ steps.release.outputs.new_release_version }}"
-
-        if [ -z "$VERSION" ]; then
-          LATEST_TAG=$(git tag --sort=-version:refname | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | head -1)
-          VERSION="${LATEST_TAG#v}"
-        fi
-
-        if [ -z "$VERSION" ]; then
-          echo "No version to notify, skipping."
-          exit 0
-        fi
-
-        if curl -sf "https://packagist.org/packages/aseguragonzalez/php-mvc.json" | \
-           jq -e --arg v "v${VERSION}" '.package.versions[$v]' > /dev/null 2>&1; then
-          echo "v${VERSION} already synced on Packagist, skipping."
-        else
-          echo "Notifying Packagist for v${VERSION}..."
-          curl -sf -X POST \
-            "https://packagist.org/api/update-package?username=aseguragonzalez&apiToken=${PACKAGIST_TOKEN}" \
-            -d 'repository[url]=https://github.com/aseguragonzalez/php-mvc'
-        fi
-      env:
-        PACKAGIST_TOKEN: ${{ secrets.PACKAGIST_TOKEN }}
