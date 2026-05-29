@@ -26,6 +26,8 @@ final class TestServerRequest implements ServerRequestInterface
 
     /** @var array<string, mixed> */
     private array $attributes = [];
+
+    /** @var null|array<string, mixed>|object */
     private array|object|null $parsedBody = null;
 
     /** @var array<mixed> */
@@ -212,11 +214,13 @@ final class TestServerRequest implements ServerRequestInterface
         return $clone;
     }
 
+    /** @return null|array<string, mixed>|object */
     public function getParsedBody(): array|object|null
     {
         return $this->parsedBody;
     }
 
+    /** @param null|array<string, mixed>|object $data */
     public function withParsedBody($data): static
     {
         $clone = clone $this;

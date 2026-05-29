@@ -3,5 +3,6 @@ parameters:
     level: max
     paths:
         - src
+        - tests
     excludePaths:
         - src/Cli/Commands/stubs

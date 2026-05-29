@@ -8,6 +8,15 @@ use PhpMvc\Actions\ArrayOf;
 
 final class RequestObject
 {
+    /**
+     * @param list<bool>               $boolItems
+     * @param list<\DateTime>          $dateTimeItems
+     * @param list<\DateTimeImmutable> $dateTimeImmutableItems
+     * @param list<float>              $floatItems
+     * @param list<int>                $intItems
+     * @param list<string>             $stringItems
+     * @param list<InnerTypeObject>    $customClassType
+     */
     public function __construct(
         public readonly int $id = 0,
         public readonly float $amount = 0.0,
