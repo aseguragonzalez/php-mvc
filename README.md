@@ -47,6 +47,49 @@ Once enabled, each module exposes additional CLI commands (e.g. `migrations:crea
 
 Full documentation is available at [aseguragonzalez.github.io/php-mvc](https://aseguragonzalez.github.io/php-mvc/).
 
+## Development
+
+### Dev container
+
+All tooling (PHP, Composer, PHPStan, PHP-CS-Fixer, MkDocs) runs inside the dev container. Start it once from the project root:
+
+```bash
+devcontainer up --workspace-folder .
+```
+
+Then run any make target with:
+
+```bash
+devcontainer exec --workspace-folder . make <target>
+```
+
+**Debugging:** The Xdebug port is **9003**. Configure your IDE or Xdebug client to connect to that port.
+
+### Make targets
+
+All targets must be run inside the dev container — the required tools are not available on the host.
+
+| Command | Description |
+|---|---|
+| `make install` | Install Composer dependencies |
+| `make test` | Run the test suite |
+| `make cs` | Check code style (dry-run) |
+| `make cs-fix` | Auto-fix code style |
+| `make stan` | Run static analysis (PHPStan max) |
+| `make check` | Run `cs + stan + test` |
+| `make all` | Run `install + cs-fix + check` |
+| `make docs-serve` | Serve the documentation site on port 8001 |
+
+### Documentation site
+
+The documentation site uses [MkDocs Material](https://squidfunk.github.io/mkdocs-material/). Dependencies are installed automatically when the dev container is created.
+
+```bash
+devcontainer exec --workspace-folder . make docs-serve
+```
+
+Then open **http://localhost:8001/php-mvc/** in your browser. The dev container forwards port 8001 automatically; if you use VS Code with the Dev Containers extension the browser opens on its own.
+
 ## Built with
 
 - [PHPUnit](https://phpunit.de/) ^12.5 — test suite
