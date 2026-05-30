@@ -307,6 +307,18 @@ final class SqlUserIdentityRepositoryTest extends TestCase
         $this->assertFalse($result);
     }
 
+    public function testExistsByUsernameReturnsFalseWhenFetchFails(): void
+    {
+        $stmt = $this->createMock(\PDOStatement::class);
+        $stmt->expects($this->once())->method('execute')->with(['username' => 'user@example.com']);
+        $stmt->expects($this->once())->method('fetch')->with(\PDO::FETCH_ASSOC)->willReturn(false);
+        $this->prepareStatementQueue[] = $stmt;
+
+        $this->setupPrepareCallback();
+
+        $this->assertFalse($this->repository->existsByUsername('user@example.com'));
+    }
+
     /**
      * @param array<string> $roles
      */

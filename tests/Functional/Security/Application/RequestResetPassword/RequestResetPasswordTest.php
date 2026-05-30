@@ -41,4 +41,25 @@ final class RequestResetPasswordTest extends TestCase
 
         $handler->execute(new RequestResetPasswordCommand('user@example.com'));
     }
+
+    public function testExecuteDoesNothingWhenUserNotFound(): void
+    {
+        $userIdentityRepository = $this->createStub(UserIdentityRepository::class);
+        $userIdentityRepository->method('getByUsername')->willReturn(null);
+
+        $resetPasswordChallengeRepository = $this->createMock(ResetPasswordChallengeRepository::class);
+        $resetPasswordChallengeRepository->expects($this->never())->method('save');
+
+        $notificator = $this->createMock(ChallengeNotificator::class);
+        $notificator->expects($this->never())->method('sendResetPasswordChallenge');
+
+        $handler = new RequestResetPasswordHandler(
+            $userIdentityRepository,
+            $resetPasswordChallengeRepository,
+            $notificator,
+            new ChallengesExpirationTime(10, 5, 20, 15, 30)
+        );
+
+        $handler->execute(new RequestResetPasswordCommand('unknown@example.com'));
+    }
 }

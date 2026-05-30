@@ -62,4 +62,40 @@ final class AssetBundleSourceResolverTest extends TestCase
         $this->assertSame('a/b', AssetBundleSourceResolver::normalizeRelativeAssetPath('./a/b/'));
         $this->assertSame('', AssetBundleSourceResolver::normalizeRelativeAssetPath(''));
     }
+
+    public function testMergedPathsSkipsEmptyAndSlashOnlyPaths(): void
+    {
+        $groups = [
+            new AssetRouteGroup('one', ['', '/'], ['  ', '/']),
+        ];
+
+        $this->assertSame([], AssetBundleSourceResolver::mergedRelativeJsPaths($groups));
+        $this->assertSame([], AssetBundleSourceResolver::mergedRelativeCssPaths($groups));
+    }
+
+    public function testAbsoluteOutputDirReturnsRootWhenAssetsPathIsEmpty(): void
+    {
+        $config = new MvcConfig(
+            jsAssetsPath: '',
+            mainJsBundler: 'main.min.js',
+            cssAssetsPath: '',
+            mainCssBundler: 'main.min.css',
+            i18nPath: './assets/i18n',
+            migrationsFolderPath: '',
+            migrationsEnabled: null,
+            backgroundTasksFolderPath: '',
+            backgroundTasksEnabled: null,
+            backgroundTasksPollIntervalSeconds: 0,
+            authenticationEnabled: null,
+            assetRoutes: [],
+            devMainJsBundler: 'main.js',
+            devMainCssBundler: 'main.css',
+            useDevAssets: false,
+        );
+
+        $resolver = new AssetBundleSourceResolver('/app/root', $config);
+
+        $this->assertSame('/app/root', $resolver->absoluteJsOutputDir());
+        $this->assertSame('/app/root', $resolver->absoluteCssOutputDir());
+    }
 }

@@ -49,4 +49,48 @@ final class SchemaSnapshotTest extends TestCase
 
         $this->assertCount(2, $snapshot->tables);
     }
+
+    public function testEqualsReturnsTrueForIdenticalSnapshots(): void
+    {
+        $columns = [
+            ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment'),
+        ];
+        $table = TableDefinition::new('users', $columns, [], []);
+
+        $snapshot1 = SchemaSnapshot::new([$table]);
+        $snapshot2 = SchemaSnapshot::new([$table]);
+
+        $this->assertTrue($snapshot1->equals($snapshot2));
+    }
+
+    public function testEqualsReturnsFalseWhenTableCountDiffers(): void
+    {
+        $columns = [
+            ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment'),
+        ];
+        $table1 = TableDefinition::new('users', $columns, [], []);
+        $table2 = TableDefinition::new('posts', $columns, [], []);
+
+        $snapshot1 = SchemaSnapshot::new([$table1]);
+        $snapshot2 = SchemaSnapshot::new([$table1, $table2]);
+
+        $this->assertFalse($snapshot1->equals($snapshot2));
+    }
+
+    public function testEqualsReturnsFalseWhenTableContentDiffers(): void
+    {
+        $columns1 = [
+            ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment'),
+        ];
+        $columns2 = [
+            ColumnDefinition::new('id', 'bigint(20)', false, null, true, 'auto_increment'),
+        ];
+        $table1 = TableDefinition::new('users', $columns1, [], []);
+        $table2 = TableDefinition::new('users', $columns2, [], []);
+
+        $snapshot1 = SchemaSnapshot::new([$table1]);
+        $snapshot2 = SchemaSnapshot::new([$table2]);
+
+        $this->assertFalse($snapshot1->equals($snapshot2));
+    }
 }

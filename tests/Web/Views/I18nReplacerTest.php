@@ -102,4 +102,30 @@ final class I18nReplacerTest extends TestCase
         // Missing dynamic key falls back to the plain key string.
         $this->assertSame('Status: flash.missing', $result);
     }
+
+    public function testSkipsMalformedPlaceholderWithHashInPostProcessing(): void
+    {
+        $this->fileManager->method('readKeyValueJson')->willReturn([]);
+
+        // key#sub contains '#' — post-processing skips it, leaving the placeholder as-is.
+        $result = $this->i18nReplacer->replace((object) [], '{{key#sub}} text', $this->context);
+
+        $this->assertSame('{{key#sub}} text', $result);
+    }
+
+    public function testPostProcessingReplacesKeyProducedByNestedDictionaryValue(): void
+    {
+        $this->fileManager->method('readKeyValueJson')->willReturn([
+            // 'inner' is first — str_replace processes it before 'outer'.
+            // It finds no match in the original template, so {{inner}} survives.
+            // When 'outer' is processed its value introduces {{inner}}, which
+            // str_replace has already passed; it stays for post-processing.
+            'inner' => 'World',
+            'outer' => 'Hello {{inner}}',
+        ]);
+
+        $result = $this->i18nReplacer->replace((object) [], '{{outer}}', $this->context);
+
+        $this->assertSame('Hello World', $result);
+    }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\PhpMvc\Config;
 
 use org\bovigo\vfs\vfsStream;
+use PhpMvc\Config\AssetRouteGroup;
 use PhpMvc\Config\MvcConfig;
 use PhpMvc\UiAssetsSettings;
 use PHPUnit\Framework\TestCase;
@@ -181,5 +182,213 @@ final class MvcConfigTest extends TestCase
         $config = MvcConfig::load($base);
         $this->assertTrue($config->isBackgroundTasksEnabled());
         $this->assertSame(45, $config->backgroundTasksPollIntervalSeconds);
+    }
+
+    public function testLoadThrowsRuntimeExceptionForInvalidJson(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => '{invalid: json}',
+        ]);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Failed to decode JSON config/');
+
+        MvcConfig::load(vfsStream::url('project'));
+    }
+
+    public function testEffectiveMigrationsModuleRelativePathReturnsNormalizedPathWhenSet(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode([
+                'migrationsFolderPath' => './MyMigrations/',
+            ], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame('MyMigrations', $config->effectiveMigrationsModuleRelativePath());
+    }
+
+    public function testWriteMergedToAppCreatesNewFileWhenNoConfigFileExists(): void
+    {
+        vfsStream::setup('newapp', null, []);
+
+        $base = vfsStream::url('newapp');
+        MvcConfig::writeMergedToApp($base, ['authenticationEnabled' => true]);
+
+        $config = MvcConfig::load($base);
+        $this->assertTrue($config->isAuthenticationEnabled());
+        $this->assertSame('./assets/scripts', $config->jsAssetsPath);
+    }
+
+    public function testWriteMergedToAppWithInvalidJsonInExistingFileWritesDefaults(): void
+    {
+        vfsStream::setup('badapp', null, [
+            MvcConfig::CONFIG_FILENAME => '{invalid: json}',
+        ]);
+
+        $base = vfsStream::url('badapp');
+        MvcConfig::writeMergedToApp($base, ['authenticationEnabled' => true]);
+
+        $config = MvcConfig::load($base);
+        $this->assertTrue($config->isAuthenticationEnabled());
+        $this->assertSame('./assets/scripts', $config->jsAssetsPath);
+    }
+
+    public function testAssetRoutesToJsonArrayConvertsRouteGroups(): void
+    {
+        $routes = [
+            new AssetRouteGroup('admin', ['assets/scripts/admin.js'], ['assets/styles/admin.css']),
+            new AssetRouteGroup('public', [], ['assets/styles/public.css']),
+        ];
+
+        $result = MvcConfig::assetRoutesToJsonArray($routes);
+
+        $this->assertCount(2, $result);
+        $this->assertSame('admin', $result[0]['label']);
+        $this->assertSame(['assets/scripts/admin.js'], $result[0]['js']);
+        $this->assertSame(['assets/styles/admin.css'], $result[0]['css']);
+        $this->assertSame('public', $result[1]['label']);
+        $this->assertSame([], $result[1]['js']);
+        $this->assertSame(['assets/styles/public.css'], $result[1]['css']);
+    }
+
+    public function testLoadThrowsRuntimeExceptionWhenConfigFileCannotBeRead(): void
+    {
+        $root = vfsStream::setup('root');
+        vfsStream::newFile(MvcConfig::CONFIG_FILENAME, 0o000)->at($root);
+
+        set_error_handler(static fn (): bool => true);
+
+        try {
+            MvcConfig::load(vfsStream::url('root'));
+            $this->fail('Expected RuntimeException was not thrown');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('Failed to read config', $e->getMessage());
+        } finally {
+            restore_error_handler();
+        }
+    }
+
+    public function testWriteMergedToAppPreservesAssetRoutesFromExistingConfig(): void
+    {
+        vfsStream::setup('app', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode([
+                'assetRoutes' => [
+                    ['label' => 'main', 'js' => ['app.js'], 'css' => ['app.css']],
+                ],
+            ], JSON_THROW_ON_ERROR),
+        ]);
+
+        $base = vfsStream::url('app');
+        MvcConfig::writeMergedToApp($base, []);
+
+        $config = MvcConfig::load($base);
+        $this->assertCount(1, $config->assetRoutes);
+        $this->assertSame('main', $config->assetRoutes[0]->label);
+    }
+
+    public function testWriteMergedToAppThrowsWhenJsonEncodeFails(): void
+    {
+        vfsStream::setup('app', null, []);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed to encode mvc.config.json');
+
+        MvcConfig::writeMergedToApp(vfsStream::url('app'), ['jsAssetsPath' => "\xB1\x31"]);
+    }
+
+    public function testNormalizedI18nAssetsPathReturnsDefaultWhenI18nPathIsEmpty(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode(['i18nPath' => ''], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame('assets/i18n/', $config->normalizedI18nAssetsPathForLanguageSettings());
+    }
+
+    public function testParseAssetRoutesSkipsNonArrayItems(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode([
+                'assetRoutes' => [
+                    'not-an-array',
+                    ['label' => 'main', 'js' => [], 'css' => []],
+                ],
+            ], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertCount(1, $config->assetRoutes);
+        $this->assertSame('main', $config->assetRoutes[0]->label);
+    }
+
+    public function testGetStringFallsBackToDefaultForNonStringValue(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode(['jsAssetsPath' => 123], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame('./assets/scripts', $config->jsAssetsPath);
+    }
+
+    public function testGetBoolFallsBackToDefaultForNonBoolValue(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode(['useDevAssets' => 'yes'], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertFalse($config->useDevAssets);
+    }
+
+    public function testGetIntFallsBackToDefaultForNonIntValue(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode(
+                ['backgroundTasksPollIntervalSeconds' => '45'],
+                JSON_THROW_ON_ERROR
+            ),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame(0, $config->backgroundTasksPollIntervalSeconds);
+    }
+
+    public function testGetStringListFromMixedReturnsEmptyArrayForNonArrayValue(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode([
+                'assetRoutes' => [
+                    ['label' => 'main', 'js' => 'script.js', 'css' => []],
+                ],
+            ], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame([], $config->assetRoutes[0]->js);
+    }
+
+    public function testGetStringFromMixedFallsBackToDefaultForNonStringLabel(): void
+    {
+        vfsStream::setup('project', null, [
+            MvcConfig::CONFIG_FILENAME => json_encode([
+                'assetRoutes' => [
+                    ['label' => 42, 'js' => [], 'css' => []],
+                ],
+            ], JSON_THROW_ON_ERROR),
+        ]);
+
+        $config = MvcConfig::load(vfsStream::url('project'));
+
+        $this->assertSame('', $config->assetRoutes[0]->label);
     }
 }

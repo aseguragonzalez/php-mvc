@@ -6,6 +6,7 @@ namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
 use PhpMvc\Migrations\Domain\Services\SchemaComparatorHandler;
 use PhpMvc\Migrations\Domain\ValueObjects\ColumnDefinition;
+use PhpMvc\Migrations\Domain\ValueObjects\ForeignKeyDefinition;
 use PhpMvc\Migrations\Domain\ValueObjects\IndexDefinition;
 use PhpMvc\Migrations\Domain\ValueObjects\SchemaSnapshot;
 use PhpMvc\Migrations\Domain\ValueObjects\TableDefinition;
@@ -152,5 +153,215 @@ final class SchemaComparatorHandlerTest extends TestCase
 
         $this->assertFalse($result->areEqual);
         $this->assertContains("Table 'users': Index 'idx_name' was removed", $result->differences);
+    }
+
+    public function testItDetectsAddedColumn(): void
+    {
+        $initialColumns = [ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment')];
+        $finalColumns = [
+            ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment'),
+            ColumnDefinition::new('email', 'varchar(255)', false, null, false, null),
+        ];
+        $initialTable = TableDefinition::new('users', $initialColumns, [], []);
+        $finalTable = TableDefinition::new('users', $finalColumns, [], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains("Table 'users': Column 'email' was added", $result->differences);
+    }
+
+    public function testItDetectsDefaultValueChange(): void
+    {
+        $initialColumns = [ColumnDefinition::new('status', 'varchar(20)', false, 'active', false, null)];
+        $finalColumns = [ColumnDefinition::new('status', 'varchar(20)', false, 'inactive', false, null)];
+        $initialTable = TableDefinition::new('users', $initialColumns, [], []);
+        $finalTable = TableDefinition::new('users', $finalColumns, [], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Column 'status' default changed from active to inactive",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsPrimaryKeyStatusChange(): void
+    {
+        $initialColumns = [ColumnDefinition::new('id', 'int(11)', false, null, true, null)];
+        $finalColumns = [ColumnDefinition::new('id', 'int(11)', false, null, false, null)];
+        $initialTable = TableDefinition::new('users', $initialColumns, [], []);
+        $finalTable = TableDefinition::new('users', $finalColumns, [], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Column 'id' changed from primary key to not primary key",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsAddedIndex(): void
+    {
+        $columns = [ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment')];
+        $initialTable = TableDefinition::new('users', $columns, [], []);
+        $finalTable = TableDefinition::new('users', $columns, [
+            IndexDefinition::new('idx_email', 'users', ['email'], true),
+        ], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains("Table 'users': Index 'idx_email' was added", $result->differences);
+    }
+
+    public function testItDetectsIndexUniquenessChange(): void
+    {
+        $columns = [ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment')];
+        $initialTable = TableDefinition::new('users', $columns, [
+            IndexDefinition::new('idx_email', 'users', ['email'], true),
+        ], []);
+        $finalTable = TableDefinition::new('users', $columns, [
+            IndexDefinition::new('idx_email', 'users', ['email'], false),
+        ], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Index 'idx_email' changed from unique to non-unique",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsIndexColumnsChange(): void
+    {
+        $columns = [ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment')];
+        $initialTable = TableDefinition::new('users', $columns, [
+            IndexDefinition::new('idx_name', 'users', ['first_name'], false),
+        ], []);
+        $finalTable = TableDefinition::new('users', $columns, [
+            IndexDefinition::new('idx_name', 'users', ['first_name', 'last_name'], false),
+        ], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Index 'idx_name' columns changed from [first_name] to [first_name, last_name]",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsRemovedForeignKey(): void
+    {
+        $col = ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment');
+        $fk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['id']);
+        $initialTable = TableDefinition::new('users', [$col], [], [$fk]);
+        $finalTable = TableDefinition::new('users', [$col], [], []);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains("Table 'users': Foreign key 'fk_role' was removed", $result->differences);
+    }
+
+    public function testItDetectsAddedForeignKey(): void
+    {
+        $col = ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment');
+        $fk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['id']);
+        $initialTable = TableDefinition::new('users', [$col], [], []);
+        $finalTable = TableDefinition::new('users', [$col], [], [$fk]);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains("Table 'users': Foreign key 'fk_role' was added", $result->differences);
+    }
+
+    public function testItDetectsChangedForeignKeyReferencedTable(): void
+    {
+        $col = ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment');
+        $initialFk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['id']);
+        $finalFk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'permissions', ['id']);
+        $initialTable = TableDefinition::new('users', [$col], [], [$initialFk]);
+        $finalTable = TableDefinition::new('users', [$col], [], [$finalFk]);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Foreign key 'fk_role' referenced table changed from 'roles' to 'permissions'",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsChangedForeignKeyColumns(): void
+    {
+        $col = ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment');
+        $initialFk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['id']);
+        $finalFk = ForeignKeyDefinition::new('fk_role', 'users', ['group_id'], 'roles', ['id']);
+        $initialTable = TableDefinition::new('users', [$col], [], [$initialFk]);
+        $finalTable = TableDefinition::new('users', [$col], [], [$finalFk]);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Foreign key 'fk_role' columns changed from [role_id] to [group_id]",
+            $result->differences
+        );
+    }
+
+    public function testItDetectsChangedForeignKeyReferencedColumns(): void
+    {
+        $col = ColumnDefinition::new('id', 'int(11)', false, null, true, 'auto_increment');
+        $initialFk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['id']);
+        $finalFk = ForeignKeyDefinition::new('fk_role', 'users', ['role_id'], 'roles', ['uuid']);
+        $initialTable = TableDefinition::new('users', [$col], [], [$initialFk]);
+        $finalTable = TableDefinition::new('users', [$col], [], [$finalFk]);
+
+        $result = $this->comparator->compare(
+            SchemaSnapshot::new([$initialTable]),
+            SchemaSnapshot::new([$finalTable])
+        );
+
+        $this->assertFalse($result->areEqual);
+        $this->assertContains(
+            "Table 'users': Foreign key 'fk_role' referenced columns changed from [id] to [uuid]",
+            $result->differences
+        );
     }
 }

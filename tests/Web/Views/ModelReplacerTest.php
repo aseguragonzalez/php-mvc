@@ -202,4 +202,30 @@ final class ModelReplacerTest extends TestCase
         $this->assertStringContainsString('Name: Peter', $result);
         $this->assertStringContainsString('{{nonExistingKey}}', $result);
     }
+
+    public function testReplaceReturnsTemplateUnchangedWhenModelIsNull(): void
+    {
+        $result = $this->replacer->replace(null, 'Hello {{name}}!', new RequestContext());
+
+        $this->assertSame('Hello {{name}}!', $result);
+    }
+
+    public function testFormatValueReturnsEmptyStringForNullModelValue(): void
+    {
+        $model = (object) ['data' => null];
+
+        $result = $this->replacer->replace($model, '{{data}}', new RequestContext());
+
+        $this->assertSame('', $result);
+    }
+
+    public function testFlattenNestedPlaceholdersSkipsDuplicateOuterPlaceholder(): void
+    {
+        $model = (object) ['status' => 'success'];
+        $template = '{{flash.{{status}}}} and {{flash.{{status}}}}';
+
+        $result = $this->replacer->replace($model, $template, new RequestContext());
+
+        $this->assertSame('{{flash.success}} and {{flash.success}}', $result);
+    }
 }
