@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Views;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Actions\Responses\View;
 use PhpMvc\Files\FileManager;
 use PhpMvc\HtmlViewEngineSettings;
@@ -14,6 +15,7 @@ use PhpMvc\Responses\StatusCode;
 use PhpMvc\Security\Identity;
 use PhpMvc\UiAssetsSettings;
 use PhpMvc\Views\BranchesReplacer;
+use PhpMvc\Views\ContentReplacer;
 use PhpMvc\Views\ContentReplacerPipeline;
 use PhpMvc\Views\HtmlViewEngine;
 use PhpMvc\Views\I18nReplacer;
@@ -380,6 +382,30 @@ final class HtmlViewEngineTest extends TestCase
         $body = $this->viewEngine->render($view, $this->getRequestContext());
 
         $this->assertSame($expected, $body);
+    }
+
+    public function testRenderThrowsRuntimeExceptionWhenTemplateCannotBeRead(): void
+    {
+        $root = vfsStream::setup('root');
+        $dir = vfsStream::newDirectory('views')->at($root);
+        vfsStream::newFile('index.html', 0o000)->at($dir);
+
+        $settings = new HtmlViewEngineSettings(basePath: vfsStream::url('root'), viewPath: 'views');
+        $viewEngine = new HtmlViewEngine(settings: $settings, contentReplacer: $this->createStub(ContentReplacer::class));
+
+        $view = new View(viewPath: 'index', data: null, headers: [], statusCode: StatusCode::Ok);
+
+        // file_get_contents emits E_WARNING on failure; suppress it so failOnWarning does not fire.
+        set_error_handler(static fn (): bool => true);
+
+        try {
+            $viewEngine->render($view, new RequestContext());
+            $this->fail('Expected RuntimeException was not thrown');
+        } catch (\RuntimeException $e) {
+            $this->assertStringContainsString('Could not read template', $e->getMessage());
+        } finally {
+            restore_error_handler();
+        }
     }
 
     public function testRenderFailWhenLayoutDoesNotExist(): void

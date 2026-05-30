@@ -142,4 +142,80 @@ class DefaultFileManagerTest extends TestCase
             restore_error_handler();
         }
     }
+
+    public function testGetFileNamesFromPathWithNonExistentDirectoryReturnsEmpty(): void
+    {
+        $result = $this->manager->getFileNamesFromPath('/nonexistent/directory');
+
+        $this->assertSame([], $result);
+    }
+
+    public function testGetFileNamesFromPathReturnsFilesInDirectory(): void
+    {
+        $root = vfsStream::setup('filesroot', null, [
+            'foo.php' => '<?php',
+            'bar.php' => '<?php',
+            'baz.txt' => 'text',
+        ]);
+
+        $result = $this->manager->getFileNamesFromPath($root->url());
+
+        $this->assertContains('foo.php', $result);
+        $this->assertContains('bar.php', $result);
+        $this->assertContains('baz.txt', $result);
+    }
+
+    public function testGetFileNamesFromPathFiltersbyExtension(): void
+    {
+        $root = vfsStream::setup('extroot', null, [
+            'foo.php' => '<?php',
+            'bar.js' => 'js',
+            'baz.txt' => 'text',
+        ]);
+
+        $result = $this->manager->getFileNamesFromPath($root->url(), ['php']);
+
+        $this->assertContains('foo.php', $result);
+        $this->assertNotContains('bar.js', $result);
+        $this->assertNotContains('baz.txt', $result);
+    }
+
+    public function testGetFileNamesFromPathExcludesFilesMatchingNotEndsWith(): void
+    {
+        $root = vfsStream::setup('notendswith', null, [
+            'foo.min.js' => 'js',
+            'bar.js' => 'js',
+            'baz.min.js' => 'js',
+        ]);
+
+        $result = $this->manager->getFileNamesFromPath($root->url(), [], ['.min']);
+
+        $this->assertContains('bar.js', $result);
+        $this->assertNotContains('foo.min.js', $result);
+        $this->assertNotContains('baz.min.js', $result);
+    }
+
+    public function testGetFoldersFromPathWithNonExistentDirectoryReturnsEmpty(): void
+    {
+        $result = $this->manager->getFoldersFromPath('/nonexistent/directory');
+
+        $this->assertSame([], $result);
+    }
+
+    public function testGetFoldersFromPathReturnsSubdirectories(): void
+    {
+        $root = vfsStream::setup('foldersroot', null, [
+            'subA' => [],
+            'subB' => [],
+            'file.txt' => 'text',
+        ]);
+
+        $result = $this->manager->getFoldersFromPath($root->url());
+
+        $this->assertContains('subA', $result);
+        $this->assertContains('subB', $result);
+        $this->assertNotContains('file.txt', $result);
+        $this->assertNotContains('.', $result);
+        $this->assertNotContains('..', $result);
+    }
 }

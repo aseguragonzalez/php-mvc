@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\PhpMvc\Migrations\Domain;
 
+use org\bovigo\vfs\vfsStream;
 use PhpMvc\Files\FileManager;
 use PhpMvc\Migrations\Domain\Entities\Migration;
 use PhpMvc\Migrations\Domain\Entities\Script;
@@ -238,6 +239,56 @@ final class MigrationFileManagerHandlerTest extends TestCase
         $this->assertSame('20240115', $migrations[0]->name);
         $this->assertSame('20240116', $migrations[1]->name);
         $this->assertSame('20240117', $migrations[2]->name);
+    }
+
+    public function testGetMigrationByNameReturnsNullWhenPathDoesNotExist(): void
+    {
+        vfsStream::setup('root');
+
+        $result = $this->migrationFileManager->getMigrationByName(
+            vfsStream::url('root'),
+            'nonexistent'
+        );
+
+        $this->assertNull($result);
+    }
+
+    public function testGetMigrationByNameReturnsNullWhenNoSqlFilesFound(): void
+    {
+        $root = vfsStream::setup('root');
+        vfsStream::newDirectory('20240115')->at($root);
+
+        $this->fileManager->method('getFileNamesFromPath')->willReturn([]);
+
+        $result = $this->migrationFileManager->getMigrationByName(
+            vfsStream::url('root'),
+            '20240115'
+        );
+
+        $this->assertNull($result);
+    }
+
+    public function testGetMigrationByNameReturnsMigrationWithScripts(): void
+    {
+        $root = vfsStream::setup('root');
+        vfsStream::newDirectory('20240115')->at($root);
+
+        $this->fileManager->method('getFileNamesFromPath')->willReturn(['001_create.sql']);
+        $this->fileManager->method('readTextPlain')->willReturnCallback(
+            function (string $path): string {
+                return str_ends_with($path, '.rollback.sql') ? 'DROP TABLE test;' : 'CREATE TABLE test;';
+            }
+        );
+
+        $result = $this->migrationFileManager->getMigrationByName(
+            vfsStream::url('root'),
+            '20240115'
+        );
+
+        $this->assertInstanceOf(Migration::class, $result);
+        $this->assertSame('20240115', $result->name);
+        $this->assertCount(1, $result->scripts);
+        $this->assertInstanceOf(Script::class, $result->scripts[0]);
     }
 
     /**
