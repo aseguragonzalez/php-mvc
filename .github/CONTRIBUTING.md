@@ -54,6 +54,40 @@ devcontainer exec --workspace-folder . make <target>
 
 This project follows the rules defined in `.php-cs-fixer.dist.php`. Run `make cs-fix` before committing.
 
+## Commit signing
+
+All commits must be **GPG or SSH signed** (verified). This is required to maintain the integrity of the public package history.
+
+### Setting up SSH signing inside the dev container
+
+The dev container does not include your SSH key by default. To map your local key into the container (bind mount — not a copy):
+
+1. Copy the example override file:
+
+   ```bash
+   cp .devcontainer/docker-compose.override.yml.example \
+      .devcontainer/docker-compose.override.yml
+   ```
+
+2. Edit `.devcontainer/docker-compose.override.yml` if your signing key has a different name or location. The default mounts `~/.ssh` read-only:
+
+   ```yaml
+   services:
+     app:
+       volumes:
+         - ~/.ssh:/home/vscode/.ssh:ro
+   ```
+
+3. Rebuild the dev container. The `postCreateCommand` detects `/home/vscode/.ssh/id_ed25519` and automatically sets:
+
+   ```
+   gpg.format = ssh
+   user.signingkey = /home/vscode/.ssh/id_ed25519.pub
+   commit.gpgsign = true
+   ```
+
+`.devcontainer/docker-compose.override.yml` is listed in `.gitignore` — your local key path is never committed.
+
 ## Reporting security issues
 
 Please do **not** open a public GitHub issue for security vulnerabilities. See [SECURITY.md](SECURITY.md) for the responsible disclosure process.

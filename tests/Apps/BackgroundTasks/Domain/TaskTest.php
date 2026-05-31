@@ -81,6 +81,12 @@ final class TaskTest extends TestCase
         $this->assertNull($task->processedAt);
     }
 
+    public function testBuildThrowsWhenTaskTypeIsEmpty(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        Task::build('some-id', '', []);
+    }
+
     public function testFromPersistenceCreatesTaskWithIdAndProcessedFalse(): void
     {
         $task = Task::build('id-123', 'send_email', ['to' => 'a@b.com']);

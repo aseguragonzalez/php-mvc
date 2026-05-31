@@ -39,4 +39,25 @@ final class SignUpTest extends TestCase
 
         $handler->execute(new SignUpCommand('user@example.com', 'password', ['admin']));
     }
+
+    public function testExecuteDoesNothingWhenUserAlreadyExists(): void
+    {
+        $userIdentityRepository = $this->createStub(UserIdentityRepository::class);
+        $userIdentityRepository->method('existsByUsername')->willReturn(true);
+
+        $signUpChallengeRepository = $this->createMock(SignUpChallengeRepository::class);
+        $signUpChallengeRepository->expects($this->never())->method('save');
+
+        $notificator = $this->createMock(ChallengeNotificator::class);
+        $notificator->expects($this->never())->method('sendSignUpChallenge');
+
+        $handler = new SignUpHandler(
+            $userIdentityRepository,
+            $signUpChallengeRepository,
+            $notificator,
+            new ChallengesExpirationTime(10, 5, 20, 15, 30)
+        );
+
+        $handler->execute(new SignUpCommand('user@example.com', 'password', ['admin']));
+    }
 }

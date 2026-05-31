@@ -1,0 +1,8 @@
+services:
+  app:
+    image: mcr.microsoft.com/devcontainers/php:8.4-bookworm
+    volumes:
+    - ..:/workspaces/php-mvc:cached
+    ports:
+    - 8001:8001
+    command: sleep infinity
