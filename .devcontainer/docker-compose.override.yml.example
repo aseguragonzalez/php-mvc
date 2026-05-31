@@ -1,0 +1,6 @@
+# Copy this file to docker-compose.override.yml (git-ignored) to mount your
+# SSH keys inside the dev container for signed commits. See CONTRIBUTING.md.
+services:
+  app:
+    volumes:
+      - ~/.ssh:/home/vscode/.ssh:ro

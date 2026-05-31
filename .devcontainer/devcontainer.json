@@ -26,11 +26,11 @@
       }
     }
   },
+  "dockerComposeFile": "docker-compose.yml",
   "forwardPorts": [
     8001,
     9003
   ],
-  "image": "mcr.microsoft.com/devcontainers/php:8.4-bookworm",
   "name": "PHP MVC Framework",
   "portsAttributes": {
     "8001": {
@@ -42,6 +42,8 @@
       "onAutoForward": "notify"
     }
   },
-  "postCreateCommand": "sudo apt-get install -y python3.11-venv && composer install && python3 -m venv /home/vscode/.venv && /home/vscode/.venv/bin/pip install -r requirements.txt && echo 'source ~/.venv/bin/activate' >> ~/.bashrc && echo 'source ~/.venv/bin/activate' >> ~/.zshrc",
-  "remoteUser": "vscode"
+  "postCreateCommand": "sudo apt-get install -y python3.11-venv && composer install && python3 -m venv /home/vscode/.venv && /home/vscode/.venv/bin/pip install -r requirements.txt && echo 'source ~/.venv/bin/activate' >> ~/.bashrc && echo 'source ~/.venv/bin/activate' >> ~/.zshrc && if [ -f /home/vscode/.ssh/id_ed25519 ]; then git config --global gpg.format ssh && git config --global user.signingkey /home/vscode/.ssh/id_ed25519.pub && git config --global commit.gpgsign true && echo 'Git SSH commit signing configured.'; fi",
+  "remoteUser": "vscode",
+  "service": "app",
+  "workspaceFolder": "/workspaces/php-mvc"
 }
