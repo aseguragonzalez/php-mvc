@@ -150,4 +150,115 @@ final class ViewValueResolverTest extends TestCase
         $this->assertFalse($this->resolver->pathExists($model, 'layout->missing'));
         $this->assertFalse($this->resolver->pathExists($model, 'missing->key'));
     }
+
+    public function testPathExistsReturnsFalseForNullModel(): void
+    {
+        $this->assertFalse($this->resolver->pathExists(null, 'foo'));
+    }
+
+    public function testPathExistsReturnsTrueForEmptyPath(): void
+    {
+        $model = (object) ['name' => 'Test'];
+        $this->assertTrue($this->resolver->pathExists($model, ''));
+    }
+
+    public function testPathExistsReturnsTrueForMethodCallSegmentThatExists(): void
+    {
+        $model = new class {
+            public function isActive(): bool
+            {
+                return true;
+            }
+        };
+        $this->assertTrue($this->resolver->pathExists($model, 'isActive()'));
+    }
+
+    public function testPathExistsReturnsFalseForNonExistentMethodCall(): void
+    {
+        $model = new \stdClass();
+        $this->assertFalse($this->resolver->pathExists($model, 'nonExistentMethod()'));
+    }
+
+    public function testPathExistsReturnsFalseForArrayIndexThatDoesNotExist(): void
+    {
+        $model = (object) ['items' => ['a', 'b']];
+        $this->assertFalse($this->resolver->pathExists($model, 'items[5]'));
+    }
+
+    public function testResolveReturnsNullWhenCurrentIsNotObjectOrArrayDuringTraversal(): void
+    {
+        $model = (object) ['name' => 'Alice'];
+        // 'name' resolves to string 'Alice', then trying to traverse further gives null
+        $result = $this->resolver->resolve($model, 'name->nested');
+        $this->assertNull($result);
+    }
+
+    public function testResolveHandlesEmptySegmentFromConsecutiveSeparators(): void
+    {
+        $model = (object) ['name' => 'Test'];
+        // leading -> produces an empty first segment that is skipped, then 'name' resolves normally
+        $result = $this->resolver->resolve($model, '->name');
+        $this->assertSame('Test', $result);
+    }
+
+    public function testGetIndexWithObjectProperty(): void
+    {
+        $inner = new \stdClass();
+        $inner->{'0'} = 'val';
+        $model = (object) ['items' => $inner];
+        $result = $this->resolver->resolve($model, 'items[0]');
+        $this->assertSame('val', $result);
+    }
+
+    public function testPathExistsWithObjectPropertyViaArrayIndexSegment(): void
+    {
+        $inner = new \stdClass();
+        $inner->{'key'} = 'value';
+        $model = (object) ['data' => $inner];
+        $this->assertTrue($this->resolver->pathExists($model, 'data["key"]'));
+    }
+
+    public function testPathExistsReturnsFalseWhenCurrentIsScalarDuringTraversal(): void
+    {
+        $model = (object) ['score' => 42];
+        // 'score' resolves to int — traversing further into a scalar returns false
+        $this->assertFalse($this->resolver->pathExists($model, 'score->nested'));
+    }
+
+    public function testResolveSkipsEmptySegmentBetweenConsecutiveSeparators(): void
+    {
+        $model = (object) ['name' => (object) ['city' => 'Paris']];
+        $this->assertSame('Paris', $this->resolver->resolve($model, 'name->->city'));
+    }
+
+    public function testPathExistsSkipsEmptySegmentBetweenConsecutiveSeparators(): void
+    {
+        $model = (object) ['name' => (object) ['city' => 'Paris']];
+        $this->assertTrue($this->resolver->pathExists($model, 'name->->city'));
+    }
+
+    public function testPathExistsWithArrayModel(): void
+    {
+        $model = ['name' => 'Alice', 'score' => 100];
+        $this->assertTrue($this->resolver->pathExists($model, 'name'));
+        $this->assertFalse($this->resolver->pathExists($model, 'missing'));
+    }
+
+    public function testPathExistsReturnsFalseWhenIndexedPropertyIsScalar(): void
+    {
+        $model = (object) ['score' => 42];
+        $this->assertFalse($this->resolver->pathExists($model, 'score[0]'));
+    }
+
+    public function testResolveReturnsNullForNonExistentMethodCall(): void
+    {
+        $model = (object) ['name' => 'Alice'];
+        $this->assertNull($this->resolver->resolve($model, 'nonExistent()'));
+    }
+
+    public function testResolveReturnsNullForOutOfBoundsArrayIndex(): void
+    {
+        $model = (object) ['items' => ['a', 'b']];
+        $this->assertNull($this->resolver->resolve($model, 'items[5]'));
+    }
 }

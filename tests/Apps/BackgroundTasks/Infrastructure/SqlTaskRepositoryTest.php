@@ -201,6 +201,40 @@ final class SqlTaskRepositoryTest extends TestCase
         $this->assertSame([], $result);
     }
 
+    public function testFindPendingAcceptsNonStringArgumentsArrayFromRow(): void
+    {
+        $this->pdo->expects($this->once())->method('prepare')->willReturn($this->statement);
+        $this->statement->expects($this->once())->method('bindValue');
+        $this->statement->expects($this->once())->method('execute');
+        $this->statement->expects($this->once())->method('fetchAll')
+            ->willReturn([
+                ['id' => 'task-1', 'task_type' => 'ping', 'arguments' => ['key' => 'val']],
+            ])
+        ;
+
+        $result = $this->repository->findPending(1);
+
+        $this->assertCount(1, $result);
+        $this->assertSame(['key' => 'val'], $result[0]->arguments);
+    }
+
+    public function testFindPendingThrowsWhenArgumentsDecodeToNonArray(): void
+    {
+        $this->pdo->expects($this->once())->method('prepare')->willReturn($this->statement);
+        $this->statement->expects($this->once())->method('bindValue');
+        $this->statement->expects($this->once())->method('execute');
+        $this->statement->expects($this->once())->method('fetchAll')
+            ->willReturn([
+                ['id' => 'task-1', 'task_type' => 'ping', 'arguments' => '"just_a_string"'],
+            ])
+        ;
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessageMatches('/Invalid arguments payload/');
+
+        $this->repository->findPending(1);
+    }
+
     public function testSaveProcessedTaskUpdatesRow(): void
     {
         $task = Task::build('task-123', 'dummy', [])->markAsProcessed();

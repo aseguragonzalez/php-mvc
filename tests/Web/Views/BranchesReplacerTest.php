@@ -111,4 +111,13 @@ final class BranchesReplacerTest extends TestCase
 
         $this->assertSame('[]', $result);
     }
+
+    public function testReplaceWithNullModelReturnsTemplateUnchanged(): void
+    {
+        $template = 'Hello {{#if isVisible:}}World{{#endif isVisible:}}!';
+
+        $result = $this->branchesReplacer->replace(null, $template, new RequestContext());
+
+        $this->assertSame($template, $result);
+    }
 }

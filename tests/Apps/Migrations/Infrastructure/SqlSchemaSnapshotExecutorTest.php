@@ -164,6 +164,36 @@ final class SqlSchemaSnapshotExecutorTest extends TestCase
         $this->assertSame('fk_z', $snapshot->tables[0]->foreignKeys[1]->name);
     }
 
+    public function testCaptureThrowsWhenDatabaseNameQueryFails(): void
+    {
+        $this->pdo->expects($this->once())
+            ->method('query')
+            ->with('SELECT DATABASE() as db_name')
+            ->willReturn(false)
+        ;
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Failed to query database name');
+
+        $this->service->capture();
+    }
+
+    public function testCaptureHandlesNoDatabaseSelected(): void
+    {
+        $dbStmt = $this->createMock(\PDOStatement::class);
+        $this->pdo->expects($this->once())->method('query')->willReturn($dbStmt);
+        $dbStmt->expects($this->once())->method('fetch')->with(\PDO::FETCH_ASSOC)->willReturn(false);
+
+        $tablesStmt = $this->createMock(\PDOStatement::class);
+        $tablesStmt->expects($this->once())->method('execute')->with(['database_name' => '']);
+        $tablesStmt->expects($this->once())->method('fetchAll')->with(\PDO::FETCH_ASSOC)->willReturn([]);
+        $this->pdo->expects($this->once())->method('prepare')->willReturn($tablesStmt);
+
+        $snapshot = $this->service->capture();
+
+        $this->assertSame([], $snapshot->tables);
+    }
+
     private function setupDatabaseName(string $dbName): void
     {
         $dbStmt = $this->createMock(\PDOStatement::class);
