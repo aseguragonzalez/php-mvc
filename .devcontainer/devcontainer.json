@@ -1,7 +1,4 @@
 {
-  "appPort": [
-    "8001:8001"
-  ],
   "containerEnv": {
     "XDEBUG_MODE": "coverage,debug,develop"
   },
