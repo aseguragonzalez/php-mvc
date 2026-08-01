@@ -1,3 +1,10 @@
+## [0.1.2](https://github.com/aseguragonzalez/php-mvc/compare/v0.1.1...v0.1.2) (2026-08-01)
+
+
+### Bug Fixes
+
+* devcontainer's uv feature reference is a Docker image, not a feature ([#50](https://github.com/aseguragonzalez/php-mvc/issues/50)) ([0e2e92a](https://github.com/aseguragonzalez/php-mvc/commit/0e2e92a1a4356624b73087b9e2771385c016f3b8))
+
 ## [0.1.1](https://github.com/aseguragonzalez/php-mvc/compare/v0.1.0...v0.1.1) (2026-05-28)
 
 
