@@ -25,7 +25,7 @@
   },
   "dockerComposeFile": "docker-compose.yml",
   "features": {
-    "ghcr.io/astral-sh/uv:1": {}
+    "ghcr.io/va-h/devcontainers-features/uv:1": {}
   },
   "forwardPorts": [
     8001,
