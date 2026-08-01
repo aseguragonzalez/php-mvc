@@ -60,6 +60,7 @@
     "phpunit/phpunit": "^12.5"
   },
   "scripts": {
+    "audit": "composer audit",
     "check": [
       "@cs",
       "@stan",

@@ -11,6 +11,7 @@ PHP namespace: `PhpMvc\` (all source under `src/`).
 ```bash
 make install      # composer install
 make test         # phpunit
+make audit        # composer audit (dependency vulnerability check)
 make cs           # php-cs-fixer --dry-run --diff
 make cs-fix       # php-cs-fixer fix
 make stan         # phpstan analyse
