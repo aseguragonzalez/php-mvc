@@ -1,10 +1,13 @@
-.PHONY: install test cs cs-fix stan check all docs-serve
+.PHONY: install test cs cs-fix stan audit check all docs-serve
 
 install:
 	composer install
 
 test:
 	composer test
+
+audit:
+	composer audit
 
 cs:
 	composer cs
