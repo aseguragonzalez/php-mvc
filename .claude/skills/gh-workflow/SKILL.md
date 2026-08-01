@@ -124,6 +124,8 @@ Before requesting review, verify:
    Title`, `codecov/patch`).
 5. If the change touches `src/`, confirm the `test` step of the quality job passed, not
    just `cs`/`stan`.
+6. If the change touches `composer.json` dependencies, confirm the `Dependency audit` step
+   (`make audit`) passed, not just `cs`/`stan`/`test`.
 
 ## Replying to PR review comments
 
