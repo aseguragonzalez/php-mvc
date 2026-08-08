@@ -1,6 +1,6 @@
 services:
   app:
-    image: mcr.microsoft.com/devcontainers/php:8.4-bookworm
+    image: mcr.microsoft.com/devcontainers/php:8.5-bookworm
     volumes:
     - ..:/workspaces/php-mvc:cached
     ports:
