@@ -1,0 +1,59 @@
+{
+  "$schema": "https://github.com/aseguragonzalez/claude-workspace/schemas/contract.schema.json",
+  "components": [
+    {
+      "gates": {
+        "format": {
+          "run": "make cs"
+        },
+        "typecheck": {
+          "run": "make stan"
+        },
+        "unit": {
+          "run": "make test"
+        }
+      },
+      "install": {
+        "run": "make install"
+      },
+      "name": "php-mvc",
+      "path": "."
+    }
+  ],
+  "conventions": {
+    "commitTypes": ".claude/skills/gh-workflow/SKILL.md#commit-type--release-impact",
+    "issueReference": "relates",
+    "quirks": [
+      "The repository's own CLAUDE.md and .claude/skills/gh-workflow still tell agents to use Closes #N; the contract's Relates to #N wins, since the issue is done only once published.",
+      "The repository squash-merges, so the pull request title is the only text semantic-release reads and its type must match the layer changed.",
+      "CI also runs make audit (composer audit) before the gates; a vulnerable dependency fails Quality Check without any gate failing.",
+      "make cs is a dry-run check; make cs-fix applies the formatting.",
+      "The devcontainer's docker-compose.yml publishes host port 8001 (MkDocs), so two worktree stacks of this repository can't run at the same time without overriding that port.",
+      "Pull requests touching .devcontainer/ also run the Devcontainer quality workflow, which is not a required check.",
+      "Merging requires a code owner's approval, resolved review threads, linear history and passing CodeQL code scanning."
+    ],
+    "requiredChecks": [
+      "quality / Quality Check",
+      "Validate PR Title"
+    ],
+    "signedCommits": true
+  },
+  "delivery": {
+    "done": "published",
+    "release": "semantic-release"
+  },
+  "invariants": [
+    "CLAUDE.md",
+    ".github/CONTRIBUTING.md"
+  ],
+  "stack": {
+    "basis": "Estimate: a single PHP 8.5 devcontainer with no services; peak is PHPStan (256M limit) or PHPUnit with Xdebug coverage, plus the devcontainer image, vendor/ and the MkDocs venv on disk.",
+    "diskMiB": 3072,
+    "memoryMiB": 1536
+  },
+  "toolchain": {
+    "kind": "devcontainer",
+    "workspaceFolder": "/workspaces/php-mvc"
+  },
+  "version": 1
+}
