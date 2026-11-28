@@ -30,7 +30,10 @@
       "make cs is a dry-run check; make cs-fix applies the formatting.",
       "The devcontainer's docker-compose.yml publishes host port 8001 (MkDocs), so two worktree stacks of this repository can't run at the same time without overriding that port.",
       "Pull requests touching .devcontainer/ also run the Devcontainer quality workflow, which is not a required check.",
-      "Merging requires a code owner's approval, resolved review threads, linear history and passing CodeQL code scanning."
+      "Merging requires a code owner's approval, resolved review threads, linear history and passing CodeQL code scanning.",
+      "main requires the branch to be up to date with main before merging (strict status checks), and a push dismisses stale approvals, so a pull request behind main is updated and validated again before it merges.",
+      "The repository has auto-merge disabled, so pr-handoff.mjs mark-ready cannot enable it: the maintainer merges by hand until it is enabled.",
+      "The devcontainer runs PHP 8.5 while CI's Quality Check runs PHP 8.4, so a local gate pass does not guarantee CI's."
     ],
     "requiredChecks": [
       "quality / Quality Check",
